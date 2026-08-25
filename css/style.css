@@ -1,0 +1,367 @@
+/* ==========================================================
+   HITS Brand Lab — 컬러 토큰
+   나중에 톤 수정이 필요하면 이 블록만 바꾸면 전체에 반영됩니다.
+   ========================================================== */
+:root {
+  --bg-main: #111110;      /* 메인 배경 (헤더/히어로/CTA) */
+  --bg-content: #F5F5F2;   /* 콘텐츠 배경 */
+  --bg-white: #FFFFFF;
+  --accent: #2F5CFF;       /* 포인트 컬러 — 클릭 가능한 지점에만 사용 */
+  --text-light: #F5F5F2;
+  --text-muted: #8A8A85;
+  --text-dark: #111110;
+  --text-secondary: #6B6A66;
+  --border-dark: #3A3A38;
+  --border-light: #DEDDD8;
+  --slot-placeholder-bg: #E5E4DF;
+  --slot-placeholder-text: #A8A6A0;
+  --radius: 10px;
+  --wrap-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  color: var(--text-dark);
+  background: var(--bg-white);
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: var(--wrap-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ==========================================================
+   이미지 슬롯 — 나중에 실사 이미지로 교체할 자리
+   1) --ratio 로 비율을 미리 고정해둔다
+   2) 지금은 배경색 + 점선 placeholder 만 보인다
+   3) 실사 이미지가 준비되면 .image-slot 에 background-image 를
+      추가하고 .slot-placeholder, .scrim 을 지우기만 하면 된다
+   ========================================================== */
+.image-slot {
+  position: relative;
+  aspect-ratio: var(--ratio, 16/9);
+  background: var(--bg-main);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.image-slot .slot-placeholder {
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed var(--border-dark);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: center;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.image-slot .slot-placeholder.small { font-size: 10px; }
+
+.image-slot .scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,17,16,0.15) 0%, rgba(17,17,16,0.55) 100%);
+  pointer-events: none;
+}
+
+/* weekly 썸네일용 축소 슬롯 */
+.weekly-thumb {
+  width: 64px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+.weekly-thumb .slot-placeholder { inset: 4px; border-radius: 6px; }
+
+/* ==========================================================
+   헤더
+   ========================================================== */
+.site-header {
+  background: var(--bg-main);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  color: var(--text-light);
+  font-size: 15px;
+  font-weight: 800;
+}
+.main-nav { display: flex; gap: 22px; }
+.main-nav a {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+.main-nav a.nav-active {
+  color: var(--text-light);
+  border-bottom: 1.5px solid var(--accent);
+}
+
+/* ==========================================================
+   히어로
+   ========================================================== */
+.hero { min-height: 380px; }
+.hero-content { position: relative; padding: 60px 20px; width: 100%; }
+.eyebrow {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin: 0 0 14px;
+}
+.hero h1 {
+  color: var(--text-light);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0 0 28px;
+  max-width: 460px;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn-accent { background: var(--accent); color: var(--text-light); }
+.btn-ghost { background: transparent; color: var(--text-light); border: 0.5px solid var(--border-dark); }
+
+/* ==========================================================
+   임팩트 문장 (기획자의 한 줄 — 웹 버전)
+   ========================================================== */
+.impact-line {
+  background: var(--bg-content);
+  padding: 56px 0;
+  text-align: center;
+}
+.impact-text {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.impact-caption {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 12px 0 0;
+}
+
+/* ==========================================================
+   공통 섹션
+   ========================================================== */
+.section { padding: 48px 0; }
+.section-light { background: var(--bg-content); }
+.section-white { background: var(--bg-white); }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+.section-head h2 { font-size: 15px; font-weight: 800; margin: 0; }
+.see-all { color: var(--accent); font-size: 13px; font-weight: 600; }
+.see-all-muted { color: var(--text-secondary); }
+
+/* ==========================================================
+   책 소개
+   ========================================================== */
+.book-section {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.book-cover {
+  width: 160px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+}
+.book-info { flex: 1; min-width: 240px; }
+.eyebrow-dark { color: var(--text-secondary); }
+.book-title { font-size: 20px; font-weight: 900; margin: 4px 0 12px; letter-spacing: -0.01em; }
+.book-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin: 0 0 20px; max-width: 460px; }
+.btn-dark { background: var(--text-dark); color: var(--text-light); }
+
+/* ==========================================================
+   워크시트
+   ========================================================== */
+.worksheet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.worksheet-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.worksheet-title { font-size: 13px; font-weight: 700; margin: 0 0 8px; }
+.worksheet-status {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-content);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin: 0;
+}
+
+/* ==========================================================
+   사례 라이브러리
+   ========================================================== */
+.filter-row { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.filter-chip {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg-white);
+  border: 0.5px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.filter-chip.is-active { background: var(--text-dark); color: var(--text-light); border-color: var(--text-dark); }
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.case-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.case-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  border: 0.5px solid var(--accent);
+  padding: 2px 9px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.case-title { font-size: 14px; font-weight: 700; margin: 0 0 4px; }
+.case-desc { font-size: 12px; color: var(--text-secondary); margin: 0; }
+
+/* ==========================================================
+   위클리
+   ========================================================== */
+.weekly-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-content);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+.weekly-title { font-size: 13px; font-weight: 700; margin: 0 0 2px; }
+.weekly-desc { font-size: 12px; color: var(--text-secondary); margin: 0; }
+
+/* ==========================================================
+   인사이트
+   ========================================================== */
+.insight-preview h3 { font-size: 14px; font-weight: 700; margin: 0 0 6px; }
+.insight-preview p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+
+/* ==========================================================
+   뉴스레터
+   ========================================================== */
+.newsletter { min-height: 220px; }
+.newsletter-inner {
+  position: relative;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+.newsletter-text {
+  color: var(--text-light);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.newsletter-form input,
+.newsletter-form select {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-dark);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-light);
+}
+.newsletter-form input::placeholder { color: var(--text-muted); }
+
+/* ==========================================================
+   푸터
+   ========================================================== */
+.site-footer { background: var(--bg-main); padding: 20px 0; }
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-inner span { color: var(--text-light); font-size: 13px; font-weight: 700; }
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { color: var(--text-muted); font-size: 12px; }
+
+/* ==========================================================
+   반응형
+   ========================================================== */
+@media (max-width: 640px) {
+  .main-nav { gap: 14px; }
+  .hero-content { padding: 40px 20px; }
+  .newsletter-inner { flex-direction: column; align-items: flex-start; }
+}

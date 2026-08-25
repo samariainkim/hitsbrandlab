@@ -1,0 +1,30 @@
+[
+  {
+    "id": "smartcara",
+    "tag": "Hook",
+    "title": "스마트카라",
+    "description": "음식물 처리기의 재정의",
+    "image": ""
+  },
+  {
+    "id": "whistler",
+    "tag": "Tale",
+    "title": "휘슬러 냄비",
+    "description": "스토리로 번역한 스펙",
+    "image": ""
+  },
+  {
+    "id": "starbucks-rewards",
+    "tag": "System",
+    "title": "스타벅스 리워드",
+    "description": "팬덤을 만드는 재구매",
+    "image": ""
+  },
+  {
+    "id": "lg-light-wave",
+    "tag": "Insight",
+    "title": "LG 광파오븐",
+    "description": "언어를 전환해 만든 새로운 카테고리",
+    "image": ""
+  }
+]
