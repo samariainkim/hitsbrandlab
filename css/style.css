@@ -305,6 +305,55 @@ a { text-decoration: none; color: inherit; }
 .insight-preview p { font-size: 13px; color: var(--text-secondary); margin: 0; }
 
 /* ==========================================================
+   협업 문의
+   ========================================================== */
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+}
+.contact-title {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 6px 0 16px;
+}
+.contact-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+.contact-email { font-size: 13px; font-weight: 600; }
+.contact-email a { color: var(--accent); }
+
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.contact-form input,
+.contact-form textarea {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 0.5px solid var(--border-light);
+  background: var(--bg-content);
+  color: var(--text-dark);
+  resize: vertical;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: var(--text-muted); }
+.btn-block { width: 100%; text-align: center; padding: 14px; }
+
+/* ==========================================================
    뉴스레터
    ========================================================== */
 .newsletter { min-height: 220px; }
@@ -364,4 +413,6 @@ a { text-decoration: none; color: inherit; }
   .main-nav { gap: 14px; }
   .hero-content { padding: 40px 20px; }
   .newsletter-inner { flex-direction: column; align-items: flex-start; }
+  .contact-inner { grid-template-columns: 1fr; }
+  .book-cover { width: 120px; }
 }

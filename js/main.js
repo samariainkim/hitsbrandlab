@@ -67,3 +67,12 @@ if (newsletterForm) {
     alert('뉴스레터 연동은 준비 중입니다. Mailchimp/스티비 폼으로 교체 예정입니다.');
   });
 }
+
+/* 협업 문의 폼 — 지금은 자리만 확보. 추후 실제 접수 방식(이메일 전송/폼 서비스)으로 교체 */
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('문의 접수 기능은 준비 중입니다. 지금은 hello@hitsbrandlab.com으로 직접 연락 부탁드립니다.');
+  });
+}
