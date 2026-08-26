@@ -1,78 +1,331 @@
 /*
   HITS Brand Lab — main.js
-
-  주의: fetch()로 data/cases.json을 읽어오기 때문에,
-  index.html을 더블클릭해서 파일로 직접 열면(file://) 브라우저 보안 정책상
-  데이터가 로드되지 않습니다.
-  로컬에서 확인하려면 VS Code의 Live Server 확장을 쓰거나,
-  터미널에서 이 폴더 안에서 `python3 -m http.server` 실행 후
-  http://localhost:8000 으로 접속하세요.
-  GitHub 연동 후 Vercel/Netlify에 배포하면 정상적으로 동작합니다.
+  주의: 이 사이트는 fetch()로 partials/*.html, data/*.json 을 읽어옵니다.
+  로컬에서 확인할 땐 반드시 로컬 서버로 실행하세요 (README 참고).
 */
 
-const caseGrid = document.getElementById('case-grid');
-const filterRow = document.getElementById('case-filters');
-
-let allCases = [];
-
-async function loadCases() {
+/* ---------- 공용 헤더/푸터 로드 ---------- */
+async function loadPartials() {
+  const headerMount = document.getElementById('site-header-mount');
+  const footerMount = document.getElementById('site-footer-mount');
   try {
-    const res = await fetch('data/cases.json');
-    allCases = await res.json();
-    renderCases('all');
+    if (headerMount) {
+      const res = await fetch('/partials/header.html');
+      headerMount.innerHTML = await res.text();
+      setActiveNav();
+    }
+    if (footerMount) {
+      const res = await fetch('/partials/footer.html');
+      footerMount.innerHTML = await res.text();
+    }
   } catch (err) {
-    caseGrid.innerHTML = '<p style="font-size:13px;color:#6B6A66">사례 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해주세요.</p>';
-    console.error(err);
+    console.error('partial load failed', err);
   }
 }
 
-function renderCases(filter) {
-  const list = filter === 'all' ? allCases : allCases.filter(c => c.tag === filter);
-
-  caseGrid.innerHTML = list.map(item => `
-    <div class="case-card">
-      <span class="case-tag">${item.tag}</span>
-      <p class="case-title">${item.title}</p>
-      <p class="case-desc">${item.description}</p>
-    </div>
-  `).join('');
+function setActiveNav() {
+  const current = document.body.dataset.nav;
+  if (!current) return;
+  const link = document.querySelector(`.main-nav a[data-nav="${current}"]`);
+  if (link) link.classList.add('is-current');
 }
 
-if (filterRow) {
-  filterRow.addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-chip');
-    if (!btn) return;
-
-    filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    renderCases(btn.dataset.filter);
+/* ---------- 플로팅 뉴스레터 버튼 ---------- */
+function initFloatingButton() {
+  const mount = document.getElementById('float-newsletter-mount');
+  if (!mount) return;
+  const btn = document.createElement('button');
+  btn.className = 'float-newsletter-btn';
+  btn.textContent = 'HITS 레터 받아보기';
+  btn.addEventListener('click', () => {
+    if (document.getElementById('hits-letter')) {
+      document.getElementById('hits-letter').scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = '/#hits-letter';
+    }
   });
+  mount.appendChild(btn);
 }
 
-loadCases();
-
-/* 진단 테스트 버튼 — 1단계 MVP 자리. 추후 진단 로직/페이지로 연결 */
-const diagnoseBtn = document.getElementById('diagnose-btn');
-if (diagnoseBtn) {
-  diagnoseBtn.addEventListener('click', () => {
-    alert('진단 테스트는 준비 중입니다. 곧 만나보실 수 있어요.');
-  });
+/* ---------- 뉴스레터 폼 (3곳 공용) ---------- */
+function newsletterFormHTML(idPrefix) {
+  return `
+    <form class="newsletter-form" id="${idPrefix}-form">
+      <input type="text" name="name" placeholder="이름" required>
+      <input type="email" name="email" placeholder="이메일" required>
+      <select name="role">
+        <option value="">직군 선택 (선택)</option>
+        <option value="manufacturer">제조사 · 브랜드 담당자</option>
+        <option value="md">MD · 바이어</option>
+        <option value="marketer">마케터 · 광고 담당자</option>
+        <option value="founder">창업자 · 소상공인</option>
+        <option value="etc">기타</option>
+      </select>
+      <button type="submit" class="btn btn-accent">HITS 받아보기</button>
+    </form>`;
 }
 
-/* 뉴스레터 폼 — 지금은 자리만 확보. 추후 Mailchimp/스티비 연동으로 교체 */
-const newsletterForm = document.getElementById('newsletter-form');
-if (newsletterForm) {
-  newsletterForm.addEventListener('submit', (e) => {
+function renderNewsletterInline(mountId, heading) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.innerHTML = `
+    <div class="newsletter-inline">
+      <p class="newsletter-inline-title">${heading}</p>
+      ${newsletterFormHTML(mountId)}
+    </div>`;
+  bindNewsletterSubmit(`${mountId}-form`);
+}
+
+function renderNewsletterMain(mountId) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.innerHTML = `
+    <div class="wrap newsletter-main-inner">
+      <p class="newsletter-main-label">HITS LETTER</p>
+      <p class="newsletter-main-title">매주 하나, 팔리는 상품의 비밀을 보내드립니다.</p>
+      ${newsletterFormHTML(mountId)}
+    </div>`;
+  bindNewsletterSubmit(`${mountId}-form`);
+}
+
+function bindNewsletterSubmit(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     alert('뉴스레터 연동은 준비 중입니다. Mailchimp/스티비 폼으로 교체 예정입니다.');
   });
 }
 
-/* 협업 문의 폼 — 지금은 자리만 확보. 추후 실제 접수 방식(이메일 전송/폼 서비스)으로 교체 */
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+/* ---------- Weekly HITS: 홈 티저 ---------- */
+async function renderWeeklyTeaser() {
+  const mount = document.getElementById('weekly-teaser-mount');
+  if (!mount) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    const cases = await res.json();
+    const latest = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber))[0];
+    mount.innerHTML = `
+      <a href="/weekly/" class="weekly-card">
+        <div class="image-slot weekly-thumb" style="--ratio:1/1">
+          <div class="slot-placeholder small">1:1</div>
+        </div>
+        <div>
+          <p class="weekly-title">WEEKLY HITS #${latest.issueNumber} — ${latest.question}</p>
+          <p class="weekly-desc">${latest.description}</p>
+        </div>
+      </a>`;
+  } catch (err) { console.error(err); }
+}
+
+/* ---------- Weekly HITS: 아카이브 목록 ---------- */
+async function renderWeeklyList() {
+  const mount = document.getElementById('weekly-list-mount');
+  if (!mount) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    const cases = await res.json();
+    const sorted = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber));
+    mount.innerHTML = sorted.map(c => {
+      const inner = `
+        <div class="image-slot weekly-list-thumb" style="--ratio:1/1">
+          <div class="slot-placeholder small">이미지</div>
+        </div>
+        <div>
+          <p class="weekly-list-issue">WEEKLY HITS #${c.issueNumber}</p>
+          <p class="weekly-list-q">${c.question}</p>
+          <p class="weekly-list-desc">${c.description} · Dominant: ${c.tag}</p>
+        </div>`;
+      return c.hasDetail
+        ? `<a class="weekly-list-item" href="${c.detailUrl}">${inner}</a>`
+        : `<div class="weekly-list-item" style="opacity:.6">${inner}</div>`;
+    }).join('');
+  } catch (err) { console.error(err); }
+}
+
+/* ---------- Library: 미리보기(홈) ---------- */
+async function renderLibraryPreview() {
+  const mount = document.getElementById('library-preview-mount');
+  if (!mount) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    const cases = await res.json();
+    mount.innerHTML = cases.slice(0, 3).map(caseCardHTML).join('');
+  } catch (err) { console.error(err); }
+}
+
+function caseCardHTML(c) {
+  const badge = c.hasDetail
+    ? `<span class="case-weekly-badge">Weekly HITS #${c.issueNumber} · <a href="${c.detailUrl}">원문 보기 →</a></span>`
+    : `<span class="case-weekly-badge">Weekly HITS #${c.issueNumber}</span>`;
+  return `
+    <div class="case-card">
+      <span class="case-tag">${c.tag}</span>
+      <p class="case-title">${c.title}</p>
+      <p class="case-desc">${c.description}</p>
+      ${badge}
+    </div>`;
+}
+
+/* ---------- Library: 전체 페이지 (필터 + 카운트) ---------- */
+let allCases = [];
+async function initLibraryPage() {
+  const grid = document.getElementById('case-grid');
+  const filterRow = document.getElementById('case-filters');
+  const countEl = document.getElementById('library-count');
+  if (!grid) return;
+
+  try {
+    const res = await fetch('/data/cases.json');
+    allCases = await res.json();
+
+    const params = new URLSearchParams(window.location.search);
+    const initialFilter = params.get('hits') || 'all';
+
+    renderLibraryGrid(initialFilter);
+    if (countEl) countEl.textContent = allCases.length;
+
+    if (filterRow) {
+      const target = filterRow.querySelector(`[data-filter="${initialFilter}"]`) || filterRow.querySelector('[data-filter="all"]');
+      filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
+      target.classList.add('is-active');
+
+      filterRow.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-chip');
+        if (!btn) return;
+        filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        renderLibraryGrid(btn.dataset.filter);
+      });
+    }
+  } catch (err) {
+    grid.innerHTML = '<p style="font-size:13px;color:#6B6A66">사례 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해주세요.</p>';
+    console.error(err);
+  }
+}
+
+function renderLibraryGrid(filter) {
+  const grid = document.getElementById('case-grid');
+  const list = filter === 'all' ? allCases : allCases.filter(c => c.tag === filter);
+  grid.innerHTML = list.map(caseCardHTML).join('');
+}
+
+/* ---------- Insight: 그리드 (홈 미리보기 + 전체 목록 공용) ---------- */
+let allArticles = [];
+async function renderInsightGrid(mountId, limit) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  try {
+    const res = await fetch('/data/articles.json');
+    allArticles = await res.json();
+    paintInsightGrid(mountId, limit ? allArticles.slice(0, limit) : allArticles);
+
+    const filterRow = document.getElementById('insight-filters');
+    if (filterRow && !limit) {
+      filterRow.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-chip');
+        if (!btn) return;
+        filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const cat = btn.dataset.filter;
+        const list = cat === 'all' ? allArticles : allArticles.filter(a => a.category === cat);
+        paintInsightGrid(mountId, list);
+      });
+    }
+  } catch (err) { console.error(err); }
+}
+
+function paintInsightGrid(mountId, articles) {
+  const mount = document.getElementById(mountId);
+  articles = articles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+  mount.innerHTML = articles.map(a => `
+      <a href="${a.url}">
+        <div class="image-slot insight-card-img light-slot" style="--ratio:4/3">
+          <div class="slot-placeholder small">이미지</div>
+        </div>
+        <div class="insight-card-body">
+          <p class="insight-card-title">${a.title}</p>
+          <p class="insight-card-desc">${a.excerpt}</p>
+          <div class="insight-tags">${a.tags.map(t => `<span class="insight-tag">#${t}</span>`).join('')}</div>
+        </div>
+      </a>`).join('');
+}
+
+/* ---------- Canvas Master: 로컬 저장 + 검토요청 ---------- */
+function initCanvasMasterForm() {
+  const form = document.getElementById('canvas-master-form');
+  if (!form) return;
+  const STORAGE_KEY = 'hits-canvas-master';
+
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  form.querySelectorAll('textarea, input').forEach(field => {
+    if (saved[field.name]) field.value = saved[field.name];
+    field.addEventListener('input', () => {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      data[field.name] = field.value;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('검토요청 접수 기능은 준비 중입니다. 입력하신 내용은 이 브라우저에 임시 저장되어 있습니다.');
+  });
+}
+
+/* ---------- Weekly 상세: "다른 사례 N개 보기" 자동 카운트 ---------- */
+async function renderRelatedCounts() {
+  const els = document.querySelectorAll('.related-count');
+  if (!els.length) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    const cases = await res.json();
+    els.forEach(el => {
+      const tag = el.dataset.tag;
+      const excludeId = el.dataset.exclude;
+      const count = cases.filter(c => c.tag === tag && c.id !== excludeId).length;
+      el.textContent = `${tag}이(가) 강한 다른 사례 ${count}개 보기 →`;
+      el.setAttribute('href', `/library/?hits=${tag}`);
+    });
+  } catch (err) { console.error(err); }
+}
+
+/* ---------- 진단 버튼 (히어로) ---------- */
+function initDiagnoseButton() {
+  const btn = document.getElementById('diagnose-btn');
+  if (btn) {
+    btn.addEventListener('click', () => alert('진단 테스트는 준비 중입니다. 곧 만나보실 수 있어요.'));
+  }
+}
+
+/* ---------- 협업 문의 폼 ---------- */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     alert('문의 접수 기능은 준비 중입니다. 지금은 hello@hitsbrandlab.com으로 직접 연락 부탁드립니다.');
   });
 }
+
+/* ---------- 초기화 ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  loadPartials();
+  initFloatingButton();
+  initDiagnoseButton();
+  initContactForm();
+  initCanvasMasterForm();
+  renderWeeklyTeaser();
+  renderWeeklyList();
+  renderLibraryPreview();
+  initLibraryPage();
+  renderInsightGrid('insight-preview-mount', 2);
+  renderInsightGrid('insight-grid-mount', null);
+  renderRelatedCounts();
+
+  document.querySelectorAll('[data-newsletter-inline]').forEach((el, idx) => {
+    if (!el.id) el.id = `newsletter-inline-${idx}`;
+    renderNewsletterInline(el.id, el.dataset.newsletterInline);
+  });
+  if (document.getElementById('newsletter-mount-main')) renderNewsletterMain('newsletter-mount-main');
+});

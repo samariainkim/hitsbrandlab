@@ -3,187 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HITS Brand Lab — 왜 좋은 상품이 팔리지 않는가</title>
-<meta name="description" content="Hook × Insight × Tale × System. 16년차 상품기획자가 찾은 팔리는 상품의 곱셈 공식.">
+<title>HITS Brand Lab — 왜 어떤 상품은 팔리고, 어떤 상품은 사라질까</title>
+<meta name="description" content="팔리는 상품을 연구하고, 기록하고, 실험하는 HITS의 온라인 연구소.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-nav="home">
 
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a href="/" class="logo">HITS Brand Lab</a>
-    <nav class="main-nav">
-      <a href="#cases" class="nav-active">사례</a>
-      <a href="#weekly">위클리</a>
-      <a href="#insight">인사이트</a>
-      <a href="#worksheet">워크시트</a>
-    </nav>
-  </div>
-</header>
+<div id="site-header-mount"></div>
 
 <section class="hero image-slot" data-slot="hero" style="--ratio:16/9">
   <div class="slot-placeholder">HERO IMAGE 자리 · 준비되면 배경으로 삽입</div>
   <div class="scrim"></div>
   <div class="wrap hero-content">
-    <p class="eyebrow">HOOK × INSIGHT × TALE × SYSTEM</p>
-    <h1>왜 좋은 상품이<br>팔리지 않는가</h1>
-    <p class="hero-sub">16년차 상품기획자가 찾은 팔리는 상품의 곱셈 공식</p>
+    <p class="eyebrow">HITS BRAND LAB</p>
+    <h1>왜 어떤 상품은 팔리고,<br>어떤 상품은 사라질까?</h1>
+    <p class="hero-sub">팔리는 상품을 연구하고, 기록하고, 실험합니다.</p>
+    <p class="hero-formula">HOOK × INSIGHT × TALE × SYSTEM</p>
     <div class="hero-actions">
+      <a href="/about/" class="btn btn-ghost">HITS 알아보기 →</a>
       <button class="btn btn-accent" id="diagnose-btn">내 상품 진단하기</button>
-      <a href="#book" class="btn btn-ghost">책 소개 보기</a>
     </div>
   </div>
 </section>
 
-<section class="impact-line">
+<section class="formula-section">
   <div class="wrap">
-    <p class="impact-text">하나라도 0이면,<br>전체가 0이다.</p>
-    <p class="impact-caption">─ HITS의 곱셈 구조 ─</p>
+    <div class="formula-grid">
+      <div class="formula-card">
+        <p class="formula-letter">H</p>
+        <p class="formula-word">HOOK</p>
+        <span class="formula-tag">문제</span>
+        <p class="formula-desc">고객의 진짜 문제를 발견한다</p>
+      </div>
+      <div class="formula-card">
+        <p class="formula-letter">I</p>
+        <p class="formula-word">INSIGHT</p>
+        <span class="formula-tag">가치</span>
+        <p class="formula-desc">문제를 팔리는 가치로 번역한다</p>
+      </div>
+      <div class="formula-card">
+        <p class="formula-letter">T</p>
+        <p class="formula-word">TALE</p>
+        <span class="formula-tag">이야기</span>
+        <p class="formula-desc">고객의 마음을 움직인다</p>
+      </div>
+      <div class="formula-card">
+        <p class="formula-letter">S</p>
+        <p class="formula-word">SYSTEM</p>
+        <span class="formula-tag">성장</span>
+        <p class="formula-desc">성공을 반복 가능한 구조로 만든다</p>
+      </div>
+    </div>
+    <div class="formula-bottom">
+      <p class="formula-multiply">H × I × T × S</p>
+      <p class="formula-slogan">하나라도 0이면, 전체가 0이다.</p>
+      <a href="/about/" class="formula-cta">HITS Framework 자세히 알아보기 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>WEEKLY HITS</h2>
+      <a href="/weekly/" class="see-all">전체 보기 →</a>
+    </div>
+    <div id="weekly-teaser-mount"></div>
+    <div data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>HITS LIBRARY</h2>
+      <a href="/library/" class="see-all">전체 보기 →</a>
+    </div>
+    <div class="case-grid" id="library-preview-mount"></div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>HITS LAB CANVAS</h2>
+      <a href="/canvas/" class="see-all">전체 보기 →</a>
+    </div>
+    <div class="canvas-grid">
+      <div class="canvas-card"><p class="canvas-num">01 HOOK</p><p class="canvas-name">Hook Discovery Canvas</p></div>
+      <div class="canvas-card"><p class="canvas-num">02 INSIGHT</p><p class="canvas-name">Insight Canvas</p></div>
+      <div class="canvas-card"><p class="canvas-num">03 TALE</p><p class="canvas-name">Story Canvas</p></div>
+      <div class="canvas-card is-ready"><p class="canvas-num">04 MASTER</p><p class="canvas-name">HITS Master Canvas</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-light">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>HITS INSIGHT</h2>
+      <a href="/insight/" class="see-all">전체 보기 →</a>
+    </div>
+    <div class="insight-grid" id="insight-preview-mount"></div>
+    <div data-newsletter-inline="새로운 HITS Insight를 놓치지 마세요."></div>
   </div>
 </section>
 
 <section id="book" class="section section-white">
   <div class="wrap book-section">
-    <div class="image-slot book-cover" data-slot="book-cover" style="--ratio:3/4">
+    <div class="image-slot book-cover" style="--ratio:3/4">
       <div class="slot-placeholder small">책 표지 자리 · 3:4</div>
     </div>
     <div class="book-info">
       <p class="eyebrow eyebrow-dark">BOOK</p>
-      <h2 class="book-title">HITS — 팔리는 상품의 비밀</h2>
+      <p class="book-title">HITS — 팔리는 상품의 비밀</p>
       <p class="book-desc">16년차 상품기획자가 찾은 팔리는 상품의 곱셈 공식. Hook × Insight × Tale × System, 하나라도 0이면 전체가 0이다.</p>
       <a href="#" class="btn btn-dark">책 구매하러 가기</a>
     </div>
   </div>
 </section>
 
-<section id="cases" class="section section-light">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>사례 라이브러리</h2>
-      <a href="#cases" class="see-all">전체 보기 →</a>
+<section class="workwith-band">
+  <div class="wrap workwith-inner">
+    <div>
+      <p class="workwith-eyebrow">WORK WITH HITS</p>
+      <p class="workwith-title">강연 · 기업교육 · Workshop · Partnership</p>
+      <p class="workwith-desc">HITS를 조직과 브랜드에 적용하고 싶다면 함께 이야기해 주세요.</p>
     </div>
-    <div class="filter-row" id="case-filters">
-      <button class="filter-chip is-active" data-filter="all">전체</button>
-      <button class="filter-chip" data-filter="Hook">Hook</button>
-      <button class="filter-chip" data-filter="Insight">Insight</button>
-      <button class="filter-chip" data-filter="Tale">Tale</button>
-      <button class="filter-chip" data-filter="System">System</button>
-    </div>
-    <div class="case-grid" id="case-grid">
-      <!-- JS가 data/cases.json을 읽어 여기에 카드를 렌더링합니다 -->
-    </div>
+    <a href="/work-with-hits/" class="btn btn-dark">Business Inquiry →</a>
   </div>
 </section>
 
-<section id="weekly" class="section section-white">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>위클리 HITS</h2>
-      <a href="#weekly" class="see-all">전체 보기 →</a>
-    </div>
-    <div class="weekly-card">
-      <div class="image-slot weekly-thumb" data-slot="weekly" style="--ratio:1/1">
-        <div class="slot-placeholder small">1:1</div>
-      </div>
-      <div class="weekly-text">
-        <p class="weekly-title">이번 주 발견한 HITS 순간</p>
-        <p class="weekly-desc">현장에서 스쳐간 기획 포인트 한 장</p>
-      </div>
-    </div>
-  </div>
+<section id="hits-letter" class="newsletter-main">
+  <div id="newsletter-mount-main"></div>
 </section>
 
-<section id="insight" class="section section-white">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>인사이트</h2>
-      <a href="https://brunch.co.kr/@samariain" target="_blank" rel="noopener" class="see-all see-all-muted">브런치에서 더 보기 ↗</a>
-    </div>
-    <article class="insight-preview">
-      <h3>기획자가 가장 먼저 버려야 할 세 가지 착각</h3>
-      <p>좋은 상품이면 알아서 팔릴 거라는 믿음, 그 믿음이 무너진 순간부터...</p>
-    </article>
-  </div>
-</section>
+<div id="site-footer-mount"></div>
+<div id="float-newsletter-mount"></div>
 
-<section id="worksheet" class="section section-light">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>워크시트 (HITS LAB)</h2>
-    </div>
-    <div class="worksheet-grid">
-      <div class="worksheet-card">
-        <p class="worksheet-title">Hook Discovery Canvas</p>
-        <p class="worksheet-status">준비 중</p>
-      </div>
-      <div class="worksheet-card">
-        <p class="worksheet-title">Insight Canvas</p>
-        <p class="worksheet-status">준비 중</p>
-      </div>
-      <div class="worksheet-card">
-        <p class="worksheet-title">Story Canvas</p>
-        <p class="worksheet-status">준비 중</p>
-      </div>
-      <div class="worksheet-card">
-        <p class="worksheet-title">HITS Master Canvas</p>
-        <p class="worksheet-status">준비 중</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="section section-white">
-  <div class="wrap contact-inner">
-    <div class="contact-intro">
-      <p class="eyebrow eyebrow-dark">COLLABORATION</p>
-      <h2 class="contact-title">협업 · 업무제휴<br>문의</h2>
-      <p class="contact-desc">워크숍, 강연, 컨설팅, 브랜드 협업 관련 문의를 남겨주시면<br>담당자가 직접 연락드립니다.</p>
-      <p class="contact-email">✉ <a href="mailto:hello@hitsbrandlab.com">hello@hitsbrandlab.com</a></p>
-    </div>
-    <form class="contact-form" id="contact-form">
-      <label>이름/직함 *<input type="text" name="nameTitle" placeholder="name / title" required></label>
-      <label>회사명 *<input type="text" name="company" placeholder="Company Name" required></label>
-      <label>이메일 *<input type="email" name="email" placeholder="example@email.com" required></label>
-      <label>전화번호 *<input type="tel" name="phone" placeholder="tel" required></label>
-      <label>문의내용 *<textarea name="inquiry" placeholder="inquiry" rows="5" required></textarea></label>
-      <button type="submit" class="btn btn-accent btn-block">문의하기</button>
-    </form>
-  </div>
-</section>
-
-<section id="newsletter" class="newsletter image-slot" data-slot="newsletter" style="--ratio:21/9">
-  <div class="slot-placeholder">CTA 배경 이미지 자리 · 스크림 처리 후 삽입</div>
-  <div class="scrim"></div>
-  <div class="wrap newsletter-inner">
-    <p class="newsletter-text">당신의 다음 기획서를 먼저 살려줄<br>HITS 사례를 매주 받아보세요</p>
-    <form class="newsletter-form" id="newsletter-form">
-      <input type="text" name="name" placeholder="이름" required>
-      <input type="email" name="email" placeholder="이메일" required>
-      <select name="role">
-        <option value="">직군 선택 (선택)</option>
-        <option value="manufacturer">제조사 · 브랜드 담당자</option>
-        <option value="md">MD · 바이어</option>
-        <option value="marketer">마케터 · 광고 담당자</option>
-        <option value="founder">창업자 · 소상공인</option>
-        <option value="etc">기타</option>
-      </select>
-      <button type="submit" class="btn btn-accent">구독하기</button>
-    </form>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <span>HITS Brand Lab</span>
-    <div class="footer-links">
-      <a href="https://open.kakao.com/" target="_blank" rel="noopener">독자 오픈채팅방</a>
-      <a href="https://brunch.co.kr/@samariain" target="_blank" rel="noopener">브런치</a>
-      <a href="#contact">문의</a>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

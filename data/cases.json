@@ -1,30 +1,66 @@
 [
   {
     "id": "smartcara",
+    "issueNumber": "001",
+    "publishDate": "2026-08-04",
     "tag": "Hook",
+    "category": "Living",
+    "topics": ["Concept"],
     "title": "스마트카라",
+    "question": "스마트카라는 왜 3년 만에 다시 주목받았을까?",
     "description": "음식물 처리기의 재정의",
-    "image": ""
+    "scores": { "hook": 4, "insight": 3, "tale": 3, "system": 2 },
+    "insightQuote": "같은 기능도 부르는 이름이 바뀌면 다른 문제를 해결한다.",
+    "image": "",
+    "hasDetail": true,
+    "detailUrl": "/weekly/001/"
   },
   {
     "id": "whistler",
+    "issueNumber": "002",
+    "publishDate": "2026-08-11",
     "tag": "Tale",
+    "category": "Living",
+    "topics": ["Story"],
     "title": "휘슬러 냄비",
+    "question": "휘슬러 냄비는 왜 스펙 설명 없이 완판됐을까?",
     "description": "스토리로 번역한 스펙",
-    "image": ""
+    "scores": { "hook": 3, "insight": 3, "tale": 5, "system": 3 },
+    "insightQuote": "스펙을 나열하지 말고, 그 스펙이 만드는 장면을 보여줘라.",
+    "image": "",
+    "hasDetail": false,
+    "detailUrl": ""
   },
   {
     "id": "starbucks-rewards",
+    "issueNumber": "003",
+    "publishDate": "2026-08-18",
     "tag": "System",
+    "category": "Service",
+    "topics": ["Fandom", "Retention"],
     "title": "스타벅스 리워드",
-    "description": "팬덤을 만드는 재구매",
-    "image": ""
+    "question": "스타벅스 리워드는 왜 매번 다시 켜게 될까?",
+    "description": "팬덤을 만드는 재구매 시스템",
+    "scores": { "hook": 2, "insight": 3, "tale": 3, "system": 5 },
+    "insightQuote": "한 번의 만족이 아니라, 다음 방문의 이유를 설계하라.",
+    "image": "",
+    "hasDetail": false,
+    "detailUrl": ""
   },
   {
     "id": "lg-light-wave",
+    "issueNumber": "004",
+    "publishDate": "2026-08-25",
     "tag": "Insight",
+    "category": "Tech",
+    "topics": ["Concept", "Positioning"],
     "title": "LG 광파오븐",
+    "question": "광파오븐은 왜 이름을 바꾸자 팔리기 시작했을까?",
     "description": "언어를 전환해 만든 새로운 카테고리",
-    "image": ""
+    "scores": { "hook": 3, "insight": 5, "tale": 3, "system": 3 },
+    "insightQuote": "제품을 바꾸지 않고도, 부르는 이름만으로 새 시장을 연다.",
+    "image": "",
+    "hasDetail": false,
+    "detailUrl": ""
   }
 ]
