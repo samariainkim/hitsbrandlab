@@ -106,22 +106,22 @@ h1, h2, h3, p { margin: 0; }
    히어로 (좌 40% 텍스트 고정 / 우 60% 시그널 그리드 애니메이션)
    ========================================================== */
 .hero { min-height: 380px; }
-.hero-split { display: flex; }
-.hero-left { width: 40%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px; }
-.hero-right { width: 60%; position: relative; overflow: hidden; }
+.hero-split { display: flex; background: var(--bg-main); }
+.hero-left { width: 40%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px; min-height: 480px; }
+.hero-right { width: 60%; height: 480px; position: relative; overflow: hidden; }
 .hero-right svg { display: block; }
 
-@keyframes fadeH { 0%{opacity:0} 15%{opacity:0} 28%{opacity:1} 82%{opacity:1} 95%{opacity:.25} 100%{opacity:0} }
-@keyframes fadeITS { 0%{opacity:0} 32%{opacity:0} 48%{opacity:1} 82%{opacity:1} 95%{opacity:.25} 100%{opacity:0} }
-@keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 32%{opacity:0;stroke-dashoffset:120} 50%{opacity:.5;stroke-dashoffset:0} 82%{opacity:.5} 95%{opacity:.15} 100%{opacity:0} }
-@keyframes fadeCenter { 0%{opacity:.12} 48%{opacity:.12} 62%{opacity:1} 85%{opacity:1} 100%{opacity:.12} }
-@keyframes fadeLabel { 0%{opacity:0} 60%{opacity:0} 72%{opacity:.4} 85%{opacity:.4} 100%{opacity:0} }
+@keyframes fadeH { 0%{opacity:0} 10%{opacity:0} 19%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
+@keyframes fadeITS { 0%{opacity:0} 22%{opacity:0} 34%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
+@keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 22%{opacity:0;stroke-dashoffset:120} 35%{opacity:.5;stroke-dashoffset:0} 90%{opacity:.5} 100%{opacity:0} }
+@keyframes fadeCenter { 0%{opacity:.12} 33%{opacity:.12} 43%{opacity:1} 90%{opacity:1} 100%{opacity:.12} }
+@keyframes fadeLabel { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.4} 90%{opacity:.4} 100%{opacity:0} }
 @keyframes twinkle { 0%,100%{opacity:.15} 50%{opacity:.5} }
-.sg-h { animation: fadeH 8s ease-in-out infinite; }
-.sg-its { animation: fadeITS 8s ease-in-out infinite; }
-.sg-line { animation: drawLine 8s ease-in-out infinite; }
-.sg-center { animation: fadeCenter 8s ease-in-out infinite; }
-.sg-label { animation: fadeLabel 8s ease-in-out infinite; }
+.sg-h { animation: fadeH 14.5s ease-in-out infinite; }
+.sg-its { animation: fadeITS 14.5s ease-in-out infinite; }
+.sg-line { animation: drawLine 14.5s ease-in-out infinite; }
+.sg-center { animation: fadeCenter 14.5s ease-in-out infinite; }
+.sg-label { animation: fadeLabel 14.5s ease-in-out infinite; }
 .sg-dot1 { animation: twinkle 4s ease-in-out infinite; }
 .sg-dot2 { animation: twinkle 5s ease-in-out infinite .8s; }
 .sg-dot3 { animation: twinkle 3.6s ease-in-out infinite 1.6s; }
@@ -195,6 +195,36 @@ h1, h2, h3, p { margin: 0; }
 .page-header h1 { color: var(--text-light); font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin: 4px 0 10px; }
 .page-header p { color: var(--text-muted); font-size: 14px; }
 .page-header .count { color: var(--accent); font-weight: 700; }
+
+/* ==========================================================
+   Library 홈 티저 — 도서관 색인카드
+   ========================================================== */
+.lib-card-row { display: flex; gap: 2px; }
+.lib-card {
+  flex: 1; background: var(--bg-white); padding: 18px 16px;
+  border-top: 3px solid var(--accent); box-shadow: 2px 0 4px rgba(0,0,0,0.03);
+}
+.lib-card-no { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; margin: 0 0 12px; font-family: monospace; }
+.lib-card-title { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0 0 16px; line-height: 1.4; }
+.lib-card-meta { font-size: 10px; color: var(--text-secondary); margin: 0; font-family: monospace; }
+.lib-card-more {
+  flex: 0 0 70px; background: var(--border-light); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--text-secondary); writing-mode: vertical-rl;
+}
+@media (max-width: 640px) {
+  .lib-card-row { overflow-x: auto; }
+  .lib-card { flex: 0 0 150px; }
+  .lib-card-more { flex: 0 0 60px; }
+}
+
+/* ==========================================================
+   버튼형 뉴스레터 CTA (홈 인라인 전용, 축소형)
+   ========================================================== */
+.newsletter-cta-compact {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  background: var(--bg-content); border-radius: var(--radius); padding: 20px 24px; margin-top: 20px;
+}
+.newsletter-cta-compact p { font-size: 14px; font-weight: 700; margin: 0; }
 
 /* ==========================================================
    Weekly HITS
@@ -302,6 +332,13 @@ h1, h2, h3, p { margin: 0; }
 .canvas-cta { font-size: 13px; font-weight: 700; color: var(--accent); }
 .canvas-card.is-ready { border: 1px solid var(--accent); }
 .canvas-badge-ready { display: inline-block; font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg-content); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
+
+.canvas-master-banner {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+  border: 1px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; margin-top: 14px;
+}
+.canvas-master-banner .canvas-num { margin-bottom: 6px; }
+.canvas-master-banner .canvas-name { font-size: 18px; }
 
 .canvas-form-page { padding: 40px 0; }
 .canvas-form { display: flex; flex-direction: column; gap: 20px; max-width: 640px; }

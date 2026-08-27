@@ -97,6 +97,15 @@ function bindNewsletterSubmit(formId) {
   });
 }
 
+/* ---------- 긴 텍스트를 대략 10줄 분량으로 자르고 자연스럽게 "... 더보기" 이어붙이기 ---------- */
+function clampExcerpt(text, maxChars) {
+  if (!text || text.length <= maxChars) return text || '';
+  const cut = text.slice(0, maxChars);
+  const lastSpace = cut.lastIndexOf(' ');
+  const trimmed = lastSpace > maxChars * 0.6 ? cut.slice(0, lastSpace) : cut;
+  return `${trimmed}... 더보기`;
+}
+
 /* ---------- Weekly HITS: 홈 티저 (5:5 대형 카드) ---------- */
 async function renderWeeklyTeaser() {
   const mount = document.getElementById('weekly-teaser-mount');
@@ -106,6 +115,7 @@ async function renderWeeklyTeaser() {
     const cases = await res.json();
     const latest = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber))[0];
     const dateStr = latest.publishDate.replaceAll('-', '.');
+    const excerpt = clampExcerpt(latest.excerpt || latest.description, 380);
     const inner = `
       <div class="image-slot weekly-feature-img" style="--ratio:1/1">
         <div class="slot-placeholder">대표 이미지</div>
@@ -113,7 +123,7 @@ async function renderWeeklyTeaser() {
       <div class="weekly-feature-text">
         <p class="weekly-feature-label">WEEKLY HITS #${latest.issueNumber} · ${dateStr}</p>
         <p class="weekly-feature-title">${latest.question}</p>
-        <p class="weekly-feature-excerpt">${latest.excerpt || latest.description}</p>
+        <p class="weekly-feature-excerpt">${excerpt}</p>
       </div>`;
     mount.innerHTML = latest.hasDetail
       ? `<a class="weekly-feature" href="${latest.detailUrl}">${inner}</a>`
@@ -121,7 +131,12 @@ async function renderWeeklyTeaser() {
   } catch (err) { console.error(err); }
 }
 
-/* ---------- Library: 미리보기(홈) ---------- */
+/* ---------- Library: 미리보기(홈) — 도서관 색인카드 스타일 ---------- */
+function shortDate(dateStr) {
+  const [y, m, d] = dateStr.split('-');
+  return `${y.slice(2)}.${m}.${d}`;
+}
+
 async function renderLibraryPreview() {
   const mount = document.getElementById('library-preview-mount');
   if (!mount) return;
@@ -129,7 +144,20 @@ async function renderLibraryPreview() {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
     const sorted = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber)).slice(0, 3);
-    mount.innerHTML = libraryTableHTML(sorted, false);
+    const cards = sorted.map(c => {
+      const inner = `
+        <p class="lib-card-no">NO. ${c.issueNumber} · ${c.tag.toUpperCase()}</p>
+        <p class="lib-card-title">${c.title}</p>
+        <p class="lib-card-meta">${c.category.toUpperCase()} / ${shortDate(c.publishDate)}</p>`;
+      return c.hasDetail
+        ? `<a class="lib-card" href="${c.detailUrl}">${inner}</a>`
+        : `<div class="lib-card">${inner}</div>`;
+    }).join('');
+    mount.innerHTML = `
+      <div class="lib-card-row">
+        ${cards}
+        <a class="lib-card-more" href="/library/">전체 보기 →</a>
+      </div>`;
   } catch (err) { console.error(err); }
 }
 
