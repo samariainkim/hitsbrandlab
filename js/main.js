@@ -97,7 +97,7 @@ function bindNewsletterSubmit(formId) {
   });
 }
 
-/* ---------- Weekly HITS: 홈 티저 ---------- */
+/* ---------- Weekly HITS: 홈 티저 (5:5 대형 카드) ---------- */
 async function renderWeeklyTeaser() {
   const mount = document.getElementById('weekly-teaser-mount');
   if (!mount) return;
@@ -105,41 +105,19 @@ async function renderWeeklyTeaser() {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
     const latest = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber))[0];
-    mount.innerHTML = `
-      <a href="/weekly/" class="weekly-card">
-        <div class="image-slot weekly-thumb" style="--ratio:1/1">
-          <div class="slot-placeholder small">1:1</div>
-        </div>
-        <div>
-          <p class="weekly-title">WEEKLY HITS #${latest.issueNumber} — ${latest.question}</p>
-          <p class="weekly-desc">${latest.description}</p>
-        </div>
-      </a>`;
-  } catch (err) { console.error(err); }
-}
-
-/* ---------- Weekly HITS: 아카이브 목록 ---------- */
-async function renderWeeklyList() {
-  const mount = document.getElementById('weekly-list-mount');
-  if (!mount) return;
-  try {
-    const res = await fetch('/data/cases.json');
-    const cases = await res.json();
-    const sorted = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber));
-    mount.innerHTML = sorted.map(c => {
-      const inner = `
-        <div class="image-slot weekly-list-thumb" style="--ratio:1/1">
-          <div class="slot-placeholder small">이미지</div>
-        </div>
-        <div>
-          <p class="weekly-list-issue">WEEKLY HITS #${c.issueNumber}</p>
-          <p class="weekly-list-q">${c.question}</p>
-          <p class="weekly-list-desc">${c.description} · Dominant: ${c.tag}</p>
-        </div>`;
-      return c.hasDetail
-        ? `<a class="weekly-list-item" href="${c.detailUrl}">${inner}</a>`
-        : `<div class="weekly-list-item" style="opacity:.6">${inner}</div>`;
-    }).join('');
+    const dateStr = latest.publishDate.replaceAll('-', '.');
+    const inner = `
+      <div class="image-slot weekly-feature-img" style="--ratio:1/1">
+        <div class="slot-placeholder">대표 이미지</div>
+      </div>
+      <div class="weekly-feature-text">
+        <p class="weekly-feature-label">WEEKLY HITS #${latest.issueNumber} · ${dateStr}</p>
+        <p class="weekly-feature-title">${latest.question}</p>
+        <p class="weekly-feature-excerpt">${latest.excerpt || latest.description}</p>
+      </div>`;
+    mount.innerHTML = latest.hasDetail
+      ? `<a class="weekly-feature" href="${latest.detailUrl}">${inner}</a>`
+      : `<div class="weekly-feature">${inner}</div>`;
   } catch (err) { console.error(err); }
 }
 
@@ -150,21 +128,41 @@ async function renderLibraryPreview() {
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    mount.innerHTML = cases.slice(0, 3).map(caseCardHTML).join('');
+    const sorted = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber)).slice(0, 3);
+    mount.innerHTML = libraryTableHTML(sorted, false);
   } catch (err) { console.error(err); }
 }
 
-function caseCardHTML(c) {
-  const badge = c.hasDetail
-    ? `<span class="case-weekly-badge">Weekly HITS #${c.issueNumber} · <a href="${c.detailUrl}">원문 보기 →</a></span>`
-    : `<span class="case-weekly-badge">Weekly HITS #${c.issueNumber}</span>`;
-  return `
-    <div class="case-card">
-      <span class="case-tag">${c.tag}</span>
-      <p class="case-title">${c.title}</p>
-      <p class="case-desc">${c.description}</p>
-      ${badge}
-    </div>`;
+/* ---------- Library: 행(row) 렌더링 공용 함수 ---------- */
+function scoreDotsHTML(scores) {
+  const total = scores ? (scores.hook + scores.insight + scores.tale + scores.system) : 0;
+  const avg = scores ? Math.round((scores.hook + scores.insight + scores.tale + scores.system) / 4) : 0;
+  let dots = '';
+  for (let i = 1; i <= 5; i++) {
+    dots += `<span class="mini-dot ${i <= avg ? 'filled' : ''}"></span>`;
+  }
+  return dots;
+}
+
+function libraryRowHTML(c) {
+  const dateStr = c.publishDate.replaceAll('-', '.');
+  const inner = `
+    <span class="library-row-title">#${c.issueNumber} ${c.title}</span>
+    <span class="library-row-tag">${c.tag}</span>
+    <span class="library-row-meta">${c.category}</span>
+    <span class="library-row-dots">${scoreDotsHTML(c.scores)}</span>
+    <span class="library-row-meta col-date">${dateStr}</span>`;
+  return c.hasDetail
+    ? `<a class="library-row" href="${c.detailUrl}">${inner}</a>`
+    : `<div class="library-row" style="opacity:.75">${inner}</div>`;
+}
+
+function libraryTableHTML(list, withHeader) {
+  const header = withHeader ? `
+    <div class="library-row header-row">
+      <span>사례</span><span>HITS</span><span>카테고리</span><span>스코어</span><span class="col-date">발행일</span>
+    </div>` : '';
+  return `<div class="library-table">${header}${list.map(libraryRowHTML).join('')}</div>`;
 }
 
 /* ---------- Library: 전체 페이지 (필터 + 카운트) ---------- */
@@ -207,7 +205,8 @@ async function initLibraryPage() {
 function renderLibraryGrid(filter) {
   const grid = document.getElementById('case-grid');
   const list = filter === 'all' ? allCases : allCases.filter(c => c.tag === filter);
-  grid.innerHTML = list.map(caseCardHTML).join('');
+  const sorted = list.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber));
+  grid.innerHTML = libraryTableHTML(sorted, true);
 }
 
 /* ---------- Insight: 그리드 (홈 미리보기 + 전체 목록 공용) ---------- */
@@ -316,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();
-  renderWeeklyList();
   renderLibraryPreview();
   initLibraryPage();
   renderInsightGrid('insight-preview-mount', 2);

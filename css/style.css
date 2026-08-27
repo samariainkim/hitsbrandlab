@@ -102,7 +102,40 @@ h1, h2, h3, p { margin: 0; }
 /* ==========================================================
    히어로
    ========================================================== */
+/* ==========================================================
+   히어로 (좌 40% 텍스트 고정 / 우 60% 시그널 그리드 애니메이션)
+   ========================================================== */
 .hero { min-height: 380px; }
+.hero-split { display: flex; }
+.hero-left { width: 40%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px; }
+.hero-right { width: 60%; position: relative; overflow: hidden; }
+.hero-right svg { display: block; }
+
+@keyframes fadeH { 0%{opacity:0} 15%{opacity:0} 28%{opacity:1} 82%{opacity:1} 95%{opacity:.25} 100%{opacity:0} }
+@keyframes fadeITS { 0%{opacity:0} 32%{opacity:0} 48%{opacity:1} 82%{opacity:1} 95%{opacity:.25} 100%{opacity:0} }
+@keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 32%{opacity:0;stroke-dashoffset:120} 50%{opacity:.5;stroke-dashoffset:0} 82%{opacity:.5} 95%{opacity:.15} 100%{opacity:0} }
+@keyframes fadeCenter { 0%{opacity:.12} 48%{opacity:.12} 62%{opacity:1} 85%{opacity:1} 100%{opacity:.12} }
+@keyframes fadeLabel { 0%{opacity:0} 60%{opacity:0} 72%{opacity:.4} 85%{opacity:.4} 100%{opacity:0} }
+@keyframes twinkle { 0%,100%{opacity:.15} 50%{opacity:.5} }
+.sg-h { animation: fadeH 8s ease-in-out infinite; }
+.sg-its { animation: fadeITS 8s ease-in-out infinite; }
+.sg-line { animation: drawLine 8s ease-in-out infinite; }
+.sg-center { animation: fadeCenter 8s ease-in-out infinite; }
+.sg-label { animation: fadeLabel 8s ease-in-out infinite; }
+.sg-dot1 { animation: twinkle 4s ease-in-out infinite; }
+.sg-dot2 { animation: twinkle 5s ease-in-out infinite .8s; }
+.sg-dot3 { animation: twinkle 3.6s ease-in-out infinite 1.6s; }
+
+@media (max-width: 900px) {
+  .hero-split { flex-direction: column; }
+  .hero-left { width: 100%; padding: 48px 20px 24px; }
+  .hero-right { width: 100%; height: 280px; }
+}
+@media (max-width: 640px) {
+  .hero-right { display: none; }
+  .hero-left { padding: 40px 20px; }
+}
+
 .hero-content { position: relative; padding: 60px 20px; width: 100%; }
 .eyebrow { color: var(--text-muted); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; margin: 0 0 14px; }
 .eyebrow-dark { color: var(--text-secondary); }
@@ -172,12 +205,32 @@ h1, h2, h3, p { margin: 0; }
 .weekly-title { font-size: 13px; font-weight: 700; margin: 0 0 2px; }
 .weekly-desc { font-size: 12px; color: var(--text-secondary); }
 
-.weekly-list { display: flex; flex-direction: column; gap: 12px; }
-.weekly-list-item { display: flex; gap: 16px; background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); padding: 14px; align-items: center; }
-.weekly-list-thumb { width: 88px; flex-shrink: 0; border-radius: 8px; }
-.weekly-list-issue { font-size: 11px; font-weight: 700; color: var(--accent); margin: 0 0 4px; }
-.weekly-list-q { font-size: 14px; font-weight: 700; margin: 0 0 4px; }
-.weekly-list-desc { font-size: 12px; color: var(--text-secondary); }
+/* Weekly 홈 티저 — 5:5 대형 카드 */
+.weekly-feature { display: flex; background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
+.weekly-feature-img { width: 50%; flex-shrink: 0; }
+.weekly-feature-text { width: 50%; padding: 28px; display: flex; flex-direction: column; justify-content: center; }
+.weekly-feature-label { font-size: 11px; font-weight: 700; color: var(--accent); margin: 0 0 10px; }
+.weekly-feature-title { font-size: 19px; font-weight: 900; line-height: 1.4; margin: 0 0 12px; color: var(--text-dark); }
+.weekly-feature-excerpt { font-size: 12px; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+@media (max-width: 640px) {
+  .weekly-feature { flex-direction: column; }
+  .weekly-feature-img, .weekly-feature-text { width: 100%; }
+}
+
+/* Library — 데이터베이스형 테이블 */
+.library-table { background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
+.library-row { display: grid; grid-template-columns: 1.6fr 0.7fr 0.9fr 1fr 0.9fr; padding: 14px 16px; align-items: center; border-top: 0.5px solid var(--border-light); }
+.library-row.header-row { background: var(--bg-content); font-size: 10px; font-weight: 700; color: var(--text-secondary); border-top: none; padding: 12px 16px; }
+.library-row-title { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.library-row-tag { font-size: 11px; font-weight: 700; color: var(--accent); }
+.library-row-meta { font-size: 11px; color: var(--text-secondary); }
+.library-row-dots { display: flex; gap: 3px; }
+.library-row-dots .mini-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-light); }
+.library-row-dots .mini-dot.filled { background: var(--accent); }
+@media (max-width: 640px) {
+  .library-row { grid-template-columns: 1.4fr 0.6fr 0.8fr; }
+  .library-row .col-score, .library-row .col-date { display: none; }
+}
 
 .score-bars { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
 .score-row { display: flex; align-items: center; gap: 10px; }

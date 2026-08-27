@@ -12,10 +12,8 @@
 
 <div id="site-header-mount"></div>
 
-<section class="hero image-slot" data-slot="hero" style="--ratio:16/9">
-  <div class="slot-placeholder">HERO IMAGE 자리 · 준비되면 배경으로 삽입</div>
-  <div class="scrim"></div>
-  <div class="wrap hero-content">
+<section class="hero hero-split">
+  <div class="hero-left">
     <p class="eyebrow">HITS BRAND LAB</p>
     <h1>왜 어떤 상품은 팔리고,<br>어떤 상품은 사라질까?</h1>
     <p class="hero-sub">팔리는 상품을 연구하고, 기록하고, 실험합니다.</p>
@@ -24,6 +22,43 @@
       <a href="/about/" class="btn btn-ghost">HITS 알아보기 →</a>
       <button class="btn btn-accent" id="diagnose-btn">내 상품 진단하기</button>
     </div>
+  </div>
+  <div class="hero-right" aria-hidden="true">
+    <svg width="100%" height="100%" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+      <line x1="0" y1="80" x2="400" y2="80" stroke="#2F5CFF" stroke-width="0.5" opacity="0.07"/>
+      <line x1="0" y1="200" x2="400" y2="200" stroke="#2F5CFF" stroke-width="0.5" opacity="0.07"/>
+      <line x1="0" y1="320" x2="400" y2="320" stroke="#2F5CFF" stroke-width="0.5" opacity="0.07"/>
+      <line x1="100" y1="0" x2="100" y2="400" stroke="#2F5CFF" stroke-width="0.5" opacity="0.07"/>
+      <line x1="300" y1="0" x2="300" y2="400" stroke="#2F5CFF" stroke-width="0.5" opacity="0.07"/>
+
+      <circle class="sg-dot1" cx="70" cy="130" r="1.5" fill="#2F5CFF"/>
+      <circle class="sg-dot2" cx="330" cy="100" r="1.5" fill="#2F5CFF"/>
+      <circle class="sg-dot3" cx="90" cy="310" r="1.5" fill="#2F5CFF"/>
+
+      <g class="sg-line"><line x1="200" y1="200" x2="200" y2="88" stroke="#2F5CFF" stroke-width="1" stroke-dasharray="120" fill="none"/></g>
+      <g class="sg-line"><line x1="200" y1="200" x2="88" y2="200" stroke="#2F5CFF" stroke-width="1" stroke-dasharray="120" fill="none"/></g>
+      <g class="sg-line"><line x1="200" y1="200" x2="312" y2="200" stroke="#2F5CFF" stroke-width="1" stroke-dasharray="120" fill="none"/></g>
+      <g class="sg-line"><line x1="200" y1="200" x2="200" y2="312" stroke="#2F5CFF" stroke-width="1" stroke-dasharray="120" fill="none"/></g>
+
+      <circle class="sg-center" cx="200" cy="200" r="26" fill="#111110" stroke="#2F5CFF" stroke-width="1"/>
+      <text class="sg-center" x="200" y="207" text-anchor="middle" fill="#2F5CFF" font-size="18" font-weight="700">×</text>
+
+      <circle class="sg-h" cx="200" cy="70" r="26" fill="#111110" stroke="#2F5CFF" stroke-width="0.5"/>
+      <text class="sg-h" x="200" y="77" text-anchor="middle" fill="#F5F5F2" font-size="15" font-weight="700">H</text>
+      <text class="sg-label" x="200" y="30" text-anchor="middle" fill="#8A8A85" font-size="10" letter-spacing="1">PROBLEM</text>
+
+      <circle class="sg-its" cx="70" cy="200" r="26" fill="#111110" stroke="#2F5CFF" stroke-width="0.5"/>
+      <text class="sg-its" x="70" y="207" text-anchor="middle" fill="#F5F5F2" font-size="15" font-weight="700">I</text>
+      <text class="sg-label" x="70" y="250" text-anchor="middle" fill="#8A8A85" font-size="10" letter-spacing="1">INSIGHT</text>
+
+      <circle class="sg-its" cx="330" cy="200" r="26" fill="#111110" stroke="#2F5CFF" stroke-width="0.5"/>
+      <text class="sg-its" x="330" y="207" text-anchor="middle" fill="#F5F5F2" font-size="15" font-weight="700">T</text>
+      <text class="sg-label" x="330" y="250" text-anchor="middle" fill="#8A8A85" font-size="10" letter-spacing="1">TALE</text>
+
+      <circle class="sg-its" cx="200" cy="330" r="26" fill="#111110" stroke="#2F5CFF" stroke-width="0.5"/>
+      <text class="sg-its" x="200" y="337" text-anchor="middle" fill="#F5F5F2" font-size="15" font-weight="700">S</text>
+      <text class="sg-label" x="200" y="375" text-anchor="middle" fill="#8A8A85" font-size="10" letter-spacing="1">SYSTEM</text>
+    </svg>
   </div>
 </section>
 
@@ -67,7 +102,6 @@
   <div class="wrap">
     <div class="section-head">
       <h2>WEEKLY HITS</h2>
-      <a href="/weekly/" class="see-all">전체 보기 →</a>
     </div>
     <div id="weekly-teaser-mount"></div>
     <div data-newsletter-inline="다음 HITS가 궁금하다면"></div>
@@ -94,7 +128,8 @@
       <div class="canvas-card"><p class="canvas-num">01 HOOK</p><p class="canvas-name">Hook Discovery Canvas</p></div>
       <div class="canvas-card"><p class="canvas-num">02 INSIGHT</p><p class="canvas-name">Insight Canvas</p></div>
       <div class="canvas-card"><p class="canvas-num">03 TALE</p><p class="canvas-name">Story Canvas</p></div>
-      <div class="canvas-card is-ready"><p class="canvas-num">04 MASTER</p><p class="canvas-name">HITS Master Canvas</p></div>
+      <div class="canvas-card"><p class="canvas-num">04 SYSTEM</p><p class="canvas-name">System Canvas</p></div>
+      <div class="canvas-card is-ready"><p class="canvas-num">05 MASTER</p><p class="canvas-name">HITS Master Canvas</p></div>
     </div>
   </div>
 </section>
@@ -117,9 +152,10 @@
     </div>
     <div class="book-info">
       <p class="eyebrow eyebrow-dark">BOOK</p>
-      <p class="book-title">HITS — 팔리는 상품의 비밀</p>
-      <p class="book-desc">16년차 상품기획자가 찾은 팔리는 상품의 곱셈 공식. Hook × Insight × Tale × System, 하나라도 0이면 전체가 0이다.</p>
-      <a href="#" class="btn btn-dark">책 구매하러 가기</a>
+      <p class="book-title">왜 좋은 상품이 팔리지 않는가?</p>
+      <p class="book-desc">16년간 수천 개의 상품을 기획하고 판매하며 발견한<br>팔리는 상품의 네 가지 법칙.</p>
+      <p class="hero-formula" style="margin-bottom:20px">HOOK × INSIGHT × TALE × SYSTEM</p>
+      <a href="#hits-letter" class="btn btn-dark">출간 소식 가장 먼저 받기 →</a>
     </div>
   </div>
 </section>
@@ -129,7 +165,7 @@
     <div>
       <p class="workwith-eyebrow">WORK WITH HITS</p>
       <p class="workwith-title">강연 · 기업교육 · Workshop · Partnership</p>
-      <p class="workwith-desc">HITS를 조직과 브랜드에 적용하고 싶다면 함께 이야기해 주세요.</p>
+      <p class="workwith-desc">HITS를 상품과 브랜드에 적용하고 싶다면 함께 이야기해 주세요.</p>
     </div>
     <a href="/work-with-hits/" class="btn btn-dark">Business Inquiry →</a>
   </div>
