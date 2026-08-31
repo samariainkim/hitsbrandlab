@@ -117,12 +117,14 @@ h1, h2, h3, p { margin: 0; }
 @keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 22%{opacity:0;stroke-dashoffset:120} 35%{opacity:.5;stroke-dashoffset:0} 90%{opacity:.5} 100%{opacity:0} }
 @keyframes fadeCenter { 0%{opacity:.12} 33%{opacity:.12} 43%{opacity:1} 90%{opacity:1} 100%{opacity:.12} }
 @keyframes fadeLabel { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.4} 90%{opacity:.4} 100%{opacity:0} }
+@keyframes fadeDiamond { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.25} 90%{opacity:.25} 100%{opacity:0} }
 @keyframes twinkle { 0%,100%{opacity:.15} 50%{opacity:.5} }
 .sg-h { animation: fadeH 14.5s ease-in-out infinite; }
 .sg-its { animation: fadeITS 14.5s ease-in-out infinite; }
 .sg-line { animation: drawLine 14.5s ease-in-out infinite; }
 .sg-center { animation: fadeCenter 14.5s ease-in-out infinite; }
 .sg-label { animation: fadeLabel 14.5s ease-in-out infinite; }
+.sg-diamond { animation: fadeDiamond 14.5s ease-in-out infinite; }
 .sg-dot1 { animation: twinkle 4s ease-in-out infinite; }
 .sg-dot2 { animation: twinkle 5s ease-in-out infinite .8s; }
 .sg-dot3 { animation: twinkle 3.6s ease-in-out infinite 1.6s; }
