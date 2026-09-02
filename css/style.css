@@ -250,20 +250,95 @@ h1, h2, h3, p { margin: 0; }
   .weekly-feature-img, .weekly-feature-text { width: 100%; }
 }
 
-/* Library — 데이터베이스형 테이블 */
-.library-table { background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
-.library-row { display: grid; grid-template-columns: 1.6fr 0.7fr 0.9fr 1fr 0.9fr; padding: 14px 16px; align-items: center; border-top: 0.5px solid var(--border-light); }
-.library-row.header-row { background: var(--bg-content); font-size: 10px; font-weight: 700; color: var(--text-secondary); border-top: none; padding: 12px 16px; }
-.library-row-title { font-size: 13px; font-weight: 700; color: var(--text-dark); }
-.library-row-tag { font-size: 11px; font-weight: 700; color: var(--accent); }
-.library-row-meta { font-size: 11px; color: var(--text-secondary); }
-.library-row-dots { display: flex; gap: 3px; }
-.library-row-dots .mini-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-light); }
-.library-row-dots .mini-dot.filled { background: var(--accent); }
+/* ==========================================================
+   About 페이지 — 02 WHY HITS / 04~07 H·I·T·S 보강
+   ========================================================== */
+.about-narrow { max-width: 680px; }
+.about-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin: 0 0 10px; }
+.about-question { font-size: 20px; font-weight: 900; color: var(--text-dark); margin: 0 0 24px; }
+.about-body p { font-size: 14px; line-height: 1.9; color: var(--text-dark); margin: 0 0 20px; }
+
+.hits-block { margin-bottom: 48px; }
+.hits-block:last-child { margin-bottom: 0; }
+.hits-block h2 { font-size: 17px; font-weight: 800; margin: 0 0 12px; }
+.hits-block > p { font-size: 13px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 16px; }
+.question-box { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; }
+.question-label { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; margin: 0 0 6px; }
+.question-text { font-size: 14px; font-weight: 700; color: var(--text-dark); margin: 0; }
+
+.flow-section { text-align: center; padding: 12px 0; }
+.flow-eyebrow { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin: 0 0 16px; }
+.flow-big { font-size: clamp(22px, 4vw, 30px); font-weight: 900; color: var(--text-dark); letter-spacing: 0.02em; margin: 0 0 16px; }
+.flow-mid { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px; }
+.flow-small { font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; margin: 0; }
+
+.multiply-section { background: var(--bg-main); padding: 64px 0; text-align: center; }
+.multiply-eyebrow { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin: 0 0 24px; }
+.multiply-formula { font-size: clamp(30px, 6vw, 44px); font-weight: 900; color: var(--text-light); letter-spacing: 0.03em; margin: 0 0 18px; }
+.multiply-slogan { font-size: 18px; font-weight: 800; color: var(--text-light); margin: 0 0 32px; }
+.multiply-fails { margin-bottom: 32px; }
+.multiply-fails p { font-size: 13px; color: var(--text-muted); line-height: 2; margin: 0; }
+.multiply-closing { font-size: 14px; font-weight: 700; color: var(--text-light); margin: 0; }
+
+/* Library — HERO 통계 */
+.library-stat { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
+.library-stat-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.05em; }
+.library-stat-num { font-size: 34px; font-weight: 900; color: var(--accent); }
+
+/* Library — EXPLORE CASES (3축 칩 필터, 다중선택) */
+.explore-cases { margin-bottom: 8px; }
+.explore-axis { margin-bottom: 20px; }
+.explore-axis-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; margin: 0 0 10px; }
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-family: inherit; font-size: 12px; font-weight: 600; background: var(--bg-white); border: 0.5px solid var(--border-light); color: var(--text-secondary); padding: 7px 14px; border-radius: 20px; cursor: pointer; }
+.chip.is-active { background: var(--accent); color: var(--text-light); border-color: var(--accent); }
+
+/* Library — ACTIVE FILTER */
+.active-filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 0; border-top: 0.5px solid var(--border-light); border-bottom: 0.5px solid var(--border-light); margin: 24px 0; }
+.active-filter-count { font-size: 13px; font-weight: 800; color: var(--text-dark); }
+.active-filter-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.active-chip { font-size: 11px; font-weight: 600; background: var(--bg-content); color: var(--text-dark); padding: 5px 10px; border-radius: 20px; cursor: pointer; }
+.filter-reset { font-size: 11px; font-weight: 700; color: var(--text-muted); background: none; border: none; cursor: pointer; font-family: inherit; }
+
+/* Library — CASE DATABASE (2열 카드 그리드) */
+.case-db-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.case-db-card { background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); padding: 22px; display: block; }
+.case-db-num { font-size: 10px; font-weight: 700; color: var(--text-muted); font-family: monospace; margin: 0 0 6px; }
+.case-db-brand { font-size: 12px; font-weight: 800; color: var(--text-dark); margin: 0 0 10px; }
+.case-db-question { font-size: 16px; font-weight: 900; color: var(--text-dark); line-height: 1.4; margin: 0 0 16px; }
+.case-db-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.case-db-tag { font-size: 10px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 3px 9px; border-radius: 20px; }
+.case-db-tag.signal { color: var(--accent); background: transparent; border: 0.5px solid var(--accent); }
+.case-db-cta { display: block; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 16px; }
 @media (max-width: 640px) {
-  .library-row { grid-template-columns: 1.4fr 0.6fr 0.8fr; }
-  .library-row .col-score, .library-row .col-date { display: none; }
+  .case-db-grid { grid-template-columns: 1fr; }
 }
+
+/* Library — 케이스 상세페이지 (SIGNAL/H/I/T/S 구조) */
+.case-detail-header { padding: 8px 0 24px; }
+.case-detail-num { font-size: 11px; font-weight: 700; color: var(--text-muted); font-family: monospace; margin: 0 0 8px; }
+.case-detail-brand { font-size: 12px; font-weight: 800; color: var(--accent); margin: 0 0 12px; }
+.case-detail-title { font-size: clamp(22px, 4vw, 28px); font-weight: 900; line-height: 1.4; margin: 0; }
+.case-section { padding: 28px 0; border-top: 0.5px solid var(--border-light); }
+.case-section-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin: 0 0 6px; }
+.case-section-q { font-size: 13px; font-weight: 700; color: var(--text-muted); margin: 0 0 14px; }
+.case-section p.case-body-text { font-size: 14px; line-height: 1.9; color: var(--text-dark); margin: 0; }
+.hits-point-box { background: var(--bg-content); border-radius: var(--radius); padding: 24px; margin: 8px 0; }
+.hits-point-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); margin: 0 0 10px; }
+.hits-point-text { font-size: 17px; font-weight: 800; color: var(--text-dark); line-height: 1.5; margin: 0; }
+.apply-box { border: 1px solid var(--accent); border-radius: var(--radius); padding: 22px; }
+.apply-label { font-size: 11px; font-weight: 700; color: var(--accent); margin: 0 0 10px; }
+.apply-text { font-size: 14px; font-weight: 700; color: var(--text-dark); line-height: 1.6; margin: 0; }
+.case-data-block { padding: 24px 0; }
+.case-data-title { font-size: 12px; font-weight: 800; color: var(--text-dark); margin: 0 0 14px; }
+.case-data-row { display: flex; gap: 10px; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; }
+.case-data-axis { font-size: 11px; font-weight: 700; color: var(--text-muted); width: 90px; flex-shrink: 0; }
+.case-data-values { display: flex; gap: 6px; flex-wrap: wrap; }
+.case-data-value { font-size: 11px; font-weight: 600; color: var(--text-dark); background: var(--bg-content); padding: 4px 10px; border-radius: 20px; cursor: pointer; }
+.case-canvas-cta { display: block; text-align: center; margin-top: 24px; }
+.library-more { text-align: center; padding: 24px 0; }
+.library-bottom-cta { background: var(--bg-content); border-radius: var(--radius); padding: 32px 24px; text-align: center; margin-top: 24px; }
+.library-bottom-cta p { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0 0 16px; }
 
 .score-bars { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
 .score-row { display: flex; align-items: center; gap: 10px; }
@@ -298,14 +373,48 @@ h1, h2, h3, p { margin: 0; }
 /* ==========================================================
    Insight
    ========================================================== */
-.insight-search { width: 100%; max-width: 320px; font-family: inherit; font-size: 13px; padding: 10px 14px; border-radius: 20px; border: 0.5px solid var(--border-light); background: var(--bg-white); margin-bottom: 20px; }
-.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.insight-card-img { border-radius: var(--radius) var(--radius) 0 0; }
-.insight-card-body { background: var(--bg-white); border: 0.5px solid var(--border-light); border-top: none; border-radius: 0 0 var(--radius) var(--radius); padding: 16px; }
-.insight-card-title { font-size: 15px; font-weight: 800; margin: 0 0 6px; }
-.insight-card-desc { font-size: 12px; color: var(--text-secondary); margin: 0 0 12px; line-height: 1.6; }
-.insight-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.insight-tag { font-size: 10px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 3px 9px; border-radius: 20px; }
+/* Insight — 카테고리 내비게이션 (필터 아님, 단일선택) */
+.insight-nav { display: flex; gap: 20px; flex-wrap: wrap; padding-bottom: 20px; }
+.insight-nav .chip { border: none; background: none; padding: 0 0 8px; border-radius: 0; border-bottom: 2px solid transparent; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.insight-nav .chip.is-active { color: var(--text-dark); font-weight: 700; border-bottom-color: var(--accent); }
+
+/* Insight — FEATURED */
+.insight-featured { display: flex; gap: 20px; flex-wrap: wrap; background: var(--bg-content); border-radius: var(--radius); padding: 28px; min-height: 220px; margin-bottom: 14px; }
+.insight-featured-text { flex: 1.3; min-width: 200px; display: flex; flex-direction: column; align-items: flex-start; }
+.insight-featured-label { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin: 0 0 12px; }
+.insight-featured-title { font-size: 19px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0 0 14px; }
+.insight-featured-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin: 0; }
+.insight-featured-time { font-size: 12px; font-weight: 700; color: var(--text-dark); margin: auto 0 0; }
+.insight-featured-img { flex: 1; min-width: 150px; border-radius: 10px; }
+
+/* Insight — Editorial Rhythm 그리드 (1-2-3) */
+.insight-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+.insight-card { background: var(--bg-content); border-radius: var(--radius); display: flex; flex-direction: column; align-items: flex-start; }
+.insight-card.is-large { grid-column: span 2; padding: 24px; flex-direction: row; justify-content: space-between; gap: 16px; min-height: 190px; }
+.insight-row-3 .insight-card { padding: 18px; min-height: 150px; }
+.insight-card-text { display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
+.insight-card-num { font-size: 10px; font-weight: 700; color: var(--accent); margin: 0 0 10px; }
+.insight-card-title { font-size: 13px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0; }
+.insight-row-2 .insight-card-title { font-size: 15px; }
+.insight-card-desc { font-size: 11px; color: var(--text-secondary); margin: 10px 0 0; }
+.insight-card-time { font-size: 11px; font-weight: 700; color: var(--text-dark); margin: auto 0 0; }
+.insight-idea-visual { background: var(--bg-main); border-radius: 8px; padding: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 70px; height: 70px; align-self: flex-start; text-align: center; font-size: 11px; font-weight: 900; color: var(--text-light); }
+
+/* Insight — 페이지네이션 */
+.insight-pager { display: flex; justify-content: center; gap: 8px; padding: 20px 0; }
+.page-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text-secondary); cursor: pointer; }
+.page-num.is-active { background: var(--text-dark); color: var(--text-light); }
+
+/* Insight — 홈 미리보기 (텍스트 전용 간단 카드) */
+.insight-preview-card { display: block; padding: 16px 0; border-bottom: 0.5px solid var(--border-light); }
+.insight-preview-cat { font-size: 10px; font-weight: 700; color: var(--accent); margin: 0 0 8px; }
+.insight-preview-title { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0 0 6px; }
+.insight-preview-desc { font-size: 12px; color: var(--text-secondary); margin: 0; }
+
+@media (max-width: 720px) {
+  .insight-row { grid-template-columns: 1fr; }
+  .insight-card.is-large { grid-column: span 1; flex-direction: column; }
+}
 
 .article-header { padding: 40px 0 20px; }
 .article-category { display: inline-block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
@@ -314,12 +423,25 @@ h1, h2, h3, p { margin: 0; }
 .article-body { font-size: 14px; line-height: 1.9; color: var(--text-dark); }
 .article-body h2 { font-size: 17px; font-weight: 800; margin: 36px 0 14px; }
 .article-body p { margin: 0 0 16px; }
+.article-narrow { max-width: 700px; }
+.key-sentence { font-size: 17px; font-weight: 800; color: var(--text-dark); line-height: 1.6; margin: 32px 0; text-align: center; }
 .article-image-caption { font-size: 11px; color: var(--text-muted); margin: 8px 0 20px; font-style: italic; }
 .impact-quote { background: var(--bg-content); border-radius: var(--radius); padding: 28px 24px; margin: 40px 0; text-align: center; }
 .impact-quote-label { font-size: 12px; color: var(--text-secondary); margin: 0 0 12px; }
 .impact-quote-text { font-size: 18px; font-weight: 900; line-height: 1.5; }
 .article-share { display: flex; gap: 10px; margin: 24px 0; }
 .share-btn { font-size: 12px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 8px 14px; border-radius: 20px; border: none; cursor: pointer; font-family: inherit; }
+
+.keep-thinking { padding: 28px 0; border-top: 0.5px solid var(--border-light); }
+.keep-thinking-label { font-size: 12px; font-weight: 800; color: var(--text-dark); margin: 0 0 16px; }
+.keep-thinking-item { display: block; padding: 12px 0; }
+.keep-thinking-title { font-size: 13px; font-weight: 700; color: var(--text-dark); margin: 0 0 4px; }
+.keep-thinking-cat { font-size: 10px; font-weight: 700; color: var(--accent); }
+
+.see-in-practice { background: var(--bg-content); border-radius: var(--radius); padding: 22px; margin: 20px 0; }
+.see-in-practice-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); margin: 0 0 12px; }
+.see-in-practice-link { display: block; font-size: 13px; font-weight: 700; color: var(--text-dark); padding: 6px 0; }
+
 .article-nav { display: flex; justify-content: space-between; padding: 20px 0; border-top: 0.5px solid var(--border-light); font-size: 13px; font-weight: 600; }
 
 /* ==========================================================
@@ -426,7 +548,6 @@ h1, h2, h3, p { margin: 0; }
    ========================================================== */
 @media (max-width: 720px) {
   .formula-grid { grid-template-columns: repeat(2, 1fr); }
-  .insight-grid { grid-template-columns: 1fr; }
   .contact-inner { grid-template-columns: 1fr; }
   .book-cover { width: 120px; }
 }

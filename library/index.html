@@ -16,20 +16,27 @@
   <div class="wrap">
     <p class="eyebrow">HITS LIBRARY</p>
     <h1>팔리는 상품에는 패턴이 있습니다.</h1>
-    <p>지금까지 분석한 <span class="count" id="library-count">-</span>개의 HITS</p>
+    <div class="library-stat">
+      <span class="library-stat-label">HITS ANALYZED</span>
+      <span class="library-stat-num" id="library-stat-num">-</span>
+    </div>
   </div>
 </section>
 
 <section class="section section-white">
   <div class="wrap">
-    <div class="filter-row" id="case-filters">
-      <button class="filter-chip" data-filter="all">전체</button>
-      <button class="filter-chip" data-filter="Hook">Hook</button>
-      <button class="filter-chip" data-filter="Insight">Insight</button>
-      <button class="filter-chip" data-filter="Tale">Tale</button>
-      <button class="filter-chip" data-filter="System">System</button>
+
+    <div class="explore-cases" id="explore-cases"></div>
+
+    <div class="active-filter-bar" id="active-filter-bar" style="display:none"></div>
+
+    <div class="case-db-grid" id="case-db-grid"></div>
+
+    <div class="library-bottom-cta">
+      <p>분석에서 끝내지 마세요.<br>당신의 상품에도 HITS를 적용해보세요.</p>
+      <a href="/canvas/" class="btn btn-accent">HITS CANVAS →</a>
     </div>
-    <div class="case-grid" id="case-grid"></div>
+
   </div>
 </section>
 

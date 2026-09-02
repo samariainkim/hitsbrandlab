@@ -137,18 +137,20 @@ function shortDate(dateStr) {
   return `${y.slice(2)}.${m}.${d}`;
 }
 
+/* ---------- Library: 홈 티저 (도서관 색인카드) ---------- */
 async function renderLibraryPreview() {
   const mount = document.getElementById('library-preview-mount');
   if (!mount) return;
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    const sorted = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber)).slice(0, 3);
+    const sorted = cases.slice().sort((a, b) => b.caseNumber.localeCompare(a.caseNumber)).slice(0, 3);
     const cards = sorted.map(c => {
+      const tag = (c.signal && c.signal[0]) || (c.category && c.category[0]) || '';
       const inner = `
-        <p class="lib-card-no">NO. ${c.issueNumber} · ${c.tag.toUpperCase()}</p>
+        <p class="lib-card-no">NO. ${c.caseNumber} · ${tag.toUpperCase()}</p>
         <p class="lib-card-title">${c.title}</p>
-        <p class="lib-card-meta">${c.category.toUpperCase()} / ${shortDate(c.publishDate)}</p>`;
+        <p class="lib-card-meta">${(c.category || []).join('·').toUpperCase()} / ${shortDate(c.publishDate)}</p>`;
       return c.hasDetail
         ? `<a class="lib-card" href="${c.detailUrl}">${inner}</a>`
         : `<div class="lib-card">${inner}</div>`;
@@ -161,122 +163,271 @@ async function renderLibraryPreview() {
   } catch (err) { console.error(err); }
 }
 
-/* ---------- Library: 행(row) 렌더링 공용 함수 ---------- */
-function scoreDotsHTML(scores) {
-  const total = scores ? (scores.hook + scores.insight + scores.tale + scores.system) : 0;
-  const avg = scores ? Math.round((scores.hook + scores.insight + scores.tale + scores.system) / 4) : 0;
-  let dots = '';
-  for (let i = 1; i <= 5; i++) {
-    dots += `<span class="mini-dot ${i <= avg ? 'filled' : ''}"></span>`;
-  }
-  return dots;
-}
-
-function libraryRowHTML(c) {
-  const dateStr = c.publishDate.replaceAll('-', '.');
+/* ---------- Library: 케이스 카드 (전체 페이지 CASE DATABASE) ---------- */
+function caseDbCardHTML(c) {
+  const tags = [...(c.category || []), ...(c.business || []), ...(c.signal || [])].slice(0, 5);
+  const tagsHTML = tags.map(t => {
+    const isSignal = (c.signal || []).includes(t);
+    return `<span class="case-db-tag ${isSignal ? 'signal' : ''}">${t}</span>`;
+  }).join('');
   const inner = `
-    <span class="library-row-title">#${c.issueNumber} ${c.title}</span>
-    <span class="library-row-tag">${c.tag}</span>
-    <span class="library-row-meta">${c.category}</span>
-    <span class="library-row-dots">${scoreDotsHTML(c.scores)}</span>
-    <span class="library-row-meta col-date">${dateStr}</span>`;
+    <p class="case-db-num">CASE ${c.caseNumber}</p>
+    <p class="case-db-brand">${c.brand}</p>
+    <p class="case-db-question">${c.question}</p>
+    <div class="case-db-tags">${tagsHTML}</div>
+    ${c.hasDetail ? '<span class="case-db-cta">H × I × T × S →</span>' : ''}`;
   return c.hasDetail
-    ? `<a class="library-row" href="${c.detailUrl}">${inner}</a>`
-    : `<div class="library-row" style="opacity:.75">${inner}</div>`;
+    ? `<a class="case-db-card" href="${c.detailUrl}">${inner}</a>`
+    : `<div class="case-db-card" style="opacity:.7">${inner}</div>`;
 }
 
-function libraryTableHTML(list, withHeader) {
-  const header = withHeader ? `
-    <div class="library-row header-row">
-      <span>사례</span><span>HITS</span><span>카테고리</span><span>스코어</span><span class="col-date">발행일</span>
-    </div>` : '';
-  return `<div class="library-table">${header}${list.map(libraryRowHTML).join('')}</div>`;
-}
-
-/* ---------- Library: 전체 페이지 (필터 + 카운트) ---------- */
+/* ---------- Library: 전체 페이지 — EXPLORE CASES 다중선택 필터 ---------- */
 let allCases = [];
+const AXES = {
+  category: ['식품', '뷰티', '패션', '리빙', '테크', '모빌리티', '금융', '여행', '렌탈', '생활'],
+  business: ['제조', '유통', '플랫폼', 'D2C', '구독', '멤버십', '서비스'],
+  signal: ['문제재정의', '차별화', '컨셉', '프리미엄', '가격혁신', 'UX혁신', '스토리', '팬덤', '재구매', '카테고리확장']
+};
+let selected = { category: new Set(), business: new Set(), signal: new Set() };
+
+function parseFiltersFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  ['category', 'business', 'signal'].forEach(axis => {
+    const val = params.get(axis);
+    if (val) selected[axis] = new Set(val.split(','));
+  });
+}
+
+function updateURL() {
+  const params = new URLSearchParams();
+  ['category', 'business', 'signal'].forEach(axis => {
+    if (selected[axis].size) params.set(axis, [...selected[axis]].join(','));
+  });
+  const qs = params.toString();
+  history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+}
+
 async function initLibraryPage() {
-  const grid = document.getElementById('case-grid');
-  const filterRow = document.getElementById('case-filters');
-  const countEl = document.getElementById('library-count');
+  const grid = document.getElementById('case-db-grid');
+  const explore = document.getElementById('explore-cases');
+  const statEl = document.getElementById('library-stat-num');
   if (!grid) return;
 
   try {
     const res = await fetch('/data/cases.json');
     allCases = await res.json();
+    if (statEl) statEl.textContent = allCases.length;
 
-    const params = new URLSearchParams(window.location.search);
-    const initialFilter = params.get('hits') || 'all';
+    parseFiltersFromURL();
 
-    renderLibraryGrid(initialFilter);
-    if (countEl) countEl.textContent = allCases.length;
+    if (explore) {
+      explore.innerHTML = Object.entries(AXES).map(([axis, values]) => `
+        <div class="explore-axis">
+          <p class="explore-axis-label">${axis.toUpperCase()}</p>
+          <div class="chip-row" data-axis="${axis}">
+            ${values.map(v => `<button class="chip ${selected[axis].has(v) ? 'is-active' : ''}" data-value="${v}">${v}</button>`).join('')}
+          </div>
+        </div>`).join('');
 
-    if (filterRow) {
-      const target = filterRow.querySelector(`[data-filter="${initialFilter}"]`) || filterRow.querySelector('[data-filter="all"]');
-      filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
-      target.classList.add('is-active');
-
-      filterRow.addEventListener('click', (e) => {
-        const btn = e.target.closest('.filter-chip');
+      explore.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip');
         if (!btn) return;
-        filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        renderLibraryGrid(btn.dataset.filter);
+        const axis = btn.closest('.chip-row').dataset.axis;
+        const value = btn.dataset.value;
+        if (selected[axis].has(value)) selected[axis].delete(value);
+        else selected[axis].add(value);
+        btn.classList.toggle('is-active');
+        updateURL();
+        renderLibraryResults();
+        renderActiveFilterBar();
       });
     }
+
+    renderLibraryResults();
+    renderActiveFilterBar();
   } catch (err) {
     grid.innerHTML = '<p style="font-size:13px;color:#6B6A66">사례 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해주세요.</p>';
     console.error(err);
   }
 }
 
-function renderLibraryGrid(filter) {
-  const grid = document.getElementById('case-grid');
-  const list = filter === 'all' ? allCases : allCases.filter(c => c.tag === filter);
-  const sorted = list.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber));
-  grid.innerHTML = libraryTableHTML(sorted, true);
+function matchesFilters(c) {
+  return ['category', 'business', 'signal'].every(axis => {
+    if (!selected[axis].size) return true;
+    const values = c[axis] || [];
+    return [...selected[axis]].some(v => values.includes(v));
+  });
 }
 
-/* ---------- Insight: 그리드 (홈 미리보기 + 전체 목록 공용) ---------- */
-let allArticles = [];
+function renderLibraryResults() {
+  const grid = document.getElementById('case-db-grid');
+  const list = allCases.filter(matchesFilters).sort((a, b) => b.caseNumber.localeCompare(a.caseNumber));
+  grid.innerHTML = list.length
+    ? list.map(caseDbCardHTML).join('')
+    : '<p style="font-size:13px;color:#6B6A66;grid-column:1/-1">조건에 맞는 사례가 아직 없습니다.</p>';
+}
+
+function renderActiveFilterBar() {
+  const bar = document.getElementById('active-filter-bar');
+  if (!bar) return;
+  const total = [...selected.category, ...selected.business, ...selected.signal];
+  const count = allCases.filter(matchesFilters).length;
+
+  if (!total.length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+
+  const chips = total.map(v => `<span class="active-chip" data-value="${v}">${v} ×</span>`).join('');
+  bar.innerHTML = `
+    <span class="active-filter-count">${count} CASES</span>
+    <div class="active-filter-chips">${chips}</div>
+    <button class="filter-reset" id="filter-reset-btn">RESET</button>`;
+
+  bar.querySelectorAll('.active-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const val = chip.dataset.value;
+      ['category', 'business', 'signal'].forEach(axis => selected[axis].delete(val));
+      document.querySelectorAll(`.chip[data-value="${val}"]`).forEach(c => c.classList.remove('is-active'));
+      updateURL();
+      renderLibraryResults();
+      renderActiveFilterBar();
+    });
+  });
+  const resetBtn = document.getElementById('filter-reset-btn');
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    selected = { category: new Set(), business: new Set(), signal: new Set() };
+    document.querySelectorAll('.chip.is-active').forEach(c => c.classList.remove('is-active'));
+    updateURL();
+    renderLibraryResults();
+    renderActiveFilterBar();
+  });
+}
+
+/* ---------- Insight: 홈 미리보기 (간단 2열, 이미지 없음) ---------- */
 async function renderInsightGrid(mountId, limit) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
   try {
     const res = await fetch('/data/articles.json');
-    allArticles = await res.json();
-    paintInsightGrid(mountId, limit ? allArticles.slice(0, limit) : allArticles);
-
-    const filterRow = document.getElementById('insight-filters');
-    if (filterRow && !limit) {
-      filterRow.addEventListener('click', (e) => {
-        const btn = e.target.closest('.filter-chip');
-        if (!btn) return;
-        filterRow.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        const cat = btn.dataset.filter;
-        const list = cat === 'all' ? allArticles : allArticles.filter(a => a.category === cat);
-        paintInsightGrid(mountId, list);
-      });
-    }
+    const articles = await res.json();
+    const sorted = articles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+    const list = limit ? sorted.slice(0, limit) : sorted;
+    mount.innerHTML = list.map(a => `
+      <a class="insight-preview-card" href="${a.url}">
+        <p class="insight-preview-cat">${a.category}</p>
+        <p class="insight-preview-title">${a.title}</p>
+        <p class="insight-preview-desc">${a.excerpt}</p>
+      </a>`).join('');
   } catch (err) { console.error(err); }
 }
 
-function paintInsightGrid(mountId, articles) {
-  const mount = document.getElementById(mountId);
-  articles = articles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
-  mount.innerHTML = articles.map(a => `
-      <a href="${a.url}">
-        <div class="image-slot insight-card-img light-slot" style="--ratio:4/3">
-          <div class="slot-placeholder small">이미지</div>
-        </div>
-        <div class="insight-card-body">
-          <p class="insight-card-title">${a.title}</p>
-          <p class="insight-card-desc">${a.excerpt}</p>
-          <div class="insight-tags">${a.tags.map(t => `<span class="insight-tag">#${t}</span>`).join('')}</div>
-        </div>
-      </a>`).join('');
+/* ---------- Insight: 전체 페이지 (Featured + 1-2-3 Editorial Rhythm + 페이지네이션) ---------- */
+let allArticles = [];
+let insightPage = 1;
+const INSIGHT_PER_PAGE = 5; // 2(큰+작은) + 3(균등) = 5개(Featured 제외)
+
+async function initInsightPage() {
+  const featuredMount = document.getElementById('insight-featured-mount');
+  const gridMount = document.getElementById('insight-grid-mount');
+  const nav = document.getElementById('insight-nav');
+  if (!gridMount) return;
+
+  try {
+    const res = await fetch('/data/articles.json');
+    allArticles = await res.json();
+
+    if (nav) {
+      nav.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip');
+        if (!btn) return;
+        nav.querySelectorAll('.chip').forEach(c => c.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        insightPage = 1;
+        paintInsightPage(btn.dataset.filter);
+      });
+    }
+
+    paintInsightPage('all');
+  } catch (err) { console.error(err); }
 }
+
+function paintInsightPage(filter) {
+  const featuredMount = document.getElementById('insight-featured-mount');
+  const gridMount = document.getElementById('insight-grid-mount');
+  const pagerMount = document.getElementById('insight-pager');
+
+  const sorted = allArticles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+  const filtered = filter === 'all' ? sorted : sorted.filter(a => a.category === filter);
+
+  const featured = filtered.find(a => a.featured) || filtered[0];
+  const rest = filtered.filter(a => a !== featured);
+
+  if (featuredMount) {
+    featuredMount.innerHTML = featured ? featuredCardHTML(featured) : '';
+  }
+
+  const totalPages = Math.max(1, Math.ceil(rest.length / INSIGHT_PER_PAGE));
+  if (insightPage > totalPages) insightPage = 1;
+  const pageItems = rest.slice((insightPage - 1) * INSIGHT_PER_PAGE, insightPage * INSIGHT_PER_PAGE);
+  const row2 = pageItems.slice(0, 2);
+  const row3 = pageItems.slice(2, 5);
+
+  let html = '';
+  if (row2.length) {
+    html += `<div class="insight-row insight-row-2">${row2.map((a, i) => insightCardHTML(a, i === 0)).join('')}</div>`;
+  }
+  if (row3.length) {
+    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a, false)).join('')}</div>`;
+  }
+  gridMount.innerHTML = html || '<p style="font-size:13px;color:#6B6A66">아직 글이 없습니다.</p>';
+
+  if (pagerMount) {
+    if (totalPages <= 1) { pagerMount.innerHTML = ''; }
+    else {
+      let pagerHTML = '';
+      for (let i = 1; i <= totalPages; i++) {
+        pagerHTML += `<span class="page-num ${i === insightPage ? 'is-active' : ''}" data-page="${i}">${i}</span>`;
+      }
+      pagerMount.innerHTML = pagerHTML;
+      pagerMount.querySelectorAll('.page-num').forEach(el => {
+        el.addEventListener('click', () => {
+          insightPage = parseInt(el.dataset.page, 10);
+          const activeFilter = document.querySelector('#insight-nav .chip.is-active');
+          paintInsightPage(activeFilter ? activeFilter.dataset.filter : 'all');
+        });
+      });
+    }
+  }
+}
+
+function featuredCardHTML(a) {
+  return `
+    <a class="insight-featured" href="${a.url}">
+      <div class="insight-featured-text">
+        <p class="insight-featured-label">FEATURED · ${a.category}</p>
+        <p class="insight-featured-title">${a.title}</p>
+        <p class="insight-featured-desc">${a.excerpt}</p>
+        <p class="insight-featured-time">${a.readTime} READ →</p>
+      </div>
+      <div class="image-slot light-slot insight-featured-img" style="--ratio:4/3">
+        <div class="slot-placeholder small">대표 이미지</div>
+      </div>
+    </a>`;
+}
+
+function insightCardHTML(a, withVisual) {
+  const visual = withVisual ? `<div class="insight-idea-visual">${a.tags[0] || ''}</div>` : '';
+  return `
+    <a class="insight-card ${withVisual ? 'is-large' : ''}" href="${a.url}">
+      <div class="insight-card-text">
+        <p class="insight-card-num">INSIGHT · ${a.category}</p>
+        <p class="insight-card-title">${a.title}</p>
+        ${withVisual ? `<p class="insight-card-desc">${a.excerpt}</p>` : ''}
+        <p class="insight-card-time">${a.readTime} READ →</p>
+      </div>
+      ${visual}
+    </a>`;
+}
+
 
 /* ---------- Canvas Master: 로컬 저장 + 검토요청 ---------- */
 function initCanvasMasterForm() {
@@ -308,14 +459,21 @@ async function renderRelatedCounts() {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
     els.forEach(el => {
-      const tag = el.dataset.tag;
+      const signal = el.dataset.signal;
       const excludeId = el.dataset.exclude;
-      const count = cases.filter(c => c.tag === tag && c.id !== excludeId).length;
-      el.textContent = `${tag}이(가) 강한 다른 사례 ${count}개 보기 →`;
-      el.setAttribute('href', `/library/?hits=${tag}`);
+      const count = cases.filter(c => (c.signal || []).includes(signal) && c.id !== excludeId).length;
+      el.textContent = `#${signal} 다른 사례 ${count}개 보기 →`;
+      el.setAttribute('href', `/library/?signal=${encodeURIComponent(signal)}`);
     });
   } catch (err) { console.error(err); }
 }
+
+/* ---------- CASE DATA 태그 클릭 → Library 필터 이동 ---------- */
+document.addEventListener('click', (e) => {
+  const val = e.target.closest('.case-data-value');
+  if (!val) return;
+  window.location.href = `/library/?${val.dataset.axis}=${encodeURIComponent(val.textContent)}`;
+});
 
 /* ---------- 진단 버튼 (히어로) ---------- */
 function initDiagnoseButton() {
@@ -346,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLibraryPreview();
   initLibraryPage();
   renderInsightGrid('insight-preview-mount', 2);
-  renderInsightGrid('insight-grid-mount', null);
+  initInsightPage();
   renderRelatedCounts();
 
   document.querySelectorAll('[data-newsletter-inline]').forEach((el, idx) => {
