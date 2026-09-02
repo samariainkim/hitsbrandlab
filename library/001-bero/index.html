@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BERO — 술을 덜 마시는 시대, 맥주는 무엇을 팔아야 할까? | HITS Brand Lab</title>
+<meta name="description" content="톰 홀랜드의 무알콜 맥주 BERO가 보여준 '술 없는 맥주'의 새로운 가능성.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+:root{
+  --black:#111110;--paper:#F5F5F2;--white:#fff;--ink:#111110;
+  --muted:#6B6A66;--line:#DEDDD8;--blue:#2F5CFF;--soft:#F5F5F2;
+  --max:1140px;--read:820px;
+}
+.bero *{box-sizing:border-box}
+.bero{background:var(--paper);color:var(--ink);
+font-family:Pretendard,Inter,"Noto Sans KR",Arial,sans-serif;line-height:1.78}
+.bero img{width:100%;display:block}
+.bero .wrap{width:min(calc(100% - 40px),var(--max));margin:auto}
+.bero .read{width:min(calc(100% - 40px),var(--read));margin:auto}
+.bero .dark{background:var(--black);color:#fff}
+.bero .eyebrow{font-size:11px;letter-spacing:.09em;font-weight:800;color:var(--blue);text-transform:uppercase}
+.bero .hero{padding-bottom:64px}
+.bero .hero-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:48px;align-items:center;padding-top:50px}
+.bero .hero h1{font-size:clamp(44px,6.2vw,72px);line-height:.98;letter-spacing:-.05em;margin:10px 0 18px}
+.bero .hero h2{font-size:clamp(28px,3.8vw,44px);line-height:1.18;letter-spacing:-.04em;margin:0 0 20px}
+.bero .deck{max-width:580px;color:#c5c7cf;font-size:16px}
+.bero .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.bero .tag{font-size:11px;padding:6px 10px;border:1px solid #34363d;border-radius:999px;color:#ddd}
+.bero .meta{font-size:11px;color:#989ba5;margin-top:18px}
+.bero .hero-img{border-radius:4px;overflow:hidden;background:#e8e3d9}
+.bero .hero-img img{aspect-ratio:16/10;object-fit:cover}
+.bero .section{padding:82px 0}
+.bero .chapter{padding:92px 0}
+.bero .kicker{font-size:11px;color:var(--blue);letter-spacing:.08em;font-weight:800;margin-bottom:12px}
+.bero h3{font-size:clamp(28px,3.5vw,40px);line-height:1.2;letter-spacing:-.035em;margin:0 0 24px}
+.bero h4{font-size:28px;line-height:1.32;letter-spacing:-.03em;margin:0 0 18px}
+.bero p{margin:0 0 18px;font-size:16px}
+.bero .lead{font-size:19px;line-height:1.64;letter-spacing:-.015em}
+.bero .dropcap:first-letter{float:left;font-size:58px;line-height:.82;padding:8px 9px 0 0;font-weight:800}
+.bero .pull{font-size:clamp(26px,3.2vw,34px);line-height:1.42;font-weight:800;letter-spacing:-.03em;margin:46px 0}
+.bero .signal{display:grid;grid-template-columns:1.35fr repeat(3,.65fr);gap:14px}
+.bero .signal > div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+.bero .stat b{display:block;color:var(--blue);font-size:34px;line-height:1.05}
+.bero .stat small{display:block;color:var(--muted);margin-top:8px;font-size:11px}
+.bero .image-break{padding:0;background:#000}
+.bero .image-break .wrap{width:min(100%,1320px)}
+.bero .image-break img{max-height:680px;object-fit:cover}
+.bero .hits-head{display:grid;grid-template-columns:88px 1fr;gap:20px;align-items:start;margin-bottom:34px}
+.bero .letter{font-size:68px;line-height:.9;color:var(--blue);font-weight:900}
+.bero .article-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:52px;align-items:start}
+.bero .side{position:sticky;top:28px}
+.bero .visual{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.bero .visual .row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line)}
+.bero .visual .row:last-child{border-bottom:0}
+.bero .key{margin-top:20px;background:var(--soft);padding:16px;border-radius:10px;font-weight:700;font-size:15px}
+.bero .full-quote{padding:62px 0;background:#111110;color:#fff}
+.bero .full-quote blockquote{margin:0;font-size:clamp(26px,3.6vw,42px);line-height:1.38;letter-spacing:-.035em;font-weight:700}
+.bero .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.bero .flow div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.bero .flow b{display:block;color:var(--blue);font-size:27px;margin-bottom:8px}
+.bero .point{display:grid;grid-template-columns:1.2fr .8fr;gap:58px;align-items:start}
+.bero .point h3{font-size:clamp(34px,4.3vw,46px)}
+.bero .apply{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+.bero .btn{background:var(--blue);color:#fff;padding:13px 17px;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none}
+.bero .tag-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.bero .tax-tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;font-size:12px;color:#4b4e57;text-decoration:none}
+.bero .case-id{margin-top:18px;color:var(--muted);font-size:11px;letter-spacing:.04em}
+.bero .more-cases{margin-top:58px;text-align:center;padding:32px 0}
+@media(max-width:900px){
+.bero .hero-grid,.bero .article-grid,.bero .point,.bero .apply{grid-template-columns:1fr}
+.bero .signal{grid-template-columns:1fr 1fr}.bero .signal>div:first-child{grid-column:1/-1}
+.bero .side{position:static}.bero .flow{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+.bero .hero-grid{padding-top:34px}.bero .hero{padding-bottom:46px}
+.bero .section,.bero .chapter{padding:62px 0}.bero .signal{grid-template-columns:1fr}.bero .signal>div:first-child{grid-column:auto}
+.bero .hits-head{grid-template-columns:54px 1fr}.bero .letter{font-size:52px}.bero .flow{grid-template-columns:1fr}
+.bero .pull{margin:34px 0}.bero p{font-size:15.5px}.bero .lead{font-size:18px}
+}
+</style>
+</head>
+<body class="bero" data-nav="library">
+
+<div id="site-header-mount"></div>
+
+<header class="dark hero">
+<div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">WEEKLY HITS · CASE 001</div>
+      <h1>BERO</h1>
+      <h2>술을 덜 마시는 시대,<br>맥주는 무엇을 팔아야 할까?</h2>
+      <p class="deck">톰 홀랜드의 무알콜 맥주 BERO가 보여준 '술 없는 맥주'의 새로운 가능성.</p>
+      <div class="tags"><span class="tag">식음료</span><span class="tag">D2C</span><span class="tag">프리미엄</span><span class="tag">문제재정의</span><span class="tag">팬덤</span></div>
+      <div class="meta">HITS 001 · 8 MIN READ</div>
+    </div>
+    <figure class="hero-img"><img src="/images/library/bero/hero.png" alt="BERO 제품을 든 톰 홀랜드"></figure>
+  </div>
+</div>
+</header>
+
+<section class="section">
+<div class="wrap signal">
+  <div>
+    <div class="kicker">01 · MARKET SIGNAL</div>
+    <h3>술을 덜 마시는 시대가 왔다.<br>하지만 술자리까지 사라진 것은 아니다.</h3>
+    <p>사람들은 술을 완전히 끊기보다 상황에 따라 줄이거나, 가볍게 즐기거나, 아예 알코올이 없는 선택지를 고르기 시작했다. 중요한 변화는 'Drink / Don't Drink'의 이분법이 무너지고 있다는 점이다.</p>
+  </div>
+  <div class="stat"><b>20%+</b><small>빠르게 커지는 무알콜 카테고리</small></div>
+  <div class="stat"><b>$100M+</b><small>BERO 투자 과정에서 거론된 기업가치 수준</small></div>
+  <div class="stat"><b>3×</b><small>첫해 대비 다음 해 매출 목표 성장폭</small></div>
+</div>
+</section>
+
+<section class="chapter">
+<div class="read">
+  <div class="kicker">CASE OPENING</div>
+  <h3>사람들이 원한 것은 '술을 마시지 않는 것'만이 아니었다.</h3>
+  <p class="lead dropcap">술을 덜 마시는 사람들이 늘고 있다. 그렇다고 사람들이 술자리를 싫어하게 된 것은 아니다. 친구와 만나고 싶고, 분위기를 즐기고 싶고, 잔을 부딪치고 싶다. 다만 다음 날의 숙취와 취한 상태까지 원하는 것은 아니다.</p>
+  <p>이 작은 차이가 지금 주류시장을 흔들고 있다. 과거의 무알콜 맥주는 술을 마실 수 없을 때 택하는 대체재에 가까웠다. 하지만 오늘의 고객은 다르다. 평소에는 술을 마시지만 오늘은 마시고 싶지 않은 사람, 저녁 약속은 즐기고 싶지만 내일 아침 운동도 포기하고 싶지 않은 사람, 취하지 않은 채 분위기만 함께하고 싶은 사람이 시장 안으로 들어오고 있다.</p>
+  <p>그 변화의 한가운데에서 흥미로운 브랜드 하나가 등장했다. <b>BERO.</b> 배우 톰 홀랜드가 자신의 금주 경험에서 출발해 만든 프리미엄 무알콜 맥주 브랜드다.</p>
+  <p class="pull">유명인이 맥주를 만들었다는 사실보다 더 흥미로운 것은, 그가 발견한 문제가 무엇이었느냐는 점이다.</p>
+</div>
+</section>
+
+<section class="image-break">
+<div class="wrap"><img src="/images/library/bero/break.png" alt="BERO 제품 패키지 6종"></div>
+</section>
+
+<section class="chapter">
+<div class="wrap">
+  <div class="hits-head"><div class="letter">H</div><div><div class="eyebrow">HOOK</div><h3>고객이 버리고 싶었던 것은<br>술이 아니라 알코올이었다.</h3></div></div>
+  <div class="article-grid">
+    <article>
+      <p class="lead">2022년 톰 홀랜드는 금주에 도전했다. 한 달로 시작했던 시도는 길어졌고, 그는 술을 마시지 않는 삶이 자신에게 더 잘 맞는다는 것을 깨달았다.</p>
+      <p>그런데 예상하지 못한 불편함이 생겼다. 술은 마시고 싶지 않았지만, 맥주를 마시던 순간까지 사라지는 것은 원하지 않았다. 친구들과 바에 앉아 잔을 들고 이야기하는 시간, 하루를 마무리하며 차가운 맥주를 마시는 느낌, 축하할 때 자연스럽게 잔을 드는 행동까지 포기하고 싶은 것은 아니었다.</p>
+      <p>바로 여기서 문제의 정의가 달라진다. 표면적으로 보면 고객의 문제는 <b>"알코올을 마시고 싶지 않다"</b>이다. 하지만 한 단계 더 들어가면 진짜 문제는 <b>"알코올은 원하지 않지만 맥주를 마시는 경험은 포기하고 싶지 않다"</b>가 된다.</p>
+      <p>첫 번째 문제에 답하면 알코올을 제거한 음료가 만들어진다. 두 번째 문제에 답하면 알코올 없이도 맥주다운 경험을 제공해야 한다. BERO는 후자를 선택했다.</p>
+      <div class="key">HITS KEY · 고객이 버리고 싶었던 것은 술이 아니라 알코올이었다.</div>
+    </article>
+    <aside class="side visual">
+      <div class="kicker">HOOK VISUAL</div>
+      <div class="row"><b>WANT</b><span>맥주의 맛과 경험</span></div>
+      <div class="row"><b>DON'T WANT</b><span>알코올과 숙취</span></div>
+      <div style="font-size:23px;font-weight:900;text-align:center;padding:26px 0 8px">DRINKING ≠ ALCOHOL</div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section class="chapter" style="background:#EFEFEC">
+<div class="wrap">
+  <div class="hits-head"><div class="letter">I</div><div><div class="eyebrow">INSIGHT</div><h3>'무알콜 맥주'가 아니라<br>'좋은 맥주'를 만들었다.</h3></div></div>
+  <div class="article-grid">
+    <article>
+      <p class="lead">문제를 제대로 정의하면 상품의 설계 기준도 달라진다.</p>
+      <p>BERO가 해결해야 할 문제는 단순히 알코올 함량을 낮추는 것이 아니었다. "술을 마시지 않는 날에도 기꺼이 선택할 만한 맥주를 만들 수 있는가?"가 더 중요한 질문이었다.</p>
+      <p>그래서 제품은 대체 음료의 논리가 아니라 맥주의 논리로 설계됐다. 맛, 향, 탄산, 피니시가 중심이 되고, '무알콜인데 이 정도면 괜찮다'가 아니라 '맥주로서 맛있다'가 목표가 된다.</p>
+      <p>이 차이는 작아 보이지만 상품기획에서는 결정적이다. 대체재가 원본과 경쟁하려면 무엇을 제거했는지가 아니라 무엇을 끝까지 남겨두었는지가 중요하다.</p>
+      <div class="key">HITS KEY · 대체재가 원본과 경쟁하려면 '없는 것'보다 '남아 있는 것'을 설계해야 한다.</div>
+    </article>
+    <aside class="side visual">
+      <div class="kicker">PRODUCT LOGIC</div>
+      <div class="row"><b>기존 접근</b><span>알코올 제거 → 대체재</span></div>
+      <div class="row"><b>BERO</b><span>맛·향·탄산 → 선택되는 맥주</span></div>
+      <div class="row"><b>기준</b><span>무알콜 카테고리 → 맥주 카테고리</span></div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section class="chapter">
+<div class="wrap">
+  <div class="hits-head"><div class="letter">T</div><div><div class="eyebrow">TALE</div><h3>톰 홀랜드의 실제 경험이<br>브랜드의 이야기가 되었다.</h3></div></div>
+  <div class="article-grid">
+    <article>
+      <p class="lead">BERO에서 톰 홀랜드는 광고모델이 아니다. 그가 왜 이 상품을 만들었는지가 브랜드의 시작점이다.</p>
+      <p>제품 이름에도 그의 개인사가 들어간다. Kingston Golden Pils는 그가 자란 지역에서, Edge Hill Hazy IPA는 어린 시절의 기억에서, Noon Wheat는 가까운 삶의 요소에서 이름을 가져온다. 소비자는 제품을 마시면서 동시에 창업자의 이야기를 접한다.</p>
+      <p>이런 구조는 전통적인 셀럽 마케팅과 다르다. 일반적으로는 이미 존재하는 브랜드에 유명인을 붙인다. BERO는 반대로 개인의 실제 경험에서 브랜드가 태어난다.</p>
+      <p>셀럽의 인지도를 빌리는 것이 아니라, 셀럽의 경험을 상품이 존재해야 하는 이유로 바꾼 것이다.</p>
+      <div class="key">HITS KEY · 가장 강한 브랜드 스토리는 만들어낸 이야기가 아니라, 상품이 존재해야 하는 이유다.</div>
+    </article>
+    <aside class="side visual">
+      <div class="kicker">BRAND STORY</div>
+      <div class="row"><b>KINGSTON</b><span>고향의 기억</span></div>
+      <div class="row"><b>EDGE HILL</b><span>어린 시절의 기억</span></div>
+      <div class="row"><b>NOON</b><span>개인적 삶의 조각</span></div>
+      <div style="padding-top:22px;font-weight:900">EXPERIENCE → BRAND</div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section class="full-quote">
+<div class="read">
+  <div class="kicker">THE DIFFERENCE</div>
+  <blockquote>유명세는 첫 관심을 만들 수 있다.<br>하지만 브랜드가 오래가는 이유까지 만들어주지는 않는다.</blockquote>
+</div>
+</section>
+
+<section class="chapter">
+<div class="wrap">
+  <div class="hits-head"><div class="letter">S</div><div><div class="eyebrow">SYSTEM</div><h3>한 번의 호기심을<br>다음 선택으로 연결한다.</h3></div></div>
+  <div class="article-grid">
+    <article>
+      <p class="lead">셀럽 브랜드의 가장 큰 강점은 셀럽이고, 가장 큰 약점 역시 셀럽이다.</p>
+      <p>처음에는 이름만으로 고객을 불러올 수 있다. 그러나 두 번째 구매를 만드는 것은 상품과 구조다. BERO는 제품 라인업을 확장하고, D2C를 넘어 리테일 채널로 접점을 넓히고, 멤버십과 파트너십으로 브랜드와 고객이 다시 만날 이유를 만들어간다.</p>
+      <p>HITS의 System 관점에서 보면 핵심은 조직이나 운영 매뉴얼이 아니다. <b>Repeat → Scale → Sustain → Fan.</b> 다시 사고, 더 넓은 시장에서 만나고, 브랜드 경험을 이어가고, 결국 팬으로 발전시키는 구조다.</p>
+      <p>톰 홀랜드라는 유명세가 BERO의 문을 열었다면, 그다음 성장을 만드는 것은 결국 이 반복 구조다.</p>
+      <div class="key">HITS KEY · 셀럽은 첫 구매를 만들 수 있다. 시스템은 그다음 구매를 만든다.</div>
+    </article>
+    <aside class="side visual">
+      <div class="kicker">SYSTEM LOOP</div>
+      <div class="row"><b>REPEAT</b><span>제품 · 재구매</span></div>
+      <div class="row"><b>SCALE</b><span>리테일 · 해외</span></div>
+      <div class="row"><b>SUSTAIN</b><span>웰니스 · 라이프스타일</span></div>
+      <div class="row"><b>FAN</b><span>협업 · 한정판 · 관계</span></div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section class="section" style="background:#EFEFEC">
+<div class="wrap">
+  <div class="kicker">03 · HITS CONNECTION</div>
+  <h3>네 가지가 따로 잘한 것이 아니다.<br>서로 연결되어 있었다.</h3>
+  <div class="flow">
+    <div><b>H</b>알코올은 싫지만<br>맥주 경험은 원한다.</div>
+    <div><b>I</b>맥주다운<br>프리미엄 무알콜을 만든다.</div>
+    <div><b>T</b>실제 금주 경험을<br>브랜드 스토리로 만든다.</div>
+    <div><b>S</b>제품·유통·관계로<br>다음 선택을 만든다.</div>
+  </div>
+</div>
+</section>
+
+<section class="section dark">
+<div class="wrap point">
+  <div>
+    <div class="kicker">04 · HITS POINT</div>
+    <h3>술을 덜 마시는 시대에 필요한 것은 술을 덜 파는 방법이 아니다.<br><br>맥주가 무엇을 파는 상품인지 다시 정의하는 일이다.</h3>
+  </div>
+  <div>
+    <p class="lead">고객이 버리고 싶은 것과 끝까지 포기하고 싶지 않은 것을 구분하라.</p>
+    <p>누군가는 줄어드는 음주량을 위기로 본다. 누군가는 같은 변화에서 새로운 선택의 이유를 발견한다. 새로운 시장은 대개 두 번째 질문에서 시작된다.</p>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="wrap apply">
+  <div><div class="kicker">05 · APPLY TO YOUR PRODUCT</div><h3>고객이 버리고 싶은 것은 무엇이고,<br>끝까지 포기하고 싶지 않은 것은 무엇인가?</h3></div>
+  <a class="btn" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a>
+</div>
+
+<div class="wrap" style="margin-top:58px">
+  <div class="kicker">EXPLORE THIS CASE</div>
+  <div class="tag-cloud">
+    <a class="tax-tag" href="/library/?category=식품">#식음료</a>
+    <a class="tax-tag" href="/library/?business=D2C">#D2C</a>
+    <a class="tax-tag" href="/library/?business=제조">#제조</a>
+    <a class="tax-tag" href="/library/?signal=프리미엄">#프리미엄</a>
+    <a class="tax-tag" href="/library/?signal=문제재정의">#문제재정의</a>
+    <a class="tax-tag" href="/library/?signal=스토리">#스토리</a>
+    <a class="tax-tag" href="/library/?signal=팬덤">#팬덤</a>
+  </div>
+  <div class="case-id">HITS CASE 001 · BERO · 2026.09</div>
+</div>
+
+<div class="wrap more-cases">
+  <a href="/library/" style="color:var(--blue);font-weight:700;font-size:14px">다른 HITS 사례 더 보기 →</a>
+</div>
+</section>
+
+<div class="wrap" style="max-width:1140px;margin:0 auto 40px">
+  <div data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+</div>
+
+<div id="site-footer-mount"></div>
+<div id="float-newsletter-mount"></div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

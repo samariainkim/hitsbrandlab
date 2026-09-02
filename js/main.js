@@ -113,7 +113,8 @@ async function renderWeeklyTeaser() {
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    const latest = cases.slice().sort((a, b) => b.caseNumber.localeCompare(a.caseNumber))[0];
+    const published = cases.filter(c => c.hasDetail);
+    const latest = (published.length ? published : cases).slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate))[0];
     const dateStr = latest.publishDate.replaceAll('-', '.');
     const excerpt = clampExcerpt(latest.excerpt || latest.description, 380);
     const inner = `
