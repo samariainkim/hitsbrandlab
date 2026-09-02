@@ -113,7 +113,7 @@ async function renderWeeklyTeaser() {
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    const latest = cases.slice().sort((a, b) => b.issueNumber.localeCompare(a.issueNumber))[0];
+    const latest = cases.slice().sort((a, b) => b.caseNumber.localeCompare(a.caseNumber))[0];
     const dateStr = latest.publishDate.replaceAll('-', '.');
     const excerpt = clampExcerpt(latest.excerpt || latest.description, 380);
     const inner = `
@@ -121,7 +121,7 @@ async function renderWeeklyTeaser() {
         <div class="slot-placeholder">대표 이미지</div>
       </div>
       <div class="weekly-feature-text">
-        <p class="weekly-feature-label">WEEKLY HITS #${latest.issueNumber} · ${dateStr}</p>
+        <p class="weekly-feature-label">WEEKLY HITS #${latest.caseNumber} · ${dateStr}</p>
         <p class="weekly-feature-title">${latest.question}</p>
         <p class="weekly-feature-excerpt">${excerpt}</p>
       </div>`;

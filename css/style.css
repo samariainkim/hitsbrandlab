@@ -251,33 +251,37 @@ h1, h2, h3, p { margin: 0; }
 }
 
 /* ==========================================================
-   About 페이지 — 02 WHY HITS / 04~07 H·I·T·S 보강
+   About 페이지 — 02~07 통합 Reading Container (800px, 왼쪽 정렬)
    ========================================================== */
-.about-narrow { max-width: 680px; }
+.about-reading { max-width: 800px; }
 .about-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin: 0 0 10px; }
 .about-question { font-size: 20px; font-weight: 900; color: var(--text-dark); margin: 0 0 24px; }
-.about-body p { font-size: 14px; line-height: 1.9; color: var(--text-dark); margin: 0 0 20px; }
+.about-body p { font-size: 14px; line-height: 1.9; color: var(--text-dark); margin: 0 0 20px; text-align: left; }
 
-.hits-block { margin-bottom: 48px; }
+.flow-inline { text-align: left; padding: 40px 0 48px; border-top: 0.5px solid var(--border-light); border-bottom: 0.5px solid var(--border-light); margin: 8px 0 48px; }
+.flow-eyebrow { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin: 24px 0 16px; }
+.flow-big { font-size: clamp(22px, 4vw, 30px); font-weight: 900; color: var(--text-dark); letter-spacing: 0.02em; margin: 0 0 16px; }
+.flow-mid { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px; }
+.flow-small { font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; margin: 0 0 24px; }
+
+.hits-block { margin-bottom: 48px; text-align: left; }
 .hits-block:last-child { margin-bottom: 0; }
-.hits-block h2 { font-size: 17px; font-weight: 800; margin: 0 0 12px; }
-.hits-block > p { font-size: 13px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 16px; }
-.question-box { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; }
+.hits-block h2 { font-size: 17px; font-weight: 800; margin: 0 0 12px; text-align: left; }
+.hits-block > p { font-size: 13px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 16px; text-align: left; }
+.question-box { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; text-align: left; }
 .question-label { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; margin: 0 0 6px; }
 .question-text { font-size: 14px; font-weight: 700; color: var(--text-dark); margin: 0; }
 
-.flow-section { text-align: center; padding: 12px 0; }
-.flow-eyebrow { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin: 0 0 16px; }
-.flow-big { font-size: clamp(22px, 4vw, 30px); font-weight: 900; color: var(--text-dark); letter-spacing: 0.02em; margin: 0 0 16px; }
-.flow-mid { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px; }
-.flow-small { font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; margin: 0; }
-
+/* ==========================================================
+   About 페이지 — WHY MULTIPLY (사이트 유일의 Center Align)
+   ========================================================== */
 .multiply-section { background: var(--bg-main); padding: 64px 0; text-align: center; }
 .multiply-eyebrow { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin: 0 0 24px; }
-.multiply-formula { font-size: clamp(30px, 6vw, 44px); font-weight: 900; color: var(--text-light); letter-spacing: 0.03em; margin: 0 0 18px; }
-.multiply-slogan { font-size: 18px; font-weight: 800; color: var(--text-light); margin: 0 0 32px; }
-.multiply-fails { margin-bottom: 32px; }
-.multiply-fails p { font-size: 13px; color: var(--text-muted); line-height: 2; margin: 0; }
+.multiply-formula { font-size: clamp(40px, 8vw, 60px); font-weight: 900; color: var(--text-light); letter-spacing: 0.03em; margin: 0 0 20px; }
+.multiply-slogan { font-size: 18px; font-weight: 800; color: var(--text-light); margin: 0 0 36px; }
+.multiply-fails { margin-bottom: 36px; }
+.multiply-fails p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin: 0 0 18px; }
+.multiply-fails p:last-child { margin-bottom: 0; }
 .multiply-closing { font-size: 14px; font-weight: 700; color: var(--text-light); margin: 0; }
 
 /* Library — HERO 통계 */
@@ -382,9 +386,9 @@ h1, h2, h3, p { margin: 0; }
 .insight-featured { display: flex; gap: 20px; flex-wrap: wrap; background: var(--bg-content); border-radius: var(--radius); padding: 28px; min-height: 220px; margin-bottom: 14px; }
 .insight-featured-text { flex: 1.3; min-width: 200px; display: flex; flex-direction: column; align-items: flex-start; }
 .insight-featured-label { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin: 0 0 12px; }
-.insight-featured-title { font-size: 19px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0 0 14px; }
-.insight-featured-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin: 0; }
-.insight-featured-time { font-size: 12px; font-weight: 700; color: var(--text-dark); margin: auto 0 0; }
+.insight-featured-title { font-size: 24px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0 0 14px; }
+.insight-featured-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.insight-featured-time { font-size: 12px; font-weight: 700; color: var(--text-dark); margin: 0; }
 .insight-featured-img { flex: 1; min-width: 150px; border-radius: 10px; }
 
 /* Insight — Editorial Rhythm 그리드 (1-2-3) */
@@ -398,7 +402,7 @@ h1, h2, h3, p { margin: 0; }
 .insight-row-2 .insight-card-title { font-size: 15px; }
 .insight-card-desc { font-size: 11px; color: var(--text-secondary); margin: 10px 0 0; }
 .insight-card-time { font-size: 11px; font-weight: 700; color: var(--text-dark); margin: auto 0 0; }
-.insight-idea-visual { background: var(--bg-main); border-radius: 8px; padding: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 70px; height: 70px; align-self: flex-start; text-align: center; font-size: 11px; font-weight: 900; color: var(--text-light); }
+.insight-idea-visual { background: var(--bg-main); border-radius: 8px; padding: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 100px; height: 100px; align-self: flex-start; text-align: center; font-size: 14px; font-weight: 900; color: var(--text-light); line-height: 1.4; }
 
 /* Insight — 페이지네이션 */
 .insight-pager { display: flex; justify-content: center; gap: 8px; padding: 20px 0; }
