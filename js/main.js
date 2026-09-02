@@ -117,9 +117,12 @@ async function renderWeeklyTeaser() {
     const latest = (published.length ? published : cases).slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate))[0];
     const dateStr = latest.publishDate.replaceAll('-', '.');
     const excerpt = clampExcerpt(latest.excerpt || latest.description, 380);
+    const imgInner = latest.image
+      ? `<img src="${latest.image}" alt="${latest.title}" style="width:100%;height:100%;object-fit:cover">`
+      : `<div class="slot-placeholder">대표 이미지</div>`;
     const inner = `
       <div class="image-slot weekly-feature-img" style="--ratio:1/1">
-        <div class="slot-placeholder">대표 이미지</div>
+        ${imgInner}
       </div>
       <div class="weekly-feature-text">
         <p class="weekly-feature-label">WEEKLY HITS #${latest.caseNumber} · ${dateStr}</p>
