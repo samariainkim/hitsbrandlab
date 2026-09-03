@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>기획은 결국 어디로 향하는가 | HITS Insight 001</title>
+  <meta name="description" content="아이디어를 만드는 일에서 문제를 해결하는 일로, 다시 사람을 움직이는 일로. 16년 동안 ‘기획’에 대한 나의 답은 계속 달라졌다.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    :root{
+      --hits-black:#111110;
+      --hits-paper:#F5F5F2;
+      --hits-blue:#2F5CFF;
+      --hits-white:#FFFFFF;
+      --hits-ink:#1B1B19;
+      --hits-muted:#71716C;
+      --hits-line:#D9D9D3;
+      --hits-soft:#ECECE7;
+      --hits-max:1140px;
+      --hits-read:740px;
+      --hits-media:960px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--hits-paper);
+      color:var(--hits-ink);
+      font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.78;
+      word-break:keep-all;
+    }
+
+    img{display:block;max-width:100%}
+    .ia-wrap{width:min(calc(100% - 40px),var(--hits-max));margin:0 auto}
+    .read{width:min(calc(100% - 40px),var(--hits-read));margin:0 auto}
+    .media-wide{width:min(calc(100% - 40px),var(--hits-media));margin:0 auto}
+    .kicker{
+      margin:0 0 10px;
+      color:var(--hits-blue);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    /* HERO — Concept Visual 유지 */
+    .ia-hero{
+      padding:76px 0 70px;
+      background:var(--hits-black);
+      color:var(--hits-white);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1fr .78fr;
+      gap:62px;
+      align-items:center;
+    }
+    .ia-hero h1{
+      margin:10px 0 20px;
+      font-size:clamp(35px,4.5vw,52px);
+      line-height:1.12;
+      letter-spacing:-.04em;
+    }
+    .hero-deck{
+      max-width:610px;
+      margin:0;
+      color:#C8C8C3;
+      font-size:17px;
+      line-height:1.7;
+    }
+    .meta{
+      margin-top:20px;
+      color:#92928D;
+      font-size:11px;
+      letter-spacing:.03em;
+    }
+
+    .idea-visual{
+      min-height:330px;
+      padding:32px;
+      border:1px solid #2C2C2A;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:
+        linear-gradient(rgba(47,92,255,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(47,92,255,.08) 1px,transparent 1px);
+      background-size:32px 32px;
+    }
+    .idea-step{
+      display:flex;
+      justify-content:space-between;
+      gap:22px;
+      align-items:baseline;
+      padding:16px 0;
+      border-bottom:1px solid #30302E;
+    }
+    .idea-step:last-child{border-bottom:0}
+    .idea-step b{
+      color:var(--hits-white);
+      font-size:25px;
+      letter-spacing:-.025em;
+    }
+    .idea-step span{
+      color:#9C9C97;
+      font-size:12px;
+      text-align:right;
+    }
+    .idea-arrow{
+      color:var(--hits-blue);
+      font-size:20px;
+      line-height:1;
+      padding-left:3px;
+    }
+
+    /* Reading system — deliberately calm hierarchy */
+    .ia-section{padding:72px 0}
+    .white{background:var(--hits-white)}
+    .soft{background:var(--hits-soft)}
+    .ia-section h2{
+      margin:0 0 23px;
+      font-size:clamp(26px,3vw,32px);
+      line-height:1.3;
+      letter-spacing:-.03em;
+    }
+    .ia-section p{
+      margin:0 0 19px;
+      font-size:16px;
+    }
+    .lead{
+      font-size:17.5px!important;
+      line-height:1.72;
+      letter-spacing:-.012em;
+    }
+
+    .dialogue{
+      margin:12px 0 38px;
+      padding:24px 26px;
+      border-left:2px solid var(--hits-blue);
+      background:var(--hits-paper);
+    }
+    .dialogue p{
+      margin:0 0 11px;
+      font-size:16.5px;
+    }
+    .dialogue p:last-child{margin-bottom:0}
+
+    .visual-break{
+      padding:56px 0;
+      background:var(--hits-black);
+      color:var(--hits-white);
+      text-align:center;
+    }
+    .visual-break .question{
+      margin:0;
+      font-size:clamp(30px,4vw,42px);
+      font-weight:800;
+      letter-spacing:-.035em;
+      line-height:1.12;
+    }
+    .visual-break .sub{
+      margin-top:12px;
+      color:#A5A59F;
+      font-size:13px;
+    }
+
+    /* Editorial image break — thumbnail asset is reused here as story beat */
+    .editorial-media-section{
+      padding:54px 0 62px;
+      background:var(--hits-paper);
+    }
+    .editorial-figure{margin:0}
+    .editorial-image{
+      overflow:hidden;
+      background:#E8E8E3;
+      aspect-ratio:16/10;
+    }
+    .editorial-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center center;
+    }
+    .editorial-caption{
+      display:grid;
+      grid-template-columns:160px 1fr;
+      gap:24px;
+      padding-top:13px;
+      border-top:1px solid var(--hits-line);
+      margin-top:12px;
+    }
+    .editorial-caption .fig{
+      color:var(--hits-blue);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+    }
+    .editorial-caption p{
+      margin:0;
+      max-width:640px;
+      color:var(--hits-muted);
+      font-size:13px;
+      line-height:1.65;
+    }
+    .editorial-caption strong{
+      color:var(--hits-ink);
+      font-weight:700;
+    }
+
+    .chapter-head{
+      display:grid;
+      grid-template-columns:54px 1fr;
+      gap:18px;
+      align-items:start;
+      margin-bottom:30px;
+    }
+    .chapter-no{
+      color:var(--hits-blue);
+      font-size:38px;
+      font-weight:900;
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .concept-grid{
+      width:min(calc(100% - 40px),920px);
+      margin:42px auto 0;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+    .concept-card{
+      min-height:145px;
+      padding:22px;
+      border:1px solid var(--hits-line);
+      background:var(--hits-white);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .concept-card b{
+      color:var(--hits-blue);
+      font-size:20px;
+      letter-spacing:-.02em;
+    }
+    .concept-card span{
+      color:var(--hits-muted);
+      font-size:13px;
+    }
+
+    .pull{
+      width:min(calc(100% - 40px),860px);
+      margin:48px auto;
+      padding:30px 36px;
+      border-top:1px solid var(--hits-line);
+      border-bottom:1px solid var(--hits-line);
+      font-size:clamp(21px,2.4vw,26px);
+      line-height:1.48;
+      font-weight:800;
+      letter-spacing:-.025em;
+      text-align:center;
+    }
+
+    .compare{
+      width:min(calc(100% - 40px),920px);
+      margin:40px auto 0;
+      display:grid;
+      grid-template-columns:1fr 46px 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .compare-box{
+      padding:24px;
+      border:1px solid var(--hits-line);
+      background:var(--hits-white);
+    }
+    .compare-box small{
+      display:block;
+      margin-bottom:12px;
+      color:var(--hits-blue);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.09em;
+    }
+    .compare-box b{
+      display:block;
+      margin-bottom:6px;
+      font-size:17.5px;
+      line-height:1.5;
+    }
+    .compare-box span{
+      color:var(--hits-muted);
+      font-size:13px;
+    }
+    .compare-vs{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--hits-muted);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .shift{
+      padding:68px 0;
+      background:var(--hits-black);
+      color:var(--hits-white);
+    }
+    .shift h2{
+      margin:0;
+      font-size:clamp(27px,3.2vw,34px);
+      line-height:1.32;
+      letter-spacing:-.03em;
+    }
+    .shift-flow{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:30px;
+    }
+    .shift-card{
+      padding:24px 22px;
+      border:1px solid #30302E;
+      background:#151514;
+    }
+    .shift-card b{
+      display:block;
+      margin-bottom:9px;
+      color:var(--hits-blue);
+      font-size:21px;
+    }
+    .shift-card strong{
+      display:block;
+      margin-bottom:5px;
+      font-size:16px;
+    }
+    .shift-card span{
+      color:#A6A69F;
+      font-size:13px;
+    }
+
+    .note{
+      padding:68px 0;
+      background:var(--hits-white);
+    }
+    .note-box{
+      width:min(calc(100% - 40px),860px);
+      margin:0 auto;
+      padding:40px;
+      border:1px solid var(--hits-line);
+      background:var(--hits-paper);
+    }
+    .note-box h2{
+      margin:7px 0 20px;
+      font-size:clamp(26px,3vw,32px);
+      line-height:1.35;
+      letter-spacing:-.03em;
+    }
+    .note-box p{
+      margin:0;
+      font-size:16px;
+      line-height:1.78;
+    }
+
+    .keep{
+      padding:68px 0 78px;
+    }
+    .keep h2{
+      margin:0;
+      font-size:25px;
+      letter-spacing:-.025em;
+    }
+    .keep-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+    .keep-card{
+      padding-top:16px;
+      border-top:1px solid var(--hits-line);
+    }
+    .keep-card small{
+      color:var(--hits-blue);
+      font-weight:800;
+      font-size:10px;
+      letter-spacing:.08em;
+    }
+    .keep-card h3{
+      margin:7px 0 7px;
+      font-size:16px;
+      line-height:1.5;
+      letter-spacing:-.015em;
+    }
+    .keep-card span{
+      color:var(--hits-muted);
+      font-size:12px;
+    }
+
+    @media(max-width:880px){
+      .hero-grid{grid-template-columns:1fr;gap:36px}
+      .concept-grid,.shift-flow,.keep-grid{grid-template-columns:1fr}
+      .compare{grid-template-columns:1fr}
+      .compare-vs{min-height:28px}
+      .editorial-caption{grid-template-columns:1fr;gap:4px}
+    }
+
+    @media(max-width:560px){
+      .ia-hero{padding:58px 0 54px}
+      .ia-section{padding:60px 0}
+      .chapter-head{grid-template-columns:44px 1fr}
+      .chapter-no{font-size:32px}
+      .dialogue{padding:20px}
+      .note-box{padding:28px 22px}
+      .editorial-media-section{padding:42px 0 48px}
+    }
+  </style>
+</head>
+
+<body data-nav="insight">
+  <div id="site-header-mount"></div>
+
+  <main>
+    <section class="ia-hero">
+      <div class="ia-wrap hero-grid">
+        <div>
+          <div class="kicker">INSIGHT 002 · PRODUCT</div>
+          <h1>기획은 결국<br>어디로 향하는가</h1>
+          <p class="hero-deck">
+            아이디어를 만드는 일에서 문제를 해결하는 일로,
+            다시 사람을 움직이는 일로.
+            16년 동안 ‘기획’에 대한 나의 답은 계속 달라졌다.
+          </p>
+          <div class="meta">7 MIN READ · 2026.09</div>
+        </div>
+
+        <div class="idea-visual" aria-label="IDEA에서 PROBLEM을 거쳐 PEOPLE로 확장되는 기획의 시선">
+          <div class="idea-step"><b>IDEA</b><span>무엇을 만들 것인가</span></div>
+          <div class="idea-arrow">↓</div>
+          <div class="idea-step"><b>PROBLEM</b><span>무엇을 해결할 것인가</span></div>
+          <div class="idea-arrow">↓</div>
+          <div class="idea-step"><b>PEOPLE</b><span>누구를 움직일 것인가</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ia-section white">
+      <div class="read">
+        <div class="kicker">OPENING</div>
+
+        <div class="dialogue">
+          <p><b>“너는 기획이 뭐라고 생각해?”</b></p>
+          <p>신입 시절, 한 선배가 내게 물었다.</p>
+          <p>나는 잠시 머뭇거리다가 배운 대로 답했다.</p>
+          <p><b>“목표를 설정하고, 그것을 달성하기 위한 최적의 방법을 설계하는 과정이요.”</b></p>
+          <p>선배가 피식 웃었다.</p>
+          <p>“완전 교과서 답안이네.”</p>
+        </div>
+
+        <p>그 선배는 더 이상 아무 말도 하지 않았다. 그때는 그 짧은 웃음의 의미를 잘 몰랐다.</p>
+        <p>
+          그로부터 16년이 지났다. 수백 개의 프로젝트를 기획했고,
+          수많은 실패와 몇 번의 성공을 경험했다.
+          이제는 내가 후배들에게 같은 질문을 던지는 사람이 됐다.
+        </p>
+        <p class="lead">그런데 이상하게도 나는 아직 그 질문 앞에 서 있다.</p>
+      </div>
+    </section>
+
+    <section class="visual-break">
+      <div class="ia-wrap">
+        <p class="question">WHAT IS PLANNING?</p>
+        <div class="sub">기획이란 무엇인가?</div>
+      </div>
+    </section>
+
+    <section class="editorial-media-section">
+      <figure class="editorial-figure media-wide">
+        <div class="editorial-image">
+          <img
+            src="/images/insight/where-does-planning-lead/editorial-01.png"
+            alt="화이트보드에 기획 구조를 스케치하는 장면"
+          >
+        </div>
+        <figcaption class="editorial-caption">
+          <div class="fig">FIG. 01 · FROM IDEA TO REALITY</div>
+          <p>
+            머릿속의 생각이 처음으로 형태를 갖는 순간.
+            <strong>한때 나는 이것이 기획의 전부라고 생각했다.</strong>
+          </p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="ia-section white">
+      <div class="ia-wrap">
+        <div class="chapter-head">
+          <div class="chapter-no">01</div>
+          <div>
+            <div class="kicker">IDEA</div>
+            <h2>처음에는 아이디어를 만드는 일이라고 생각했다</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="read">
+        <p class="lead">초년병 시절의 나에게 기획은 ‘아이디어를 구체화하는 작업’이었다.</p>
+        <p>
+          그 시절 내 책상 위에는 언제나 포스트잇이 가득했다.
+          출퇴근길에 떠오른 아이디어, 밥을 먹다가 번뜩인 상품 콘셉트,
+          자다가 깨서 적어둔 카피 한 줄, 책에서 발견한 문장,
+          선배가 무심코 던진 조언까지.
+        </p>
+        <p>
+          그것들을 하나씩 기획서로 옮기는 과정이 좋았다.
+          공기처럼 형태가 없던 생각이 상품이라는 실체를 갖는 순간에는 묘한 쾌감이 있었다.
+          무(無)에서 유(有)를 만드는 것.
+          어쩌면 그것이 내가 상품기획자라는 일을 좋아하게 된 가장 원초적인 이유였는지도 모른다.
+        </p>
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-card"><b>IDEA</b><span>머릿속의 가능성</span></div>
+        <div class="concept-card"><b>PLAN</b><span>생각을 구조로 바꾸는 과정</span></div>
+        <div class="concept-card"><b>PRODUCT</b><span>아이디어가 실체가 되는 순간</span></div>
+      </div>
+
+      <div class="read">
+        <p style="margin-top:42px">
+          그런데 얼마 지나지 않아 한 가지 불편한 진실과 마주쳤다.
+          내가 감동한 기획이라고 해서 고객도 감동하는 것은 아니었다.
+        </p>
+        <p>
+          나 스스로는 ‘이 정도면 정말 괜찮다’고 생각했던 아이디어가
+          시장에서는 아무런 반응을 얻지 못하는 일이 반복됐다.
+          그때마다 나는 ‘왜 이 아이디어가 안 통하지?’라고 생각했다.
+        </p>
+        <p>당시의 나는 아이디어가 좋은지 나쁜지만 봤다. 고객에게 왜 필요한지는 충분히 보지 못했다.</p>
+      </div>
+
+      <div class="pull">
+        내가 감동한 아이디어라고 해서<br>
+        고객도 감동하는 것은 아니었다.
+      </div>
+
+      <div class="read">
+        <p class="lead">‘아이디어의 구체화’는 기획의 시작일 뿐, 기획의 전부가 아니었다.</p>
+      </div>
+    </section>
+
+    <section class="ia-section soft">
+      <div class="ia-wrap">
+        <div class="chapter-head">
+          <div class="chapter-no">02</div>
+          <div>
+            <div class="kicker">PROBLEM</div>
+            <h2>잘 만드는 것보다 무엇을 해결하는지가 중요했다</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="read">
+        <p class="lead">연차가 쌓이면서 내게 기획은 ‘문제를 해결하는 작업’으로 바뀌었다.</p>
+        <p>
+          어느 시즌, 내가 담당하던 브랜드의 매출이 전 시즌 대비 눈에 띄게 꺾이기 시작했다.
+          숫자는 명확했지만 이유는 명확하지 않았다.
+        </p>
+        <p>
+          나는 수천 건의 주문 데이터와 수백 건의 리뷰, VOC를 다시 들여다봤다.
+          고객이 어떤 순간에 주문하고, 무엇에 만족하고, 무엇을 불편해하는지 하나씩 살폈다.
+        </p>
+        <p>
+          며칠 뒤 한 가지 사실이 보였다.
+          고객들이 우리 상품을 사지 않는 것이 아니었다.
+          <b>우리 상품이 고객의 문제를 해결해주지 못하고 있었다.</b>
+        </p>
+        <p>
+          당시에는 코로나로 불안심리가 커지면서 소비가 위축되던 시기였다.
+          우리는 자연스럽게 ‘저렴하고 가성비가 좋은 식품’이 답이라고 생각했다.
+          고객의 부담을 줄여주는 것이 최선이라고 믿었다.
+        </p>
+        <p>
+          하지만 고객이 원했던 것은 달랐다.
+          외식이 사라진 자리를 집에서 대신할 수 있는
+          조금 더 특별하고, 조금 더 만족스러운 프리미엄 식품이었다.
+        </p>
+      </div>
+
+      <div class="compare">
+        <div class="compare-box">
+          <small>WE THOUGHT</small>
+          <b>불안한 시기 → 가격 부담 → 가성비</b>
+          <span>우리가 정의한 문제</span>
+        </div>
+        <div class="compare-vs">VS</div>
+        <div class="compare-box">
+          <small>CUSTOMER WANTED</small>
+          <b>외식의 상실 → 경험의 결핍 → 프리미엄</b>
+          <span>고객이 실제로 느낀 문제</span>
+        </div>
+      </div>
+
+      <div class="read">
+        <p style="margin-top:42px">
+          이 간극이 매출 하락의 본질이었다.
+          문제를 잘못 정의하면 아무리 열심히 상품을 만들어도 답에서 멀어진다.
+        </p>
+        <p>
+          그때부터 내 기획 프로세스가 바뀌었다.
+          아이디어에서 시작하지 않고 고객의 불편에서 시작했다.
+          내가 만들고 싶은 것을 먼저 떠올리기보다 고객이 무엇을 필요로 하는지부터 찾았다.
+        </p>
+        <p>
+          페인포인트를 먼저 정의하고 그것을 해소하는 방향으로 상품을 설계했다.
+          그렇게 기획한 상품이 시즌 베스트셀러가 됐을 때,
+          나는 기획의 두 번째 문이 열리는 느낌을 받았다.
+        </p>
+      </div>
+
+      <div class="pull">
+        고객이 우리 상품을 사지 않는 것이 아니었다.<br>
+        우리 상품이 고객의 문제를 해결하지 못하고 있었다.
+      </div>
+    </section>
+
+    <section class="ia-section white">
+      <div class="ia-wrap">
+        <div class="chapter-head">
+          <div class="chapter-no">03</div>
+          <div>
+            <div class="kicker">PEOPLE</div>
+            <h2>그런데 문제를 잘 해결하는 것만으로도 충분하지 않았다</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="read">
+        <p class="lead">팀을 이끄는 자리가 되면서 기획에 대한 내 정의는 다시 한 번 바뀌었다.</p>
+        <p>
+          팀장이 된 첫해의 일이다.
+          나는 나름 완벽하다고 생각하는 기획안을 들고 회의에 들어갔다.
+          시장 분석, 경쟁사 현황, 타깃 고객, 상품 방향,
+          가격 전략, 마케팅 계획까지 빠지는 것이 없었다.
+        </p>
+        <p>발표가 끝나자 팀원들은 고개를 끄덕였다. 나도 충분히 설득했다고 생각했다.</p>
+        <p>
+          그런데 실행에 들어가자 묘한 차이가 느껴졌다.
+          팀원들은 움직였지만 그 움직임이 살아 있지 않았다.
+          시키는 일을 하는 것과, 스스로 납득하고 움직이는 것은
+          결과에서 미묘하지만 분명한 차이가 났다.
+        </p>
+
+        <div class="dialogue">
+          <p>어느 날 저녁, 한 후배가 조용히 말했다.</p>
+          <p><b>“팀장님, 솔직히 말씀드려도 될까요?”</b></p>
+          <p><b>“이번 프로젝트, 우리가 왜 해야 하는 건지 아직 잘 모르겠어요.”</b></p>
+        </div>
+
+        <p>
+          순간 뒤통수를 세게 얻어맞은 느낌이었다.
+          나는 기획을 완벽하게 만드는 데 모든 에너지를 쏟았다.
+          하지만 정작 그 기획을 함께 실행할 사람들에게
+          왜 이 일을 해야 하는지 충분히 전달하지 못했다.
+        </p>
+        <p>
+          기획은 결국 사람을 통해 실현된다.
+          시장을 움직이는 것도 사람이고, 상품을 만드는 것도 사람이고,
+          마지막에 그것을 선택하는 것도 사람이다.
+        </p>
+        <p class="lead">
+          그래서 지금의 나는 이렇게 생각한다.
+          <b>기획은 논리로 이해시키고, 공감으로 움직이게 하는 일이다.</b>
+        </p>
+      </div>
+    </section>
+
+    <section class="shift">
+      <div class="ia-wrap">
+        <div class="kicker">THE SHIFT</div>
+        <h2>기획의 중심에는 결국 사람이 있었다.</h2>
+
+        <div class="shift-flow">
+          <div class="shift-card">
+            <b>IDEA</b>
+            <strong>무엇을 만들 것인가</strong>
+            <span>생각을 구체적인 형태로 만든다.</span>
+          </div>
+          <div class="shift-card">
+            <b>PROBLEM</b>
+            <strong>무엇을 해결할 것인가</strong>
+            <span>고객의 진짜 문제를 발견한다.</span>
+          </div>
+          <div class="shift-card">
+            <b>PEOPLE</b>
+            <strong>누구를 움직일 것인가</strong>
+            <span>사람이 납득하고 참여할 이유를 만든다.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ia-section white">
+      <div class="read">
+        <div class="kicker">CLOSING</div>
+        <h2>16년이 지났지만 나는 아직도 답을 완성하지 못했다</h2>
+
+        <p class="lead">그런데 이제는 그것이 이상하지 않다.</p>
+        <p>
+          초년병 시절의 ‘아이디어를 구체화하는 것’도 틀린 답이 아니었다.
+          시니어 시절의 ‘문제를 해결하는 것’도 틀리지 않았다.
+          그리고 지금의 ‘사람을 움직이는 것’ 역시 마지막 정답이라고 생각하지 않는다.
+        </p>
+        <p>
+          하나가 틀렸고 다른 하나가 맞았던 것이 아니라,
+          경험이 쌓일수록 내가 볼 수 있는 기획의 범위가 넓어진 것이었다.
+        </p>
+        <p>
+          좋은 아이디어를 발견한다.
+          그것이 해결해야 할 문제를 찾는다.
+          그리고 그 문제를 함께 해결할 사람을 움직인다.
+        </p>
+      </div>
+
+      <div class="pull">
+        어쩌면 기획은<br>
+        이 세 가지를 연결하는 일인지도 모른다.
+      </div>
+
+      <div class="read">
+        <p>
+          기획자로 산다는 것은 평생 ‘기획이란 무엇인가’라는 질문을 품고 사는 일인지도 모르겠다.
+          경험이 쌓일수록, 실패가 깊어질수록, 사람이 보일수록
+          그 답은 계속 달라지고 깊어진다.
+        </p>
+        <p>
+          그리고 어쩌면 그것이 이 일을 16년이나 해왔는데도
+          여전히 흥미로운 이유일 것이다.
+        </p>
+      </div>
+    </section>
+
+    <section class="note">
+      <div class="note-box">
+        <div class="kicker">HITS NOTE</div>
+        <h2>기획에 대한 답은 경력과 함께 변한다.</h2>
+        <p>
+          처음에는 <b>아이디어</b>가 보이고,
+          시간이 지나면 <b>문제</b>가 보이고,
+          더 많은 경험이 쌓이면 <b>사람</b>이 보인다.
+          <br><br>
+          좋은 기획자는 정답을 가진 사람이 아니라
+          <b>더 좋은 질문을 갖게 된 사람인지도 모른다.</b>
+        </p>
+      </div>
+    </section>
+
+    <section class="keep">
+      <div class="ia-wrap">
+        <div class="kicker">KEEP THINKING</div>
+        <h2>다음 질문으로 이어가기</h2>
+
+        <div class="keep-grid">
+          <article class="keep-card">
+            <small>CUSTOMER</small>
+            <h3>고객은 자신이 원하는 것을 정말 알고 있을까?</h3>
+            <span>6 MIN READ →</span>
+          </article>
+          <article class="keep-card">
+            <small>PRODUCT</small>
+            <h3>좋은 상품일수록 설명하기 어려운 이유</h3>
+            <span>5 MIN READ →</span>
+          </article>
+          <article class="keep-card">
+            <small>BRAND</small>
+            <h3>브랜드는 언제 이야기가 되는가?</h3>
+            <span>7 MIN READ →</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="float-newsletter-mount"></div>
+  <div id="site-footer-mount"></div>
+  <script src="/js/main.js"></script>
+</body>
+</html>
