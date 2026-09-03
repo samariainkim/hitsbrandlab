@@ -6,10 +6,16 @@
     "category": "CUSTOMER",
     "featured": false,
     "readTime": "6분",
-    "tags": ["소비심리", "트렌드", "지갑", "구매전환"],
+    "tags": [
+      "소비심리",
+      "트렌드",
+      "지갑",
+      "구매전환"
+    ],
     "publishDate": "2026-08-20",
     "thumbnail": "",
-    "url": "/insight/why-consumers-open-wallets/"
+    "url": "/insight/001-why-consumers-open-wallets/",
+    "articleNumber": 1
   },
   {
     "slug": "three-mistakes-planners-make",
@@ -18,10 +24,15 @@
     "category": "PRODUCT",
     "featured": false,
     "readTime": "5분",
-    "tags": ["기획자", "착각", "전략"],
+    "tags": [
+      "기획자",
+      "착각",
+      "전략"
+    ],
     "publishDate": "2026-08-13",
     "thumbnail": "",
-    "url": "#"
+    "url": "#",
+    "articleNumber": null
   },
   {
     "slug": "price-is-not-a-number",
@@ -30,9 +41,31 @@
     "category": "PRODUCT",
     "featured": true,
     "readTime": "7분",
-    "tags": ["가격", "가치설계", "프라이싱"],
+    "tags": [
+      "가격",
+      "가치설계",
+      "프라이싱"
+    ],
     "publishDate": "2026-08-27",
     "thumbnail": "",
-    "url": "#"
+    "url": "#",
+    "articleNumber": null
+  },
+  {
+    "slug": "where-does-planning-lead",
+    "title": "기획은 결국 어디로 향하는가",
+    "excerpt": "아이디어를 만드는 일에서 문제를 해결하는 일로, 다시 사람을 움직이는 일로. 16년 동안 '기획'에 대한 나의 답은 계속 달라졌다.",
+    "category": "PRODUCT",
+    "featured": false,
+    "readTime": "7분",
+    "tags": [
+      "기획",
+      "자기성찰",
+      "성장"
+    ],
+    "publishDate": "2026-09-03",
+    "thumbnail": "",
+    "url": "/insight/002-where-does-planning-lead/",
+    "articleNumber": 2
   }
 ]
