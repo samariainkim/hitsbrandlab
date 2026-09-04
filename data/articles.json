@@ -1,71 +1,62 @@
 [
   {
-    "slug": "why-consumers-open-wallets",
-    "title": "고객은 자신이 원하는 것을 정말 알고 있을까?",
-    "excerpt": "고객의 말보다 행동을 관찰해야 하는 이유.",
-    "category": "CUSTOMER",
-    "featured": false,
-    "readTime": "6분",
-    "tags": [
-      "소비심리",
-      "트렌드",
-      "지갑",
-      "구매전환"
-    ],
-    "publishDate": "2026-08-20",
-    "thumbnail": "",
-    "url": "/insight/001-why-consumers-open-wallets/",
-    "articleNumber": 1
-  },
-  {
-    "slug": "three-mistakes-planners-make",
-    "title": "좋은 상품일수록 설명하기 어려운 이유",
-    "excerpt": "복잡한 스펙은 신뢰가 아니라 피로를 준다.",
-    "category": "PRODUCT",
-    "featured": false,
-    "readTime": "5분",
-    "tags": [
-      "기획자",
-      "착각",
-      "전략"
-    ],
-    "publishDate": "2026-08-13",
-    "thumbnail": "",
-    "url": "#",
-    "articleNumber": null
-  },
-  {
-    "slug": "price-is-not-a-number",
-    "title": "가격의 문제는 숫자가 아니라 이유다",
-    "excerpt": "같은 가격이라도 어떤 상품은 비싸다고 느끼고, 어떤 상품은 합리적이라고 느낀다. 그 차이를 만드는 건 숫자 자체가 아니라, 그 숫자를 받아들이게 만드는 이유다. 가격을 낮추기 전에 먼저 물어야 할 질문이 있다.",
-    "category": "PRODUCT",
-    "featured": true,
+    "slug": "fomo-and-jomo",
+    "title": "남의 성공이 나의 기획이 되는 순간",
+    "excerpt": "경쟁사의 성공은 가장 빠른 참고자료가 된다. 동시에 기획자의 판단을 가장 쉽게 흐리는 유혹이 되기도 한다. FOMO와 JOMO 사이에서 기획자가 지켜야 할 것에 대하여.",
+    "category": "MARKET",
+    "articleNumber": 1,
     "readTime": "7분",
-    "tags": [
-      "가격",
-      "가치설계",
-      "프라이싱"
-    ],
-    "publishDate": "2026-08-27",
+    "tags": ["FOMO", "JOMO", "의사결정"],
+    "publishDate": "2026-09-04",
     "thumbnail": "",
-    "url": "#",
-    "articleNumber": null
+    "url": "/insight/001-fomo-and-jomo/"
   },
   {
     "slug": "where-does-planning-lead",
     "title": "기획은 결국 어디로 향하는가",
     "excerpt": "아이디어를 만드는 일에서 문제를 해결하는 일로, 다시 사람을 움직이는 일로. 16년 동안 '기획'에 대한 나의 답은 계속 달라졌다.",
     "category": "PRODUCT",
-    "featured": false,
+    "articleNumber": 2,
     "readTime": "7분",
-    "tags": [
-      "기획",
-      "자기성찰",
-      "성장"
-    ],
+    "tags": ["기획", "자기성찰", "성장"],
     "publishDate": "2026-09-03",
+    "thumbnail": "/images/insight/where-does-planning-lead/editorial-01.png",
+    "url": "/insight/002-where-does-planning-lead/"
+  },
+  {
+    "slug": "problem-awareness",
+    "title": "좋은 기획은 '해야 할 이유'에서 시작된다",
+    "excerpt": "시장에 기회가 있다는 것과 우리가 그 기획을 해야 할 이유가 있다는 것은 다르다. 좋은 기획을 만드는 문제의식의 깊이에 관하여.",
+    "category": "PRODUCT",
+    "articleNumber": 3,
+    "readTime": "8분",
+    "tags": ["문제의식", "기획력", "다이슨"],
+    "publishDate": "2026-09-04",
+    "thumbnail": "/images/insight/problem-awareness/editorial-01.png",
+    "url": "/insight/003-problem-awareness/"
+  },
+  {
+    "slug": "three-mistakes-planners-make",
+    "title": "좋은 상품일수록 설명하기 어려운 이유",
+    "excerpt": "복잡한 스펙은 신뢰가 아니라 피로를 준다.",
+    "category": "PRODUCT",
+    "articleNumber": null,
+    "readTime": "5분",
+    "tags": ["기획자", "착각", "전략"],
+    "publishDate": "2026-08-13",
     "thumbnail": "",
-    "url": "/insight/002-where-does-planning-lead/",
-    "articleNumber": 2
+    "url": "#"
+  },
+  {
+    "slug": "price-is-not-a-number",
+    "title": "가격의 문제는 숫자가 아니라 이유다",
+    "excerpt": "같은 가격이라도 어떤 상품은 비싸다고 느끼고, 어떤 상품은 합리적이라고 느낀다. 그 차이를 만드는 건 숫자 자체가 아니라, 그 숫자를 받아들이게 만드는 이유다. 가격을 낮추기 전에 먼저 물어야 할 질문이 있다.",
+    "category": "PRODUCT",
+    "articleNumber": null,
+    "readTime": "7분",
+    "tags": ["가격", "가치설계", "프라이싱"],
+    "publishDate": "2026-08-27",
+    "thumbnail": "",
+    "url": "#"
   }
 ]
