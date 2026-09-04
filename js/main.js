@@ -65,7 +65,7 @@ HITS Brand Lab은 아래와 같이 개인정보를 수집·이용합니다.
 
 function newsletterFormHTML(idPrefix) {
   return `
-    <form class="newsletter-form" id="${idPrefix}-form" action="${STIBEE_LIST_ACTION}" method="POST" target="_blank" accept-charset="utf-8" novalidate>
+    <form class="newsletter-form" id="${idPrefix}-form" action="${STIBEE_LIST_ACTION}" method="POST" target="${idPrefix}-target" accept-charset="utf-8" novalidate>
       <input type="text" name="name" placeholder="이름" required>
       <input type="email" name="email" placeholder="이메일" required>
       <select name="role">
@@ -81,7 +81,11 @@ function newsletterFormHTML(idPrefix) {
         (필수) <button type="button" class="newsletter-policy-link" data-policy>개인정보 수집 및 이용</button>에 동의합니다.
       </label>
       <button type="submit" class="btn btn-accent">HITS 받아보기</button>
-    </form>`;
+    </form>
+    <iframe name="${idPrefix}-target" class="newsletter-hidden-frame" title="구독 처리" aria-hidden="true"></iframe>
+    <div class="newsletter-thanks" id="${idPrefix}-thanks" hidden>
+      <p>구독 신청이 접수됐습니다. 입력하신 이메일로 확인 메일을 보내드렸어요.</p>
+    </div>`;
 }
 
 function renderNewsletterInline(mountId, heading) {
@@ -110,13 +114,25 @@ function renderNewsletterMain(mountId) {
 function bindNewsletterSubmit(formId) {
   const form = document.getElementById(formId);
   if (!form) return;
+  const idPrefix = formId.replace(/-form$/, '');
+  const iframe = document.querySelector(`iframe[name="${idPrefix}-target"]`);
+  const thanks = document.getElementById(`${idPrefix}-thanks`);
   const policyBtn = form.querySelector('[data-policy]');
   if (policyBtn) {
     policyBtn.addEventListener('click', () => alert(STIBEE_POLICY_TEXT));
   }
-  // 폼은 실제로 스티비(Stibee) 구독 API로 제출됩니다(action/method 참고).
-  // 별도의 JS 처리 없이 브라우저 기본 제출을 그대로 사용하고,
-  // 결과 확인 페이지는 새 탭(target="_blank")에서 열립니다.
+  let submitted = false;
+  form.addEventListener('submit', () => {
+    // preventDefault 하지 않음 — 폼은 실제로 숨겨진 iframe을 통해 스티비 구독 API로 정상 제출됨.
+    submitted = true;
+  });
+  if (iframe) {
+    iframe.addEventListener('load', () => {
+      if (!submitted) return; // 최초 빈 iframe 로드는 무시
+      form.hidden = true;
+      if (thanks) thanks.hidden = false;
+    });
+  }
 }
 
 /* ---------- 긴 텍스트를 대략 10줄 분량으로 자르고 자연스럽게 "... 더보기" 이어붙이기 ---------- */
