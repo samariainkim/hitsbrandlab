@@ -397,10 +397,10 @@ function paintInsightPage(filter) {
   const gridMount = document.getElementById('insight-grid-mount');
   const pagerMount = document.getElementById('insight-pager');
 
-  const sorted = allArticles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+  const sorted = allArticles.slice().sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1));
   const filtered = filter === 'all' ? sorted : sorted.filter(a => a.category === filter);
 
-  const featured = filtered.find(a => a.featured) || filtered[0];
+  const featured = filtered[0];
   const rest = filtered.filter(a => a !== featured);
 
   if (featuredMount) {
@@ -415,10 +415,10 @@ function paintInsightPage(filter) {
 
   let html = '';
   if (row2.length) {
-    html += `<div class="insight-row insight-row-2">${row2.map((a, i) => insightCardHTML(a, i === 0)).join('')}</div>`;
+    html += `<div class="insight-row insight-row-2">${row2.map(a => insightCardHTML(a)).join('')}</div>`;
   }
   if (row3.length) {
-    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a, false)).join('')}</div>`;
+    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a)).join('')}</div>`;
   }
   gridMount.innerHTML = html || '<p style="font-size:13px;color:#6B6A66">아직 글이 없습니다.</p>';
 
@@ -442,6 +442,9 @@ function paintInsightPage(filter) {
 }
 
 function featuredCardHTML(a) {
+  const media = a.thumbnail
+    ? `<img src="${a.thumbnail}" alt="${a.title}" loading="lazy">`
+    : `<div class="insight-idea-visual">${(a.tags && a.tags[0]) || a.category}</div>`;
   return `
     <a class="insight-featured" href="${a.url}">
       <div class="insight-featured-text">
@@ -450,23 +453,23 @@ function featuredCardHTML(a) {
         <p class="insight-featured-desc">${a.excerpt}</p>
         <p class="insight-featured-time">${a.readTime} READ →</p>
       </div>
-      <div class="image-slot light-slot insight-featured-img" style="--ratio:4/3">
-        <div class="slot-placeholder small">대표 이미지</div>
-      </div>
+      <div class="image-slot light-slot insight-featured-img" style="--ratio:4/3">${media}</div>
     </a>`;
 }
 
-function insightCardHTML(a, withVisual) {
-  const visual = withVisual ? `<div class="insight-idea-visual">${a.tags[0] || ''}</div>` : '';
+function insightCardHTML(a) {
+  const media = a.thumbnail
+    ? `<div class="insight-card-media"><img src="${a.thumbnail}" alt="${a.title}" loading="lazy"></div>`
+    : `<div class="insight-idea-visual">${(a.tags && a.tags[0]) || a.category}</div>`;
   return `
-    <a class="insight-card ${withVisual ? 'is-large' : ''}" href="${a.url}">
+    <a class="insight-card" href="${a.url}">
       <div class="insight-card-text">
         <p class="insight-card-num">INSIGHT · ${a.category}</p>
         <p class="insight-card-title">${a.title}</p>
-        ${withVisual ? `<p class="insight-card-desc">${a.excerpt}</p>` : ''}
+        <p class="insight-card-desc">${a.excerpt}</p>
         <p class="insight-card-time">${a.readTime} READ →</p>
       </div>
-      ${visual}
+      ${media}
     </a>`;
 }
 
