@@ -550,6 +550,9 @@ h1, h2, h3, p { margin: 0; }
   background: none; border: 0; padding: 0; font: inherit; color: inherit;
   text-decoration: underline; cursor: pointer;
 }
+.newsletter-hidden-frame { position: absolute; width: 1px; height: 1px; opacity: 0; border: 0; pointer-events: none; }
+.newsletter-thanks { text-align: center; font-size: 13px; color: var(--text-dark); padding: 10px 0; }
+.newsletter-main .newsletter-thanks { color: var(--text-light); }
 
 /* ==========================================================
    푸터
