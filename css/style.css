@@ -389,12 +389,14 @@ h1, h2, h3, p { margin: 0; }
 .insight-featured-title { font-size: 24px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0 0 14px; }
 .insight-featured-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .insight-featured-time { font-size: 12px; font-weight: 700; color: var(--text-dark); margin: 0; }
-.insight-featured-img { flex: 1; min-width: 150px; border-radius: 10px; }
+.insight-featured-img { flex: 1; min-width: 150px; border-radius: 10px; overflow: hidden; }
+.insight-featured-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* Insight — Editorial Rhythm 그리드 (1-2-3) */
 .insight-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
 .insight-card { background: var(--bg-content); border-radius: var(--radius); display: flex; flex-direction: column; align-items: flex-start; }
-.insight-card.is-large { grid-column: span 2; padding: 24px; flex-direction: row; justify-content: space-between; gap: 16px; min-height: 190px; }
+.insight-row-2 { grid-template-columns: repeat(2, 1fr); }
+.insight-row-2 .insight-card { flex-direction: row; justify-content: space-between; gap: 16px; padding: 24px; min-height: 190px; }
 .insight-row-3 .insight-card { padding: 18px; min-height: 150px; }
 .insight-card-text { display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
 .insight-card-num { font-size: 10px; font-weight: 700; color: var(--accent); margin: 0 0 10px; }
@@ -403,6 +405,11 @@ h1, h2, h3, p { margin: 0; }
 .insight-card-desc { font-size: 11px; color: var(--text-secondary); margin: 10px 0 0; }
 .insight-card-time { font-size: 11px; font-weight: 700; color: var(--text-dark); margin: auto 0 0; }
 .insight-idea-visual { background: var(--bg-main); border-radius: 8px; padding: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 100px; height: 100px; align-self: flex-start; text-align: center; font-size: 14px; font-weight: 900; color: var(--text-light); line-height: 1.4; }
+.insight-card-media { flex-shrink: 0; border-radius: 8px; overflow: hidden; align-self: flex-start; }
+.insight-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.insight-row-2 .insight-card-media, .insight-row-2 .insight-idea-visual { width: 150px; height: 110px; }
+.insight-row-3 .insight-card { flex-direction: column; }
+.insight-row-3 .insight-card-media, .insight-row-3 .insight-idea-visual { width: 100%; height: 90px; margin-top: 12px; align-self: stretch; }
 
 /* Insight — 페이지네이션 */
 .insight-pager { display: flex; justify-content: center; gap: 8px; padding: 20px 0; }
@@ -417,7 +424,8 @@ h1, h2, h3, p { margin: 0; }
 
 @media (max-width: 720px) {
   .insight-row { grid-template-columns: 1fr; }
-  .insight-card.is-large { grid-column: span 1; flex-direction: column; }
+  .insight-row-2 { grid-template-columns: 1fr; }
+  .insight-row-2 .insight-card { flex-direction: column; }
 }
 
 .article-header { padding: 40px 0 20px; }
