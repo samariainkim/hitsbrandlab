@@ -415,10 +415,10 @@ function paintInsightPage(filter) {
 
   let html = '';
   if (row2.length) {
-    html += `<div class="insight-row insight-row-2">${row2.map(a => insightCardHTML(a)).join('')}</div>`;
+    html += `<div class="insight-row insight-row-2">${row2.map(a => insightCardHTML(a, true)).join('')}</div>`;
   }
   if (row3.length) {
-    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a)).join('')}</div>`;
+    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a, false)).join('')}</div>`;
   }
   gridMount.innerHTML = html || '<p style="font-size:13px;color:#6B6A66">아직 글이 없습니다.</p>';
 
@@ -457,8 +457,8 @@ function featuredCardHTML(a) {
     </a>`;
 }
 
-function insightCardHTML(a) {
-  const media = a.thumbnail
+function insightCardHTML(a, withMedia) {
+  const media = !withMedia ? '' : a.thumbnail
     ? `<div class="insight-card-media"><img src="${a.thumbnail}" alt="${a.title}" loading="lazy"></div>`
     : `<div class="insight-idea-visual">${(a.tags && a.tags[0]) || a.category}</div>`;
   return `
