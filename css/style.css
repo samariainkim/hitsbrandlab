@@ -409,7 +409,6 @@ h1, h2, h3, p { margin: 0; }
 .insight-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .insight-row-2 .insight-card-media, .insight-row-2 .insight-idea-visual { width: 150px; height: 110px; }
 .insight-row-3 .insight-card { flex-direction: column; }
-.insight-row-3 .insight-card-media, .insight-row-3 .insight-idea-visual { width: 100%; height: 90px; margin-top: 12px; align-self: stretch; }
 
 /* Insight — 페이지네이션 */
 .insight-pager { display: flex; justify-content: center; gap: 8px; padding: 20px 0; }
