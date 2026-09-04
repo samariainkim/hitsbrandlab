@@ -48,19 +48,38 @@ function initFloatingButton() {
 }
 
 /* ---------- 뉴스레터 폼 (3곳 공용) ---------- */
+const STIBEE_LIST_ACTION = 'https://stibee.com/api/v1.0/lists/1tov19hsoSpDl7psKidNtEdwknT9Wg==/public/subscribers';
+const STIBEE_POLICY_TEXT = `[개인정보 수집 및 이용 동의]
+
+HITS Brand Lab은 아래와 같이 개인정보를 수집·이용합니다.
+
+1. 수집 항목: 이름, 이메일 주소, 직군(선택)
+2. 수집 목적:
+- HITS LETTER 뉴스레터 발송
+- 신규 콘텐츠, 세미나 등 자체 서비스 안내
+- 협업·강연·자문 등 사업 제안 및 안내
+- 제3자 제휴사의 광고성 정보(제품, 서비스, 프로모션 등) 제공
+- 금융 상품·서비스 관련 정보 제공
+3. 보유 및 이용 기간: 수신 동의 철회 시 또는 구독 해지 시까지
+4. 동의를 거부할 권리가 있으며, 거부 시 뉴스레터 구독이 제한될 수 있습니다.`;
+
 function newsletterFormHTML(idPrefix) {
   return `
-    <form class="newsletter-form" id="${idPrefix}-form">
+    <form class="newsletter-form" id="${idPrefix}-form" action="${STIBEE_LIST_ACTION}" method="POST" target="_blank" accept-charset="utf-8" novalidate>
       <input type="text" name="name" placeholder="이름" required>
       <input type="email" name="email" placeholder="이메일" required>
       <select name="role">
         <option value="">직군 선택 (선택)</option>
-        <option value="manufacturer">제조사 · 브랜드 담당자</option>
-        <option value="md">MD · 바이어</option>
-        <option value="marketer">마케터 · 광고 담당자</option>
-        <option value="founder">창업자 · 소상공인</option>
-        <option value="etc">기타</option>
+        <option value="제조사/브랜드 담당자">제조사 · 브랜드 담당자</option>
+        <option value="MD/바이어">MD · 바이어</option>
+        <option value="마케터/광고 담당자">마케터 · 광고 담당자</option>
+        <option value="창업자/소상공인">창업자 · 소상공인</option>
+        <option value="기타">기타</option>
       </select>
+      <label class="newsletter-consent">
+        <input type="checkbox" required>
+        (필수) <button type="button" class="newsletter-policy-link" data-policy>개인정보 수집 및 이용</button>에 동의합니다.
+      </label>
       <button type="submit" class="btn btn-accent">HITS 받아보기</button>
     </form>`;
 }
@@ -91,10 +110,13 @@ function renderNewsletterMain(mountId) {
 function bindNewsletterSubmit(formId) {
   const form = document.getElementById(formId);
   if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('뉴스레터 연동은 준비 중입니다. Mailchimp/스티비 폼으로 교체 예정입니다.');
-  });
+  const policyBtn = form.querySelector('[data-policy]');
+  if (policyBtn) {
+    policyBtn.addEventListener('click', () => alert(STIBEE_POLICY_TEXT));
+  }
+  // 폼은 실제로 스티비(Stibee) 구독 API로 제출됩니다(action/method 참고).
+  // 별도의 JS 처리 없이 브라우저 기본 제출을 그대로 사용하고,
+  // 결과 확인 페이지는 새 탭(target="_blank")에서 열립니다.
 }
 
 /* ---------- 긴 텍스트를 대략 10줄 분량으로 자르고 자연스럽게 "... 더보기" 이어붙이기 ---------- */
