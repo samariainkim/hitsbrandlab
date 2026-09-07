@@ -557,4 +557,24 @@ document.addEventListener('DOMContentLoaded', () => {
     renderNewsletterInline(el.id, el.dataset.newsletterInline);
   });
   if (document.getElementById('newsletter-mount-main')) renderNewsletterMain('newsletter-mount-main');
+
+  bindHitsLetterCtaHighlight();
 });
+
+/* '#hits-letter'로 점프하는 CTA 버튼들: 스크롤만으로는 클릭했다는 느낌이 약해서,
+   도착 지점의 구독 폼을 잠깐 강조(하이라이트)하고 이름 입력창에 포커스를 준다. */
+function bindHitsLetterCtaHighlight() {
+  document.querySelectorAll('a[href="#hits-letter"]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(() => {
+        const section = document.getElementById('hits-letter');
+        const form = section && section.querySelector('.newsletter-form');
+        if (!section) return;
+        section.classList.add('newsletter-highlight');
+        const nameInput = form && form.querySelector('input[name="name"]');
+        if (nameInput) nameInput.focus();
+        setTimeout(() => section.classList.remove('newsletter-highlight'), 1400);
+      }, 550); // 부드러운 스크롤(smooth scroll)이 끝날 즈음 실행
+    });
+  });
+}
