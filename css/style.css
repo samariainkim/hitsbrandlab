@@ -81,6 +81,13 @@ h1, h2, h3, p { margin: 0; }
   pointer-events: none;
 }
 .image-slot .slot-placeholder.small { font-size: 10px; }
+.book-cover .slot-placeholder.book-status { font-size: 18px; font-weight: 800; color: var(--text-dark); letter-spacing: 0.01em; border-style: solid; }
+html { scroll-behavior: smooth; }
+.newsletter-main.newsletter-highlight { animation: newsletter-flash 1.4s ease; }
+@keyframes newsletter-flash {
+  0% { background-color: rgba(47,92,255,0.35); }
+  100% { background-color: var(--bg-main); }
+}
 .image-slot .scrim {
   position: absolute;
   inset: 0;
