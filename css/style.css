@@ -81,7 +81,7 @@ h1, h2, h3, p { margin: 0; }
   pointer-events: none;
 }
 .image-slot .slot-placeholder.small { font-size: 10px; }
-.book-cover .slot-placeholder.book-status { font-size: 18px; font-weight: 800; color: var(--text-dark); letter-spacing: 0.01em; border-style: solid; }
+.book-cover .slot-placeholder.book-status { font-size: 18px; font-weight: 800; color: var(--text-light); letter-spacing: 0.01em; border-color: var(--border-light); border-style: solid; }
 html { scroll-behavior: smooth; }
 .newsletter-main.newsletter-highlight { animation: newsletter-flash 1.4s ease; }
 @keyframes newsletter-flash {
