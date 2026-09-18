@@ -47,6 +47,40 @@ function initFloatingButton() {
   mount.appendChild(btn);
 }
 
+/* ---------- 공용 완료 배너(화면 상단 고정) ---------- */
+function showHitsBanner(message) {
+  if (!document.getElementById('hits-banner-style')) {
+    const style = document.createElement('style');
+    style.id = 'hits-banner-style';
+    style.textContent = `
+      .hits-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #2F5CFF; color: #fff; }
+      .hits-banner-inner { max-width: 1140px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: center; gap: 16px; position: relative; }
+      .hits-banner-inner p { margin: 0; font-size: 14px; font-weight: 700; line-height: 1.6; text-align: center; }
+      .hits-banner-close { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #fff; font-size: 18px; line-height: 1; cursor: pointer; padding: 4px 8px; opacity: 0.85; }
+      .hits-banner-close:hover { opacity: 1; }
+      body.hits-banner-open { padding-top: 48px; }
+    `;
+    document.head.appendChild(style);
+  }
+  let banner = document.getElementById('hits-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'hits-banner';
+    banner.className = 'hits-banner';
+    document.body.prepend(banner);
+  }
+  banner.innerHTML = `
+    <div class="hits-banner-inner">
+      <p>${message}</p>
+      <button type="button" class="hits-banner-close" aria-label="닫기">×</button>
+    </div>`;
+  document.body.classList.add('hits-banner-open');
+  banner.querySelector('.hits-banner-close').addEventListener('click', () => {
+    banner.remove();
+    document.body.classList.remove('hits-banner-open');
+  });
+}
+
 /* ---------- 뉴스레터 폼 (3곳 공용) ---------- */
 const STIBEE_LIST_ACTION = 'https://stibee.com/api/v1.0/lists/1tov19hsoSpDl7psKidNtEdwknT9Wg==/public/subscribers';
 const STIBEE_POLICY_TEXT = `[개인정보 수집 및 이용 동의]
@@ -82,10 +116,7 @@ function newsletterFormHTML(idPrefix) {
       </label>
       <button type="submit" class="btn btn-accent">HITS 받아보기</button>
     </form>
-    <iframe name="${idPrefix}-target" class="newsletter-hidden-frame" title="구독 처리" aria-hidden="true"></iframe>
-    <div class="newsletter-thanks" id="${idPrefix}-thanks" hidden>
-      <p>구독 신청이 접수됐습니다. 입력하신 이메일로 확인 메일을 보내드렸어요.</p>
-    </div>`;
+    <iframe name="${idPrefix}-target" class="newsletter-hidden-frame" title="구독 처리" aria-hidden="true"></iframe>`;
 }
 
 function renderNewsletterInline(mountId, heading) {
@@ -116,7 +147,6 @@ function bindNewsletterSubmit(formId) {
   if (!form) return;
   const idPrefix = formId.replace(/-form$/, '');
   const iframe = document.querySelector(`iframe[name="${idPrefix}-target"]`);
-  const thanks = document.getElementById(`${idPrefix}-thanks`);
   const policyBtn = form.querySelector('[data-policy]');
   if (policyBtn) {
     policyBtn.addEventListener('click', () => alert(STIBEE_POLICY_TEXT));
@@ -129,8 +159,9 @@ function bindNewsletterSubmit(formId) {
   if (iframe) {
     iframe.addEventListener('load', () => {
       if (!submitted) return; // 최초 빈 iframe 로드는 무시
-      form.hidden = true;
-      if (thanks) thanks.hidden = false;
+      submitted = false;
+      form.reset();
+      showHitsBanner('HITS Letter 구독 신청이 접수가 완료되었습니다. 입력하신 이메일로 확인 메일을 보내드렸어요.');
     });
   }
 }
@@ -532,7 +563,6 @@ function initDiagnoseButton() {
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
-  const thanks = document.getElementById('contact-thanks');
   const iframe = document.querySelector('iframe[name="contact-target"]');
   let submitted = false;
   form.addEventListener('submit', () => {
@@ -542,8 +572,9 @@ function initContactForm() {
   if (iframe) {
     iframe.addEventListener('load', () => {
       if (!submitted) return; // 최초 빈 iframe 로드는 무시
-      form.hidden = true;
-      if (thanks) thanks.hidden = false;
+      submitted = false;
+      form.reset();
+      showHitsBanner('문의가 정상적으로 접수되었습니다. 빠른 시일 내에 담당자가 확인하여 회신드리도록 하겠습니다.');
     });
   }
 }
