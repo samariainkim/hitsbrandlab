@@ -532,10 +532,20 @@ function initDiagnoseButton() {
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('문의 접수 기능은 준비 중입니다. 지금은 hello@hitsbrandlab.com으로 직접 연락 부탁드립니다.');
+  const thanks = document.getElementById('contact-thanks');
+  const iframe = document.querySelector('iframe[name="contact-target"]');
+  let submitted = false;
+  form.addEventListener('submit', () => {
+    // preventDefault 하지 않음 — 폼은 실제로 숨겨진 iframe을 통해 Formspree로 정상 제출됨.
+    submitted = true;
   });
+  if (iframe) {
+    iframe.addEventListener('load', () => {
+      if (!submitted) return; // 최초 빈 iframe 로드는 무시
+      form.hidden = true;
+      if (thanks) thanks.hidden = false;
+    });
+  }
 }
 
 /* ---------- 초기화 ---------- */
