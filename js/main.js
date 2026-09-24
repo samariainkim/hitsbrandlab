@@ -382,7 +382,7 @@ async function renderInsightGrid(mountId, limit) {
   try {
     const res = await fetch('/data/articles.json');
     const articles = await res.json();
-    const sorted = articles.slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate));
+    const sorted = articles.slice().sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1));
     const list = limit ? sorted.slice(0, limit) : sorted;
     mount.innerHTML = list.map(a => `
       <a class="insight-preview-card" href="${a.url}">
