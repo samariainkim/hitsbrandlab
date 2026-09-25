@@ -81,6 +81,42 @@ function showHitsBanner(message) {
   });
 }
 
+/* ---------- 공유 버튼 (URL 복사 · 페이스북 · X) ---------- */
+function initShareButtons() {
+  const mount = document.getElementById('share-mount');
+  if (!mount) return;
+  if (!document.getElementById('hits-share-style')) {
+    const style = document.createElement('style');
+    style.id = 'hits-share-style';
+    style.textContent = `
+      .hits-share { display: flex; align-items: center; gap: 14px; margin: 4px 0 32px; }
+      .hits-share-label { font-size: 11px; font-weight: 850; letter-spacing: .12em; color: #6B6A66; }
+      .hits-share-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #DEDDD8; display: flex; align-items: center; justify-content: center; color: #111110; text-decoration: none; font-weight: 800; font-size: 14px; background: #fff; cursor: pointer; transition: border-color .15s, color .15s; }
+      .hits-share-btn:hover { border-color: #2F5CFF; color: #2F5CFF; }
+    `;
+    document.head.appendChild(style);
+  }
+  const url = location.href;
+  const title = document.title;
+  mount.innerHTML = `
+    <div class="hits-share">
+      <span class="hits-share-label">SHARE</span>
+      <button type="button" class="hits-share-btn" data-share="copy" aria-label="URL 복사">🔗</button>
+      <a class="hits-share-btn" data-share="facebook" target="_blank" rel="noopener" aria-label="페이스북 공유" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}">f</a>
+      <a class="hits-share-btn" data-share="x" target="_blank" rel="noopener" aria-label="X 공유" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}">𝕏</a>
+    </div>`;
+  const copyBtn = mount.querySelector('[data-share="copy"]');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(url).then(() => {
+        showHitsBanner('링크가 복사되었습니다.');
+      }).catch(() => {
+        showHitsBanner('복사에 실패했습니다. 주소창의 URL을 직접 복사해주세요.');
+      });
+    });
+  }
+}
+
 /* ---------- 뉴스레터 폼 (3곳 공용) ---------- */
 const STIBEE_LIST_ACTION = 'https://stibee.com/api/v1.0/lists/1tov19hsoSpDl7psKidNtEdwknT9Wg==/public/subscribers';
 const STIBEE_POLICY_TEXT = `[개인정보 수집 및 이용 동의]
@@ -584,6 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
   initFloatingButton();
   initDiagnoseButton();
+  initShareButtons();
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();
