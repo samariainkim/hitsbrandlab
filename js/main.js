@@ -4,6 +4,87 @@
   로컬에서 확인할 땐 반드시 로컬 서버로 실행하세요 (README 참고).
 */
 
+/* ---------- Google Analytics 4 (측정 ID: G-QH98SJK4D6) ----------
+   - 내 방문 제외: 사이트 주소 뒤에 ?notrack=1 을 붙여 한 번 접속하면 이 브라우저는 측정되지 않음 (해제: ?notrack=0)
+   - 폼 이벤트(구독/문의)는 아래 bindNewsletterSubmit / initContactForm 안에서 hitsTrack()으로 전송 */
+(function () {
+  const GA_ID = 'G-QH98SJK4D6';
+
+  try {
+    const p = new URLSearchParams(location.search);
+    if (p.get('notrack') === '1') localStorage.setItem('hits-notrack', '1');
+    if (p.get('notrack') === '0') localStorage.removeItem('hits-notrack');
+    if (localStorage.getItem('hits-notrack') === '1') {
+      window.hitsTrack = function () {};
+      return;
+    }
+  } catch (e) { /* 저장소 접근이 막힌 환경에서는 그냥 측정 진행 */ }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+
+  const track = (name, params) => {
+    try { gtag('event', name, params || {}); } catch (e) {}
+  };
+  window.hitsTrack = track;
+
+  /* 클릭 이벤트 (이벤트 위임 — 나중에 생기는 카드/버튼도 자동 적용) */
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    if (!t || !t.closest) return;
+
+    const share = t.closest('#share-mount [data-share]');
+    if (share) {
+      track('share', { method: share.dataset.share, content_type: 'library_case', item_id: location.pathname });
+      return;
+    }
+
+    const letterCta = t.closest('a[href="#hits-letter"], .float-newsletter-btn');
+    if (letterCta) {
+      track('newsletter_cta_click', { cta_text: (letterCta.textContent || '').trim().slice(0, 40) });
+      return;
+    }
+
+    const canvasCta = t.closest('a[href^="/canvas/"]');
+    if (canvasCta) {
+      track('canvas_cta_click', { link_url: canvasCta.getAttribute('href'), from: location.pathname });
+      return;
+    }
+
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured');
+    if (card && card.getAttribute('href')) {
+      track('content_card_click', {
+        card_type: card.className.split(' ')[0],
+        link_url: card.getAttribute('href'),
+        from: location.pathname
+      });
+      return;
+    }
+
+    const tag = t.closest('.tax-tag');
+    if (tag) {
+      track('case_tag_click', { tag: (tag.textContent || '').trim(), from: location.pathname });
+      return;
+    }
+
+    const chip = t.closest('#explore-cases .chip');
+    if (chip) {
+      track('library_filter', { value: chip.dataset.value || '' });
+    }
+  });
+})();
+
+/* GA 차단/제외 상태에서도 오류가 나지 않도록 안전 호출용 */
+function hitsTrackSafe(name, params) {
+  if (typeof window.hitsTrack === 'function') window.hitsTrack(name, params);
+}
+
 /* ---------- 공용 헤더/푸터 로드 ---------- */
 async function loadPartials() {
   const headerMount = document.getElementById('site-header-mount');
@@ -191,11 +272,13 @@ function bindNewsletterSubmit(formId) {
   form.addEventListener('submit', () => {
     // preventDefault 하지 않음 — 폼은 실제로 숨겨진 iframe을 통해 스티비 구독 API로 정상 제출됨.
     submitted = true;
+    hitsTrackSafe('newsletter_submit', { form_id: idPrefix, page_path: location.pathname });
   });
   if (iframe) {
     iframe.addEventListener('load', () => {
       if (!submitted) return; // 최초 빈 iframe 로드는 무시
       submitted = false;
+      hitsTrackSafe('newsletter_subscribe', { form_id: idPrefix, page_path: location.pathname });
       form.reset();
       showHitsBanner('HITS Letter 구독 신청이 접수가 완료되었습니다. 입력하신 이메일로 확인 메일을 보내드렸어요.');
     });
@@ -604,11 +687,13 @@ function initContactForm() {
   form.addEventListener('submit', () => {
     // preventDefault 하지 않음 — 폼은 실제로 숨겨진 iframe을 통해 Formspree로 정상 제출됨.
     submitted = true;
+    hitsTrackSafe('contact_submit', { form_id: 'contact-form' });
   });
   if (iframe) {
     iframe.addEventListener('load', () => {
       if (!submitted) return; // 최초 빈 iframe 로드는 무시
       submitted = false;
+      hitsTrackSafe('contact_success', { form_id: 'contact-form' });
       form.reset();
       showHitsBanner('문의가 정상적으로 접수되었습니다. 빠른 시일 내에 담당자가 확인하여 회신드리도록 하겠습니다.');
     });
