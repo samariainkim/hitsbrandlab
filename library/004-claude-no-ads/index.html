@@ -34,7 +34,7 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 .w4-quote span{color:var(--w4-b)}
 .w4-kicker{margin:48px 0 0;padding-top:30px;border-top:1px solid currentColor;font-size:clamp(24px,3.2vw,36px);font-weight:850;line-height:1.45;letter-spacing:-.035em}
 .w4-questions{margin:40px 0 48px;border-top:1px solid rgba(17,17,16,.2)}
-.w4-q{padding:11px 0;border-bottom:1px solid rgba(17,17,16,.15);font-size:clamp(18px,2.2vw,24px);font-weight:800}
+.w4-q{padding:17px 0;border-bottom:1px solid rgba(17,17,16,.15);font-size:clamp(19px,2.6vw,27px);font-weight:800}
 .w4-trust{margin:56px auto 0;text-align:center}
 .w4-trust .small{font-size:11px;font-weight:900;letter-spacing:.16em}
 .w4-trust .arrow{margin:14px 0;color:var(--w4-b);font-size:28px}
@@ -53,7 +53,7 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 .w4-episode{display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:center;margin-top:72px;padding-top:72px;border-top:1px solid rgba(245,245,242,.22)}
 .w4-episode:nth-of-type(even){grid-template-columns:.92fr 1.08fr}
 .w4-episode:nth-of-type(even) .w4-episode-copy{order:1}
-.w4-episode:nth-of-type(even) img{order:2}
+.w4-episode:nth-of-type(even) .w4-video{order:2}
 .w4-episode img{width:100%;display:block}
 .w4-episode h3{margin:10px 0 18px;font-size:clamp(29px,4vw,43px);line-height:1.18;letter-spacing:-.045em}
 .w4-episode p{font-size:15px;line-height:1.9}
@@ -88,11 +88,24 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 .w4-newsletter{padding:64px 0 40px}
 .w4-newsletter .newsletter-inline{padding-left:0;padding-right:0;background:none}
 .w4-photo img,.w4-keep img,.w4-episode img{height:auto}
+.w4-video{position:relative;display:block;width:100%;padding:0;border:0;background:#000;cursor:pointer;aspect-ratio:1280/965;overflow:hidden}
+.w4-video img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s,opacity .25s}
+.w4-video:hover img,.w4-video:focus-visible img{transform:scale(1.02);opacity:.82}
+.w4-video:focus-visible{outline:3px solid var(--w4-b);outline-offset:3px}
+.w4-play{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:var(--w4-b);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.4);transition:transform .2s}
+.w4-video:hover .w4-play{transform:scale(1.08)}
+.w4-play::before{content:"";margin-left:6px;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent #fff}
+.w4-video-tag{position:absolute;left:14px;bottom:14px;padding:6px 10px;background:rgba(17,17,16,.78);color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;border-radius:4px}
+.w4-video iframe,.w4-video-frame{position:absolute;inset:0;width:100%;height:100%;border:0}
+.w4-video-link{display:inline-block;margin-top:14px;font-size:12px;font-weight:800;letter-spacing:.04em;color:rgba(245,245,242,.7);text-decoration:none;border-bottom:1px solid rgba(245,245,242,.35)}
+.w4-video-link:hover{color:#fff;border-color:#fff}
+.w4-episode .w4-video img{height:100%}
+
 
 .w4-last-question{width:min(calc(100% - 40px),760px);margin:76px auto 0;padding:58px 0 8px;border-top:1px solid rgba(17,17,16,.18);text-align:center}
 .w4-last-question .w4-label{display:block;margin-bottom:22px}
 .w4-last-question p{margin:0 auto;max-width:720px;font-size:clamp(30px,3.7vw,38px);font-weight:850;line-height:1.38;letter-spacing:-.045em}
-@media(max-width:860px){.w4-keep,.w4-episode,.w4-episode:nth-of-type(even){grid-template-columns:1fr}.w4-episode:nth-of-type(even) .w4-episode-copy,.w4-episode:nth-of-type(even) img{order:initial}.w4-stat{grid-template-columns:1fr}.w4-system-row{grid-template-columns:1fr;gap:8px}}
+@media(max-width:860px){.w4-keep,.w4-episode,.w4-episode:nth-of-type(even){grid-template-columns:1fr}.w4-episode:nth-of-type(even) .w4-episode-copy,.w4-episode:nth-of-type(even) .w4-video{order:initial}.w4-stat{grid-template-columns:1fr}.w4-system-row{grid-template-columns:1fr;gap:8px}}
 @media(max-width:580px){.w4-section,.w4-film{padding:68px 0}.w4-hero{padding:66px 0 54px}.w4-decode,.w4-point{padding:74px 0}.w4-decode-item{grid-template-columns:42px 1fr}.w4-interrupt{flex-direction:column}}
 </style>
 </head>
@@ -138,9 +151,9 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
       <div class="w4-q">“빨리 식스팩을 만들 수 있을까요?”</div>
       <div class="w4-q">“제 에세이의 논지가 명확한가요?”</div>
     </div>
-    <div class="w4-kicker">검색창에는 질문을 입력하지만,<br>AI에게는 <strong>고민을 털어놓는다.</strong></div>
-    <p style="margin-top:42px">AI가 나를 더 많이 이해할수록 답은 더 개인화될 수 있다. 하지만 동시에 작은 불안도 생긴다. <strong>“내가 털어놓은 고민이 정말 나를 돕는 데만 사용되고 있을까?”</strong></p>
-    <p>문제는 단순히 광고가 보기 싫다는 것이 아니다. 내가 믿고 털어놓은 고민이 다른 목적을 위해 이용될 수 있다는 불안이다.</p>
+    <div class="w4-kicker">검색창에는 필요한 정보만 입력하지만,<br>AI에게는 <strong>고민까지 털어놓는다.</strong></div>
+    <p style="margin-top:42px">AI가 나를 더 많이 이해할수록 답은 더 개인화될 수 있다. 하지만 동시에 작은 불안도 생긴다. <strong>“내가 AI에게 털어놓은 고민들이 정말 나를 위해서만 사용되고 있을까?”</strong></p>
+    <p>문제는 단순히 광고가 보기 싫다는 것을 넘어선다. 내가 믿고 털어놓은 고민들과 민감 정보들이 다른 목적을 위해 이용될 수 있다는 불안감으로 연결된다.</p>
     <div class="w4-trust">
       <div class="small">MY PROBLEM · RELATIONSHIP · MONEY · WORK · HEALTH · FUTURE</div>
       <div class="arrow">↓</div><div class="big">AI</div><div class="arrow">↓</div>
@@ -177,18 +190,18 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
   <div class="w4-shell">
     <div class="w4-film-intro">
       <div class="w4-label">T · TALE / A TIME AND A PLACE</div>
-      <div class="w4-film-title">광고하지 않겠다는 말을<br>광고로 만들었다.</div>
-      <p>Claude의 장점을 직접 설명하는 대신, 광고가 AI 대화 안으로 들어왔을 때 얼마나 이상한 일이 벌어질 수 있는지를 먼저 경험하게 한다.</p>
+      <div class="w4-film-title">'광고하지 않겠다'는 말을<br>'광고(AD)'로 만들었다.</div>
+      <p>Claude는 그들 서비스의 장점을 직접 설명하는 대신, 광고가 AI 대화 안으로 들어왔을 때 얼마나 이상한 일이 벌어질 수 있는지를 먼저 경험하게 했다.</p>
     </div>
 
     <div class="w4-episode">
-      <img src="/images/library/004-claude-no-ads/betrayal.jpg" width="1280" height="965" loading="lazy" alt="Betrayal 편: 고민을 털어놓는 남자와 상담사 역할의 AI 장면">
-      <div class="w4-episode-copy"><div class="w4-label">BETRAYAL</div><h3>“엄마와 어떻게 더 잘 대화할 수 있을까요?”</h3><p>따뜻한 상담이 이어지다가 갑자기 데이팅 서비스 광고가 등장한다. 가족과의 관계를 고민하던 진지한 대화가 순식간에 광고 노출의 기회로 바뀐다.</p><div class="w4-interrupt"><span>HELP REQUEST</span><span>→ AD OPPORTUNITY</span></div></div>
+      <button type="button" class="w4-video" data-yt="-BQV7yTp_bo" data-label="Betrayal" aria-label="Betrayal 광고 영상 재생" style="aspect-ratio:1280/965"><img src="/images/library/004-claude-no-ads/betrayal.jpg" width="1280" height="965" loading="lazy" alt="Betrayal 편: 고민을 털어놓는 남자와 상담사 역할의 AI 장면"><span class="w4-play" aria-hidden="true"></span><span class="w4-video-tag">▶ WATCH THE AD</span></button>
+      <div class="w4-episode-copy"><div class="w4-label">BETRAYAL</div><h3>“엄마와 어떻게 더 잘 대화할 수 있을까요?”</h3><p>따뜻한 상담이 이어지다가 갑자기 데이팅 서비스 광고가 등장한다. 가족과의 관계를 고민하던 진지한 대화가 순식간에 광고 노출의 기회로 뒤바뀐다.</p><div class="w4-interrupt"><span>HELP REQUEST</span><span>→ AD OPPORTUNITY</span></div><a class="w4-video-link" href="https://www.youtube.com/watch?v=-BQV7yTp_bo" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
     </div>
 
     <div class="w4-episode">
-      <img src="/images/library/004-claude-no-ads/violation.jpg" width="1280" height="968" loading="lazy" alt="Violation 편: 운동 조언을 구하는 청년과 AI 장면">
-      <div class="w4-episode-copy"><div class="w4-label">VIOLATION</div><h3>“빨리 식스팩을 만들 수 있을까요?”</h3><p>운동에 대한 조언을 기대한 질문은 어느 순간 신체적 콤플렉스를 건드리는 상품 광고로 바뀐다. 건강해지고 싶다는 고민이 다른 상품을 판매할 수 있는 신호가 된다.</p></div>
+      <button type="button" class="w4-video" data-yt="mOr39bQmlhE" data-label="Violation" aria-label="Violation 광고 영상 재생" style="aspect-ratio:1280/968"><img src="/images/library/004-claude-no-ads/violation.jpg" width="1280" height="968" loading="lazy" alt="Violation 편: 운동 조언을 구하는 청년과 AI 장면"><span class="w4-play" aria-hidden="true"></span><span class="w4-video-tag">▶ WATCH THE AD</span></button>
+      <div class="w4-episode-copy"><div class="w4-label">VIOLATION</div><h3>“어떻게 식스팩을 만들 수 있을까요?”</h3><p>운동에 대한 조언을 기대한 질문은 어느 순간 신체적 콤플렉스를 건드리는 상품 광고로 뒤바뀐다. 건강해지고 싶다는 고민이 다른 상품을 판매할 수 있는 신호로 변질된다.</p><a class="w4-video-link" href="https://www.youtube.com/watch?v=mOr39bQmlhE" target="_blank" rel="noopener">YouTube에서 보기 ↗</a></div>
     </div>
 
     <div class="w4-flow">QUESTION <span>→</span> ADVICE <span>→</span> TRUST <span>→</span> AD</div>
@@ -205,25 +218,25 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
   <div class="w4-read">
     <div class="w4-label">S · SYSTEM</div>
     <h2>캠페인은 끝나도<br>브랜드의 약속은 남아야 한다.</h2>
-    <p>이 캠페인의 성과를 단순히 ‘화제가 됐다’고 설명하면 중요한 것을 놓친다. 더 중요한 것은 광고에서 했던 말이 Claude라는 상품이 그동안 해온 이야기와 같은 방향을 가리킨다는 점이다.</p>
+    <p>이 캠페인의 성과를 단순히 ‘화제가 됐다’고 설명하고 끝내면 중요한 것을 놓치고 만다. 더 중요한 것은 광고에서 했던 말이 'Claude'라는 상품이 그동안 해온 이야기와 일관되게 같은 방향을 가리킨다는 점이다.</p>
     <div class="w4-system">
       <div class="w4-system-row"><b>BRAND</b><span>KEEP THINKING</span></div>
       <div class="w4-system-row"><b>EXPERIENCE</b><span>A SPACE TO THINK</span></div>
       <div class="w4-system-row"><b>PRINCIPLE</b><span>NO ADS</span></div>
       <div class="w4-system-row"><b>CAMPAIGN</b><span>A TIME AND A PLACE</span></div>
     </div>
-    <div class="w4-kicker">강한 브랜드는 캠페인마다 새로운 말을 만들지 않는다.<br><strong>하나의 믿음을 제품과 경험과 커뮤니케이션에서 반복한다.</strong></div>
+    <div class="w4-kicker">강한 브랜드는 캠페인마다 새로운 말을 만들지 않는다.<br><strong>하나의 믿음을 제품과 경험, 커뮤니케이션을 통해 반복한다.</strong></div>
   </div>
 </section>
 
 <section class="w4-decode w4-dark">
   <div class="w4-read"><div class="w4-label">HITS CONNECTION · 004</div></div>
-  <h2>하나의 고객 문제에서<br>브랜드의 원칙까지.</h2>
+  <h2>고객이 가진 하나의 문제를<br>브랜드의 원칙으로..</h2>
   <div class="w4-decode-list">
-    <div class="w4-decode-item"><div class="w4-letter">H</div><div><b>AI에게 속마음까지 털어놔도 괜찮을까?</b><small>중요한 고민을 맡길수록 고객에게 필요한 것은 신뢰였다.</small></div></div>
-    <div class="w4-decode-item"><div class="w4-letter">I</div><div><b>신뢰를 ‘NO ADS’라는 제품 원칙으로 번역한다.</b><small>추상적인 욕구를 고객이 이해할 수 있는 명확한 선택 이유로 만든다.</small></div></div>
-    <div class="w4-decode-item"><div class="w4-letter">T</div><div><b>가장 비싼 광고판에서 ‘광고하지 않겠다’고 선언한다.</b><small>제품의 원칙 자체를 역설적인 이야기로 만든다.</small></div></div>
-    <div class="w4-decode-item"><div class="w4-letter">S</div><div><b>하나의 약속을 제품과 브랜드 경험에서 반복한다.</b><small>캠페인의 메시지가 실제 선택 이유로 축적되게 한다.</small></div></div>
+    <div class="w4-decode-item"><div class="w4-letter">H</div><div><b>AI에게 속마음까지 털어놔도 괜찮을까?</b><small>중요하고 민감한 고민을 맡길수록 고객에게 필요한 것은 신뢰였다.</small></div></div>
+    <div class="w4-decode-item"><div class="w4-letter">I</div><div><b>신뢰를 ‘NO ADS’라는 제품의 원칙으로 번역한다.</b><small>추상적인 욕구를 고객이 이해할 수 있는 명확한 선택 이유로 만든다.</small></div></div>
+    <div class="w4-decode-item"><div class="w4-letter">T</div><div><b>가장 비싼 광고판에서 ‘광고하지 않겠다’고 선언했다.</b><small>제품의 원칙 자체를 역설적인 이야기로 만든다.</small></div></div>
+    <div class="w4-decode-item"><div class="w4-letter">S</div><div><b>하나의 약속을 제품과 브랜드 경험을 통해 반복한다.</b><small>캠페인의 메시지가 실제 선택 이유로 축적되게 한다.</small></div></div>
   </div>
   <div class="w4-master">PROBLEM <span>→</span> PRINCIPLE <span>→</span> STORY <span>→</span> BRAND</div>
 </section>
@@ -231,8 +244,8 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 <section class="w4-point">
   <div class="w4-read">
     <div class="w4-label">HITS POINT · 004</div>
-    <h2>강한 브랜드는 무엇을 하겠다는 약속만큼<br><em>무엇을 하지 않겠다는 약속</em>도 분명하다.</h2>
-    <p>차별화는 무엇을 더 제공할 것인가에서만 만들어지지 않는다. 고객이 중요하게 여기는 가치를 지키기 위해 무엇을 포기할 것인가에서도 만들어진다.</p>
+    <h2>강한 브랜드는 '무엇을 하겠다'는 약속만큼이나,<br><em>'무엇을 하지 않겠다'는 약속</em>도 분명하다.</h2>
+    <p>차별화란 무엇을 더 제공할 것인가를 통해서만 만들어지는 것이 아니다. 고객이 중요하게 여기는 가치를 지키기 위해 무엇을 포기할 것인가를 통해서 만들어지기도 한다.</p>
     <div class="w4-last-question">
       <span class="w4-label">ONE LAST QUESTION</span>
       <p>당신의 브랜드가 하는 말과<br>실제로 하는 행동은<br>같은 방향을 가리키고 있는가?</p>
@@ -258,5 +271,23 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 <div id="float-newsletter-mount"></div>
 <div id="site-footer-mount"></div>
 <script src="/js/main.js"></script>
+<script>
+/* 라이트 임베드: 클릭 전에는 유튜브를 불러오지 않는다 */
+document.querySelectorAll('.w4-video[data-yt]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var id=btn.getAttribute('data-yt');
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    f.title=btn.getAttribute('data-label')+' 광고 영상';
+    f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen=true;
+    f.className='w4-video-frame';
+    btn.innerHTML='';
+    btn.appendChild(f);
+    btn.style.cursor='default';
+    if(window.hitsTrack) window.hitsTrack('video_play',{video_id:id,video_label:btn.getAttribute('data-label'),from:location.pathname});
+  },{once:true});
+});
+</script>
 </body>
 </html>
