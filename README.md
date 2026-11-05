@@ -63,7 +63,8 @@ python3 -m http.server
 
 ## 아직 자리만 있는 기능 (의도된 상태)
 
-- 진단 테스트, 뉴스레터 제출, 협업 문의 제출, 캔버스 검토요청 제출 → 전부 알림창만 뜸 (Mailchimp/Formspree 등 실제 연동은 다음 단계)
+- 진단 테스트, 캔버스 검토요청 제출 → 알림창만 뜸 (홈 히어로의 "진단 오픈 소식 받기" 버튼은 뉴스레터 구독 폼으로 연결됨)
+- 독자 오픈채팅방 링크: 오픈 전이라 푸터에서 제외한 상태. 오픈하면 `partials/footer.html`의 `.footer-links`에 링크를 다시 추가
 - HITS Master Canvas는 입력 내용이 브라우저에 로컬 저장됨 (제출 시 서버 전송은 아직 없음)
 - System Canvas는 아직 콘텐츠 미확정 상태(Repeat→Scale→Sustain→Fan 문항은 책 원고 보강 후 반영 예정)
 - CATEGORY / TOPIC 필터는 데이터에는 있지만 Library UI에는 아직 노출 안 함 (콘텐츠 20~30개 쌓이면 노출 예정)

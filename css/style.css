@@ -505,6 +505,9 @@ html { scroll-behavior: smooth; }
 .canvas-name { font-size: 16px; font-weight: 800; margin: 0 0 14px; }
 .canvas-cta { font-size: 13px; font-weight: 700; color: var(--accent); }
 .canvas-card.is-ready { border: 1px solid var(--accent); }
+a.canvas-card { display: block; transition: border-color .15s; }
+a.canvas-card:hover { border-color: var(--accent); }
+.canvas-soon { display: inline-block; font-size: 11px; font-weight: 700; color: var(--text-secondary); background: var(--bg-content); padding: 2px 9px; border-radius: 10px; }
 .canvas-badge-ready { display: inline-block; font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg-content); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
 
 .canvas-master-banner {

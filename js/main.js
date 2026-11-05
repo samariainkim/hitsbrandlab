@@ -28,6 +28,7 @@ function hitsCtaLocation(el) {
   if (el.classList && el.classList.contains('float-newsletter-btn')) return 'floating';
   const sec = el.closest('section');
   if (!sec) return 'other';
+  if (sec.classList.contains('hero')) return 'hero';
   if (sec.id === 'book') return 'home_book';
   const h2 = ((sec.querySelector('h2') || {}).textContent || '').toUpperCase();
   if (h2.indexOf('WEEKLY') > -1) return 'home_weekly';
@@ -716,14 +717,6 @@ document.addEventListener('click', (e) => {
   window.location.href = `/library/?${val.dataset.axis}=${encodeURIComponent(val.textContent)}`;
 });
 
-/* ---------- 진단 버튼 (히어로) ---------- */
-function initDiagnoseButton() {
-  const btn = document.getElementById('diagnose-btn');
-  if (btn) {
-    btn.addEventListener('click', () => alert('진단 테스트는 준비 중입니다. 곧 만나보실 수 있어요.'));
-  }
-}
-
 /* ---------- 협업 문의 폼 ---------- */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -750,7 +743,6 @@ function initContactForm() {
 document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
   initFloatingButton();
-  initDiagnoseButton();
   initShareButtons();
   initContactForm();
   initCanvasMasterForm();
