@@ -45,6 +45,9 @@ h1, h2, h3, p { margin: 0; }
    ========================================================== */
 html.site-frame { background: var(--bg-outer); }
 html.site-frame body { max-width: var(--frame-width); margin: 0 auto; }
+/* 내용이 짧은 페이지에서도 푸터가 화면 맨 아래에 오도록 */
+html.site-frame body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+html.site-frame #site-footer-mount { margin-top: auto; }
 html.site-frame .float-newsletter-btn {
   right: max(20px, calc((100vw - var(--frame-width)) / 2 + 20px));
 }
