@@ -224,6 +224,13 @@ html { scroll-behavior: smooth; }
   opacity: 0; visibility: hidden; transform: translateY(10px);
   transition: opacity .2s, transform .2s, visibility 0s .2s;
 }
+/* 안내 창 (진단 버튼 등) */
+.hits-notice { position: fixed; inset: 0; z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(17, 17, 16, .6); }
+.hits-notice-box { width: 100%; max-width: 440px; padding: 28px 24px 22px; background: var(--bg-white); color: var(--text-dark); border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
+.hits-notice-text { margin: 0 0 22px; font-size: 15px; font-weight: 700; line-height: 1.75; }
+.hits-notice-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.hits-notice-close { background: var(--bg-white); color: var(--text-dark); border: 1px solid var(--border-light); }
+html.hits-notice-open { overflow: hidden; }
 .float-newsletter-btn.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .2s; }
 @media (max-width: 640px) {
   .float-newsletter-btn, html.site-frame .float-newsletter-btn { right: 12px; bottom: 12px; font-size: 12px; padding: 9px 14px; }

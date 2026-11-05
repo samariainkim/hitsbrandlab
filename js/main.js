@@ -28,7 +28,6 @@ function hitsCtaLocation(el) {
   if (el.classList && el.classList.contains('float-newsletter-btn')) return 'floating';
   const sec = el.closest('section');
   if (!sec) return 'other';
-  if (sec.classList.contains('hero')) return 'hero';
   if (sec.id === 'book') return 'home_book';
   const h2 = ((sec.querySelector('h2') || {}).textContent || '').toUpperCase();
   if (h2.indexOf('WEEKLY') > -1) return 'home_weekly';
@@ -760,6 +759,60 @@ document.addEventListener('click', (e) => {
   window.location.href = `/library/?${val.dataset.axis}=${encodeURIComponent(val.textContent)}`;
 });
 
+/* ---------- 진단 버튼 (히어로): 준비 중 안내 + 레터 구독 유도 ---------- */
+function initDiagnoseButton() {
+  const btn = document.getElementById('diagnose-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    hitsTrackSafe('diagnose_click', { cta_location: 'hero' });
+    showDiagnoseNotice(btn);
+  });
+}
+
+function showDiagnoseNotice(opener) {
+  if (document.getElementById('hits-notice')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'hits-notice';
+  overlay.className = 'hits-notice';
+  overlay.innerHTML = `
+    <div class="hits-notice-box" role="dialog" aria-modal="true" aria-label="진단 테스트 안내">
+      <p class="hits-notice-text">진단 테스트 서비스는 준비중입니다.<br>레터 구독하기를 신청하시면 오픈 소식을 가장 먼저 받아보실 수 있습니다.</p>
+      <div class="hits-notice-actions">
+        <button type="button" class="btn hits-notice-close" data-notice-close>닫기</button>
+        <button type="button" class="btn btn-accent" data-notice-subscribe>레터 구독하기</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.documentElement.classList.add('hits-notice-open');
+
+  const buttons = overlay.querySelectorAll('button');
+  const onKey = (e) => {
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') { // 안내 창 안에서만 포커스 이동
+      const first = buttons[0], last = buttons[buttons.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
+  function close() {
+    overlay.remove();
+    document.documentElement.classList.remove('hits-notice-open');
+    document.removeEventListener('keydown', onKey);
+    if (opener) opener.focus();
+  }
+  document.addEventListener('keydown', onKey);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  overlay.querySelector('[data-notice-close]').addEventListener('click', close);
+  overlay.querySelector('[data-notice-subscribe]').addEventListener('click', () => {
+    hitsTrackSafe('newsletter_cta_click', { cta_text: '레터 구독하기', cta_location: 'diagnose_notice' });
+    close();
+    const section = document.getElementById('hits-letter');
+    if (section) { section.scrollIntoView({ behavior: 'smooth' }); flashHitsLetter(); }
+    else window.location.href = '/#hits-letter';
+  });
+  overlay.querySelector('[data-notice-subscribe]').focus();
+}
+
 /* ---------- 협업 문의 폼 ---------- */
 function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -787,6 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
   initFloatingButton();
   initShareButtons();
+  initDiagnoseButton();
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();
@@ -807,18 +861,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* '#hits-letter'로 점프하는 CTA 버튼들: 스크롤만으로는 클릭했다는 느낌이 약해서,
    도착 지점의 구독 폼을 잠깐 강조(하이라이트)하고 이름 입력창에 포커스를 준다. */
+function flashHitsLetter() {
+  setTimeout(() => {
+    const section = document.getElementById('hits-letter');
+    const form = section && section.querySelector('.newsletter-form');
+    if (!section) return;
+    section.classList.add('newsletter-highlight');
+    const nameInput = form && form.querySelector('input[name="name"]');
+    if (nameInput) nameInput.focus();
+    setTimeout(() => section.classList.remove('newsletter-highlight'), 1400);
+  }, 550); // 부드러운 스크롤(smooth scroll)이 끝날 즈음 실행
+}
+
 function bindHitsLetterCtaHighlight() {
   document.querySelectorAll('a[href="#hits-letter"]').forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(() => {
-        const section = document.getElementById('hits-letter');
-        const form = section && section.querySelector('.newsletter-form');
-        if (!section) return;
-        section.classList.add('newsletter-highlight');
-        const nameInput = form && form.querySelector('input[name="name"]');
-        if (nameInput) nameInput.focus();
-        setTimeout(() => section.classList.remove('newsletter-highlight'), 1400);
-      }, 550); // 부드러운 스크롤(smooth scroll)이 끝날 즈음 실행
-    });
+    link.addEventListener('click', flashHitsLetter);
   });
 }
