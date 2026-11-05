@@ -58,29 +58,5 @@
     "publishDate": "2026-09-04",
     "thumbnail": "",
     "url": "/insight/001-fomo-and-jomo/"
-  },
-  {
-    "slug": "three-mistakes-planners-make",
-    "title": "좋은 상품일수록 설명하기 어려운 이유",
-    "excerpt": "복잡한 스펙은 신뢰가 아니라 피로를 준다.",
-    "category": "PRODUCT",
-    "articleNumber": null,
-    "readTime": "5분",
-    "tags": ["기획자", "착각", "전략"],
-    "publishDate": "2026-08-13",
-    "thumbnail": "",
-    "url": "#"
-  },
-  {
-    "slug": "price-is-not-a-number",
-    "title": "가격의 문제는 숫자가 아니라 이유다",
-    "excerpt": "같은 가격이라도 어떤 상품은 비싸다고 느끼고, 어떤 상품은 합리적이라고 느낀다. 그 차이를 만드는 건 숫자 자체가 아니라, 그 숫자를 받아들이게 만드는 이유다. 가격을 낮추기 전에 먼저 물어야 할 질문이 있다.",
-    "category": "PRODUCT",
-    "articleNumber": null,
-    "readTime": "7분",
-    "tags": ["가격", "가치설계", "프라이싱"],
-    "publishDate": "2026-08-27",
-    "thumbnail": "",
-    "url": "#"
   }
 ]
