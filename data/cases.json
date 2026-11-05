@@ -128,5 +128,36 @@
     "applyQuestion": "당신의 브랜드가 하는 말과 실제로 하는 행동은 같은 방향을 가리키고 있습니까?",
     "hasDetail": true,
     "detailUrl": "/library/004-claude-no-ads/"
+  },
+  {
+    "id": "brompton-life-unfolded",
+    "caseNumber": "005",
+    "brand": "Brompton",
+    "product": "Brompton 접이식 자전거",
+    "title": "브롬톤 Life Unfolded 리브랜딩",
+    "question": "50년 된 브랜드는 무엇을 바꾸고, 무엇을 남겼을까?",
+    "description": "접히는 기술을 삶을 펼치는 브랜드 가치로 다시 번역한 리브랜딩",
+    "excerpt": "접이식 자전거가 더 이상 낯설지 않은 시장에서, 브롬톤은 50주년을 맞아 'Life Unfolded'를 내세웠다. 핵심 자산인 폴딩을 버리지 않고, 그 기능이 고객의 삶에서 갖는 의미를 새로운 브랜드 언어로 다시 번역한 리브랜딩이다.",
+    "publishDate": "2026-11-05",
+    "image": "/images/library/005-brompton-life-unfolded/urban-carry.jpg",
+    "category": [
+      "모빌리티"
+    ],
+    "business": [
+      "제조"
+    ],
+    "signal": [
+      "문제재정의",
+      "스토리",
+      "차별화"
+    ],
+    "hook": "접히는 건 알겠는데, 내 삶에 무엇이 달라지지? 기능을 이해하는 것과 그 기능을 원하는 이유는 다르다. 비슷한 대안이 늘어난 시장에서 고객은 선택의 이유를 묻는다.",
+    "insight": "브롬톤은 폴딩이라는 핵심 자산을 버리지 않고, 그 기술이 고객의 일상에서 만드는 의미(FOLD → UNFOLD)를 전면에 내세웠다.",
+    "tale": "기존 자산을 지우는 대신 확장했다. 이름과 로고타입을 출발점으로 전용 서체, 폴딩을 닮은 모션과 Klein Blue로 하나의 브랜드 언어를 만들었다.",
+    "system": "구매 이후에도 타고, 꾸미고, 모이고, 공유하는 라이더의 경험이 브랜드 이야기를 일상에서 반복시킨다.",
+    "hitsPoint": "기능은 따라 할 수 있어도, 그 기능이 고객의 삶에서 갖는 의미까지 같아지는 것은 아니다.",
+    "applyQuestion": "당신의 상품이 자랑하는 그 기능은, 지금도 고객이 당신을 선택해야 할 이유가 되고 있는가?",
+    "hasDetail": true,
+    "detailUrl": "/library/005-brompton-life-unfolded/"
   }
 ]
