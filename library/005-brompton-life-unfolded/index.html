@@ -58,6 +58,11 @@
 .w5-context-photo,.w5-tale-photo,.w5-system-image{margin-left:auto;margin-right:auto}
 .w5-system .w5-tag{font-size:12px;letter-spacing:.15em;font-weight:850;color:var(--w5-blue)}
 .w5-system h2{font-size:clamp(34px,4.7vw,56px);line-height:1.22;letter-spacing:-.05em;font-weight:900;margin:12px 0 44px}
+/* fix: image layout (2025 review) */
+.w5-context-photo{max-width:840px}.w5-context-photo img{max-height:none;object-fit:contain}
+.w5-photo-pair{grid-template-columns:1.15fr .85fr}.w5-photo-pair img{height:420px}.w5-photo-pair figure:last-child img{object-position:center 82%}
+.w5-tale-photo{grid-template-columns:1fr;gap:26px}.w5-tale-photo img{height:auto;max-height:none}
+@media(max-width:700px){.w5-photo-pair{grid-template-columns:1fr;gap:23px}.w5-photo-pair img{height:auto;max-height:none}.w5-photo-pair figure:last-child img{aspect-ratio:4/5;height:auto;object-fit:cover}}
 /* fix: INSIGHT heading/tag style (same as other H·I·T·S sections) */
 .w5-insight .w5-tag{font-size:12px;letter-spacing:.15em;font-weight:850;color:var(--w5-blue)}
 .w5-insight h2{font-size:clamp(34px,4.7vw,56px);line-height:1.22;letter-spacing:-.05em;font-weight:900;margin:12px 0 44px;color:var(--w5-paper)}
@@ -99,7 +104,7 @@
     <p>브롬톤의 리브랜딩을 이해하려면 먼저 고객의 시선으로 돌아가야 한다.</p>
     <p>‘작게 접히는 자전거’라는 말은 제품이 할 수 있는 일을 알려준다. 하지만 그 자전거가 내 출퇴근을 어떻게 바꾸고, 이동의 선택지를 얼마나 넓혀주며, 내 일상에 어떻게 들어올지는 여전히 고객이 상상해야 할 몫이다.</p>
     <p>기능을 알고 있다는 것과 그 기능이 나에게 필요하다고 느끼는 것은 다르다. 특히 유사한 기능의 제품이 늘어난 시장이라면 고객은 더 많이 비교하고 더 신중하게 묻게 된다. <strong>“굳이 이 브랜드를 선택하면 내 삶에서 무엇이 달라질까?”</strong></p>
-  </div><div class="w5-wide w5-photo-pair"><figure><img src="/images/library/005-brompton-life-unfolded/train-platform.jpg" width="1266" height="847" loading="lazy" alt="플랫폼에서 접힌 브롬톤을 들고 열차를 기다리는 사람"></figure><figure><img src="/images/library/005-brompton-life-unfolded/train-boarding.jpg" width="584" height="748" loading="lazy" alt="접힌 브롬톤을 들고 열차에 오르는 사람"></figure></div><div class="w5-read w5-prose">
+  </div><div class="w5-wide w5-photo-pair"><figure><img src="/images/library/005-brompton-life-unfolded/train-platform.jpg" width="1266" height="847" loading="lazy" alt="플랫폼에서 접힌 브롬톤을 들고 열차를 기다리는 사람"></figure><figure><img src="/images/library/005-brompton-life-unfolded/cafe-table.jpg" width="1000" height="1093" loading="lazy" alt="카페 테이블 아래에 접어 둔 브롬톤과 마주 앉아 이야기하는 두 사람"></figure></div><div class="w5-read w5-prose">
     <p>브롬톤이 해결해야 하는 것은 자전거를 접는 방법에 대한 이해만이 아니다. 고객이 그 기능을 자신의 일상에 연결하여, 선택할 이유를 발견하도록 돕는 일이다.</p>
     <div class="w5-statement">기능을 이해시키는 것과<br>그 기능을 <span class="w5-blue-text">원하는 이유</span>를 만드는 것은 다르다.</div>
   </div></section>
@@ -121,13 +126,13 @@
     <p>이 변화는 단순히 로고를 세련되게 고친 것이 아니다. 제품과 브랜드가 서로 다른 이야기를 하지 않도록, 고객이 기억하는 가치를 새로운 방식으로 전달하려는 시도다.</p>
     <a class="w5-source-link" href="https://www.creativereview.co.uk/brompton-50th-anniversary-life-unfolded-studio-blackburn/" target="_blank" rel="noopener noreferrer">Creative Review에서 50주년 리브랜딩 보기 ↗</a>
     <div class="w5-statement">고객이 기억하는 가치는 지키고,<br>그 가치를 <span class="w5-blue-text">이해하는 방식</span>은 새롭게 만든다.</div>
-  </div><div class="w5-wide w5-tale-photo"><figure><img src="/images/library/005-brompton-life-unfolded/brand-mark.jpg" width="689" height="442" loading="lazy" alt="브롬톤 프레임에 새겨진 BROMPTON 워드마크 클로즈업"></figure><figure><img src="/images/library/005-brompton-life-unfolded/craft.jpg" width="966" height="613" loading="lazy" alt="브롬톤 공장에서 프레임을 가공하는 작업자"></figure></div></section>
+  </div><div class="w5-wide w5-tale-photo"><figure><img src="/images/library/005-brompton-life-unfolded/campaign-posters.jpg" width="1600" height="877" loading="lazy" alt="전용 서체와 프레임 로고로 구성한 Life Unfolded 캠페인 포스터 3종"><span class="w5-tale-label">‘Life Unfolded’ 캠페인 포스터 — 전용 서체, 프레임 로고, Klein Blue</span></figure><figure><img src="/images/library/005-brompton-life-unfolded/billboard.jpg" width="1334" height="688" loading="lazy" alt="벽돌 건물 옥외 광고판에 걸린 JOIN THE FOLD 브롬톤 광고 비주얼"><span class="w5-tale-label">옥외 광고 비주얼 — ‘JOIN THE FOLD’</span></figure></div></section>
   <section class="w5-system"><div class="w5-read w5-prose">
     <div class="w5-tag">S · SYSTEM / REPEAT & GROWTH</div>
     <h2>브랜드의 이야기는<br>고객의 일상에서 계속된다</h2>
     <p>브롬톤을 구매한 뒤에도 고객은 브랜드와 만날 이유가 있다. 자신만의 자전거를 꾸미고, 함께 달리고, 도시의 풍경을 사진으로 남긴다. 브롬톤 월드 챔피언십처럼 정장 차림의 라이더들이 모여 달리는 행사도 그중 하나다.</p>
     <p>이러한 활동은 브롬톤이 단순한 이동수단을 넘어 취향과 경험을 공유하는 접점을 만들어 왔음을 보여준다. ‘Life Unfolded’라는 메시지가 실제 라이더의 삶과 만날 수 있는 토대이기도 하다.</p>
-  </div><figure class="w5-wide w5-system-image"><img src="/images/library/005-brompton-life-unfolded/community.jpg" width="1330" height="897" loading="lazy" alt="정장 차림으로 함께 달리는 브롬톤 월드 챔피언십 참가 라이더들"></figure><div class="w5-read w5-prose"><p>다만 새로운 브랜드 메시지 자체가 재구매율과 고객 충성도를 높였다고 결론 내릴 수는 없다. 리브랜딩이 실제 성과로 이어지는지는 앞으로의 고객 행동과 사업 지표를 통해 확인해야 한다.</p><div class="w5-statement">브랜드가 만든 이야기가<br><span class="w5-blue-text">고객의 경험에서 반복될 때</span> 관계는 이어진다.</div></div></section>
+  </div><figure class="w5-wide w5-system-image"><img src="/images/library/005-brompton-life-unfolded/urban-riders.jpg" width="1600" height="879" loading="lazy" alt="도심 거리에서 가방을 달고 나란히 브롬톤을 타는 두 라이더"></figure><div class="w5-read w5-prose"><p>다만 새로운 브랜드 메시지 자체가 재구매율과 고객 충성도를 높였다고 결론 내릴 수는 없다. 리브랜딩이 실제 성과로 이어지는지는 앞으로의 고객 행동과 사업 지표를 통해 확인해야 한다.</p><div class="w5-statement">브랜드가 만든 이야기가<br><span class="w5-blue-text">고객의 경험에서 반복될 때</span> 관계는 이어진다.</div></div></section>
   <section class="w5-connection"><div class="w5-read"><div class="w5-eyebrow" >HITS CONNECTION</div><h2>기능을 넘어<br>선택의 이유로.</h2><div class="w5-connection-item"><b>H</b><div><strong>기능만으로는 충분히 설명되지 않는 선택의 이유</strong><small>고객은 이 기능이 자신의 삶에서 무엇을 바꿀지 알고 싶다.</small></div></div><div class="w5-connection-item"><b>I</b><div><strong>폴딩을 삶의 가능성으로 다시 번역</strong><small>FOLD라는 기능을 UNFOLD라는 가치로 확장한다.</small></div></div><div class="w5-connection-item"><b>T</b><div><strong>오래된 자산을 새로운 브랜드 언어로 전달</strong><small>기존 정체성을 지키면서 서체·컬러·모션·고객 경험을 재구성한다.</small></div></div><div class="w5-connection-item"><b>S</b><div><strong>라이더의 사용과 참여로 관계를 이어간다</strong><small>구매 이후에도 타고, 꾸미고, 모이고, 공유하는 경험이 이어진다.</small></div></div><p class="w5-connection-summary">브롬톤의 선택은 새로운 기능을 발명하는 대신, <span>이미 가진 기능이 고객에게 왜 중요한지</span> 다시 이야기하는 일이었다.</p></div></section>
   <section class="w5-point"><div class="w5-wide"><div class="w5-eyebrow w5-blue-text">HITS POINT · 005</div><h2>기능은 따라 할 수 있어도,<br>그 기능이 <span>고객의 삶에서 갖는 의미</span>까지<br>같아지는 것은 아니다.</h2><p>리브랜딩은 언제나 새로운 정체성을 만드는 작업일 필요는 없다. 때로는 오랫동안 지켜온 제품의 본질을 지금의 고객이 이해할 수 있는 가치로 다시 번역하는 일이다. 브롬톤의 ‘Life Unfolded’는 그런 전략적 선택으로 읽힌다.</p></div></section>
   <section class="w5-question"><div class="w5-read"><div class="w5-eyebrow w5-blue-text">ONE LAST QUESTION</div><h2>당신의 상품이 자랑하는 그 기능은,<br>지금도 고객이 당신을 선택해야 할<br>이유가 되고 있는가?</h2><a class="w5-btn" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a></div></section>
