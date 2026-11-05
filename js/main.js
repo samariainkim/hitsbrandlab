@@ -7,6 +7,43 @@
 /* ---------- Google Analytics 4 (측정 ID: G-QH98SJK4D6) ----------
    - 내 방문 제외: 사이트 주소 뒤에 ?notrack=1 을 붙여 한 번 접속하면 이 브라우저는 측정되지 않음 (해제: ?notrack=0)
    - 폼 이벤트(구독/문의)는 아래 bindNewsletterSubmit / initContactForm 안에서 hitsTrack()으로 전송 */
+/* 페이지 종류 — 모든 GA 이벤트에 page_type 으로 함께 전송됨 */
+function hitsPageType(path) {
+  const p = path || location.pathname;
+  if (p === '/') return 'home';
+  if (p === '/about/') return 'about';
+  if (p === '/work-with-hits/') return 'work_with_hits';
+  if (p === '/library/') return 'library_list';
+  if (p.startsWith('/library/')) return 'library_case';
+  if (p === '/insight/') return 'insight_list';
+  if (p.startsWith('/insight/')) return 'insight_article';
+  if (p === '/canvas/') return 'canvas_list';
+  if (p === '/canvas/master/') return 'canvas_master';
+  if (p.startsWith('/canvas/')) return 'canvas_waitlist';
+  return 'other';
+}
+
+/* 구독 CTA 버튼이 어느 위치에 있는지 (cta_location) */
+function hitsCtaLocation(el) {
+  if (el.classList && el.classList.contains('float-newsletter-btn')) return 'floating';
+  const sec = el.closest('section');
+  if (!sec) return 'other';
+  if (sec.id === 'book') return 'home_book';
+  const h2 = ((sec.querySelector('h2') || {}).textContent || '').toUpperCase();
+  if (h2.indexOf('WEEKLY') > -1) return 'home_weekly';
+  if (h2.indexOf('INSIGHT') > -1) return 'home_insight';
+  return 'other';
+}
+
+/* 구독 폼이 어느 위치에 있는지 (form_location) */
+function hitsFormLocation(form) {
+  if (form.closest('#hits-letter')) return 'home_main';
+  const pt = hitsPageType();
+  if (pt === 'canvas_waitlist') return 'canvas_waitlist';
+  if (pt === 'library_case' || pt === 'insight_article') return 'article_end';
+  return 'other';
+}
+
 (function () {
   const GA_ID = 'G-QH98SJK4D6';
 
@@ -20,10 +57,16 @@
     }
   } catch (e) { /* 저장소 접근이 막힌 환경에서는 그냥 측정 진행 */ }
 
+  /* 운영 도메인에서만 측정한다 (Vercel Preview, 로컬 확인용 접속은 제외) */
+  if (!/^(www\.)?hitsbrandlab\.com$/.test(location.hostname)) {
+    window.hitsTrack = function () {};
+    return;
+  }
+
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { dataLayer.push(arguments); };
   gtag('js', new Date());
-  gtag('config', GA_ID);
+  gtag('config', GA_ID, { page_type: hitsPageType() });
   const s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -41,13 +84,13 @@
 
     const share = t.closest('#share-mount [data-share]');
     if (share) {
-      track('share', { method: share.dataset.share, content_type: 'library_case', item_id: location.pathname });
+      track('share', { method: share.dataset.share, content_type: hitsPageType() === 'insight_article' ? 'insight_article' : 'library_case', item_id: location.pathname });
       return;
     }
 
     const letterCta = t.closest('a[href="#hits-letter"], .float-newsletter-btn');
     if (letterCta) {
-      track('newsletter_cta_click', { cta_text: (letterCta.textContent || '').trim().slice(0, 40) });
+      track('newsletter_cta_click', { cta_text: (letterCta.textContent || '').trim().slice(0, 40), cta_location: hitsCtaLocation(letterCta) });
       return;
     }
 
@@ -67,9 +110,12 @@
       return;
     }
 
-    const tag = t.closest('.tax-tag');
+    /* 사례 페이지의 태그(#문제재정의 등): 클래스명이 페이지마다 달라서 링크 주소(/library/?축=값) 기준으로 감지 */
+    const tag = t.closest('a[href^="/library/?"]');
     if (tag) {
-      track('case_tag_click', { tag: (tag.textContent || '').trim(), from: location.pathname });
+      const q = new URLSearchParams((tag.getAttribute('href').split('?')[1] || ''));
+      const axis = ['category', 'business', 'signal'].find(k => q.has(k)) || '';
+      track('case_tag_click', { tag: (tag.textContent || '').trim().replace(/^#/, ''), axis: axis, from: location.pathname });
       return;
     }
 
@@ -216,7 +262,7 @@ HITS Brand Lab은 아래와 같이 개인정보를 수집·이용합니다.
 
 function newsletterFormHTML(idPrefix) {
   return `
-    <form class="newsletter-form" id="${idPrefix}-form" action="${STIBEE_LIST_ACTION}" method="POST" target="${idPrefix}-target" accept-charset="utf-8" novalidate>
+    <form class="newsletter-form" id="${idPrefix}-form" action="${STIBEE_LIST_ACTION}" method="POST" target="${idPrefix}-target" accept-charset="utf-8">
       <input type="text" name="name" placeholder="이름" required>
       <input type="email" name="email" placeholder="이메일" required>
       <select name="role">
@@ -272,13 +318,13 @@ function bindNewsletterSubmit(formId) {
   form.addEventListener('submit', () => {
     // preventDefault 하지 않음 — 폼은 실제로 숨겨진 iframe을 통해 스티비 구독 API로 정상 제출됨.
     submitted = true;
-    hitsTrackSafe('newsletter_submit', { form_id: idPrefix, page_path: location.pathname });
+    hitsTrackSafe('newsletter_submit', { form_id: idPrefix, form_location: hitsFormLocation(form), page_path: location.pathname });
   });
   if (iframe) {
     iframe.addEventListener('load', () => {
       if (!submitted) return; // 최초 빈 iframe 로드는 무시
       submitted = false;
-      hitsTrackSafe('newsletter_subscribe', { form_id: idPrefix, page_path: location.pathname });
+      hitsTrackSafe('newsletter_subscribe', { form_id: idPrefix, form_location: hitsFormLocation(form), page_path: location.pathname });
       form.reset();
       showHitsBanner('HITS Letter 구독 신청이 접수가 완료되었습니다. 입력하신 이메일로 확인 메일을 보내드렸어요.');
     });
