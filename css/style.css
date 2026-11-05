@@ -121,42 +121,36 @@ html { scroll-behavior: smooth; }
 .main-nav a.is-current { color: var(--text-light); border-bottom: 1.5px solid var(--accent); }
 
 /* ==========================================================
-   히어로
+   히어로 (좌 텍스트 / 우 배경 이미지)
+   배경 이미지는 블러를 미리 적용한 images/hero-bg.jpg, 왼쪽으로 갈수록 투명해져 텍스트 가독성 유지
    ========================================================== */
-/* ==========================================================
-   히어로 (좌 40% 텍스트 고정 / 우 60% 시그널 그리드 애니메이션)
-   ========================================================== */
-.hero { min-height: 380px; background: var(--bg-main); }
+.hero { position: relative; overflow: hidden; min-height: 380px; background: var(--bg-main); }
+.hero::before {
+  content: "";
+  position: absolute; top: 0; right: 0; bottom: 0; width: 64%;
+  background: url('/images/hero-bg.jpg') center / cover no-repeat;
+  opacity: .7;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 45%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 45%);
+  pointer-events: none;
+}
+.hero::after { /* 헤더와 만나는 윗부분을 부드럽게 */
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 90px;
+  background: linear-gradient(var(--bg-main), transparent);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
 .hero-split { display: flex; }
 .hero-left { width: 40%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px 60px 0; min-height: 480px; }
-.hero-right { width: 60%; height: 480px; position: relative; overflow: hidden; }
-.hero-right svg { display: block; }
-
-@keyframes fadeH { 0%{opacity:0} 10%{opacity:0} 19%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
-@keyframes fadeITS { 0%{opacity:0} 22%{opacity:0} 34%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
-@keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 22%{opacity:0;stroke-dashoffset:120} 35%{opacity:.5;stroke-dashoffset:0} 90%{opacity:.5} 100%{opacity:0} }
-@keyframes fadeCenter { 0%{opacity:.12} 33%{opacity:.12} 43%{opacity:1} 90%{opacity:1} 100%{opacity:.12} }
-@keyframes fadeLabel { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.4} 90%{opacity:.4} 100%{opacity:0} }
-@keyframes fadeDiamond { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.25} 90%{opacity:.25} 100%{opacity:0} }
-@keyframes twinkle { 0%,100%{opacity:.15} 50%{opacity:.5} }
-.sg-h { animation: fadeH 14.5s ease-in-out infinite; }
-.sg-its { animation: fadeITS 14.5s ease-in-out infinite; }
-.sg-line { animation: drawLine 14.5s ease-in-out infinite; }
-.sg-center { animation: fadeCenter 14.5s ease-in-out infinite; }
-.sg-label { animation: fadeLabel 14.5s ease-in-out infinite; }
-.sg-diamond { animation: fadeDiamond 14.5s ease-in-out infinite; }
-.sg-dot1 { animation: twinkle 4s ease-in-out infinite; }
-.sg-dot2 { animation: twinkle 5s ease-in-out infinite .8s; }
-.sg-dot3 { animation: twinkle 3.6s ease-in-out infinite 1.6s; }
 
 @media (max-width: 900px) {
   .hero-split { flex-direction: column; }
   .hero-left { width: 100%; padding: 48px 20px 24px; }
-  .hero-right { width: 100%; height: 280px; }
 }
 @media (max-width: 640px) {
-  .hero-right { display: none; }
   .hero-left { padding: 40px 20px; }
+  .hero::before { width: 100%; opacity: .55; }
 }
 
 .hero-content { position: relative; padding: 60px 20px; width: 100%; }
