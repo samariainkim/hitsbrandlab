@@ -13,7 +13,9 @@
   --border-dark: #3A3A38;
   --border-light: #DEDDD8;
   --radius: 10px;
-  --wrap-width: 1080px;
+  --wrap-width: 1180px; /* 콘텐츠 영역 1140px + 좌우 패딩 20px */
+  --frame-width: 1240px; /* 색상 면(패널) 최대 폭 */
+  --bg-outer: #DCDCD6;   /* 패널 바깥 여백 색 */
 }
 
 * { box-sizing: border-box; }
@@ -34,6 +36,17 @@ h1, h2, h3, p { margin: 0; }
   max-width: var(--wrap-width);
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* ==========================================================
+   프레임 레이아웃 — 넓은 화면에서 색상 면을 --frame-width 안으로 제한
+   <html class="site-frame"> 인 페이지(홈·목록·소개·캔버스·문의·404)에만 적용.
+   글 상세 페이지(사례·인사이트)는 각자 레이아웃을 쓰므로 적용하지 않음.
+   ========================================================== */
+html.site-frame { background: var(--bg-outer); }
+html.site-frame body { max-width: var(--frame-width); margin: 0 auto; }
+html.site-frame .float-newsletter-btn {
+  right: max(20px, calc((100vw - var(--frame-width)) / 2 + 20px));
 }
 
 .btn {

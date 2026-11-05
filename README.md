@@ -68,6 +68,12 @@ python3 -m http.server
 - System Canvas는 아직 콘텐츠 미확정 상태(Repeat→Scale→Sustain→Fan 문항은 책 원고 보강 후 반영 예정)
 - CATEGORY / TOPIC 필터는 데이터에는 있지만 Library UI에는 아직 노출 안 함 (콘텐츠 20~30개 쌓이면 노출 예정)
 
+## 레이아웃 폭
+
+- 콘텐츠 폭 1140px (`.wrap` = 1180px, 좌우 패딩 20px 포함) · 글 본문 읽기 폭 740~760px
+- `<html class="site-frame">` 인 페이지(홈·목록·소개·캔버스·문의·404)는 색상 면을 1240px(`--frame-width`) 패널 안으로 제한하고, 바깥은 `--bg-outer`(연회색)로 채웁니다. 값은 `css/style.css` 상단 토큰에서 한 번에 바꿉니다.
+- 글 상세 페이지(사례·인사이트)는 각자 레이아웃을 쓰므로 `site-frame`을 붙이지 않습니다.
+
 ## 톤앤매너
 
 - 메인 `#111110` / 콘텐츠 배경 `#F5F5F2` / 포인트 `#2F5CFF`
