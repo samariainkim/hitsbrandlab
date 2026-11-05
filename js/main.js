@@ -141,6 +141,7 @@ async function loadPartials() {
       const res = await fetch('/partials/header.html');
       headerMount.innerHTML = await res.text();
       setActiveNav();
+      initHeaderToggle();
     }
     if (footerMount) {
       const res = await fetch('/partials/footer.html');
@@ -149,6 +150,27 @@ async function loadPartials() {
   } catch (err) {
     console.error('partial load failed', err);
   }
+}
+
+/* 모바일 햄버거 메뉴 (640px 이하에서만 보임) */
+function initHeaderToggle() {
+  const header = document.querySelector('.site-header');
+  const btn = header && header.querySelector('.nav-toggle');
+  if (!btn) return;
+  const close = () => {
+    header.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', '메뉴 열기');
+  };
+  btn.addEventListener('click', () => {
+    const open = header.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  });
+  header.querySelectorAll('.main-nav a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('click', e => { if (!header.contains(e.target)) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 640) close(); });
 }
 
 function setActiveNav() {
@@ -173,6 +195,27 @@ function initFloatingButton() {
     }
   });
   mount.appendChild(btn);
+
+  /* 노출 조건: 처음에는 숨김 → 히어로(홈) 또는 일정 거리(그 외 페이지)를 지나 스크롤하면 표시,
+     페이지 안의 구독 폼이 화면에 보이는 동안에는 다시 숨김 */
+  const hero = document.querySelector('.hero');
+  /* 글 하단·캔버스 폼은 나중에 JS가 만들기 때문에, 폼이 들어갈 자리([data-newsletter-inline])를 감시 */
+  const forms = document.querySelectorAll('#hits-letter, [data-newsletter-inline]');
+  const visibleForms = new Set();
+  const update = () => {
+    const past = hero ? hero.getBoundingClientRect().bottom < 60 : window.scrollY > 600;
+    btn.classList.toggle('is-visible', past && visibleForms.size === 0);
+  };
+  if ('IntersectionObserver' in window && forms.length) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => (en.isIntersecting ? visibleForms.add(en.target) : visibleForms.delete(en.target)));
+      update();
+    });
+    forms.forEach(f => io.observe(f));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 }
 
 /* ---------- 공용 완료 배너(화면 상단 고정) ---------- */
