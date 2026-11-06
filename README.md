@@ -80,17 +80,26 @@ python3 -m http.server
 - `<html class="site-frame">` 인 페이지(홈·목록·소개·캔버스·문의·404)는 색상 면을 1240px(`--frame-width`) 패널 안으로 제한하고, 바깥은 `--bg-outer`(연회색)로 채웁니다. 값은 `css/style.css` 상단 토큰에서 한 번에 바꿉니다.
 - 글 상세 페이지(사례·인사이트)는 각자 레이아웃을 쓰므로 `site-frame`을 붙이지 않습니다.
 
-## 사례(Library) 상세 페이지 공통 규격
+## 상세 본문 공통 규격 (사례 · 인사이트)
 
-사례마다 글의 구조와 첫 화면 톤은 자유롭게 가져가되, 아래 공통 골격은 지켜서 만듭니다.
+본문마다 글의 구조와 첫 화면 톤은 자유롭게 가져가되, 아래 공통 규칙은 **모든 상세 본문(사례, 인사이트)에서 지킵니다.** 새 글을 쓸 때도 그대로 적용합니다.
 
+**공통 (사례 · 인사이트)**
 - **화면 최대 폭**: `<html class="site-frame">` 를 붙여 색상 면을 1240px 패널 안으로 제한 (홈과 동일)
-- **폭 2종**: 읽는 폭 `var(--w-read)` 800px, 넓은 폭 `var(--w-wide)` 1140px. 이 외의 폭 값은 쓰지 않음
-- **글자 크기 5단계**: `var(--fs-caption)` 12 / `var(--fs-body)` 16 / `var(--fs-lead)` 22 / `var(--fs-heading)` 26~40 / `var(--fs-display)` 40~72. 새 글에서도 `font-size: Npx` 를 직접 쓰지 말고 이 토큰만 사용
-- **공통 마무리 영역**: 글 맨 아래에 `.ce` 블록을 그대로 복사해 사용 (EXPLORE 칩, 메타 줄, 공유, 다른 사례 보기, 구독). 칩과 메타 줄은 `data/cases.json` 의 분류 → 사업 → 시그널 값으로 **자동 생성**되므로 `data-ce-tags`, `data-ce-meta` 에 사례 번호만 넣으면 됨
-- **CTA 버튼**: `class="btn-case"` (HITS CANVAS에서 진단하기 →)
-- **이미지**: 가로 1600px 이하, JPG(투명도가 필요 없으면 PNG 사용 금지), 한 장 약 300KB 이하 권장
-- 카드(홈, Library)의 제목은 `cases.json` 의 `question` 이며, 본문 H1과 같은 문구로 맞춤
+- **폭 2종**: 읽는 폭 `var(--w-read)` 800px, 넓은 폭 `var(--w-wide)` 1140px. 이 외의 폭 값은 쓰지 않음 (700px 미만의 좁은 글줄 제한은 예외)
+- **글자 크기 5단계**: `var(--fs-caption)` 12 / `var(--fs-body)` 16 / `var(--fs-lead)` 22 / `var(--fs-heading)` 26~40 / `var(--fs-display)` 40~72. `font-size: Npx` 를 직접 쓰지 말고 토큰만 사용. 제목 태그(h1~h3)에 글자 크기를 지정하지 않으면 브라우저 기본값이 적용되니 반드시 지정
+- **구독 · 공유 · 푸터**: 글 맨 아래에 공통 마무리 영역(`.ce`)을 복사해 사용하고, 푸터는 공용 partial 이 자동으로 붙음. 구독 폼, 공유 버튼, CTA 버튼(`btn-case`)은 같은 부품·같은 크기 토큰을 사용
+- **이미지**: 가로 1600px 이하, JPG(투명도가 필요 없으면 PNG 사용 금지), 한 장 약 300KB 이하 권장. 본문 이미지에는 `alt`, `width`, `height`, `loading="lazy"` 를 넣음
+- 카드(홈, 목록)의 제목은 데이터의 제목이며, 본문 H1과 같은 문구로 맞춤
+
+**사례(Library)**
+- 마무리 영역에는 EXPLORE 칩(분류 → 사업 → 시그널 순서, `data/cases.json` 에서 자동 생성)이 들어가고, 칩은 Library 검색 필터로 연결됨. `data-ce-tags`, `data-ce-meta` 에 사례 번호만 넣으면 됨
+- 읽는 시간은 표기하지 않음
+
+**인사이트**
+- 마무리 영역에는 다음 글(KEEP THINKING, 발행된 다른 글을 `data/articles.json` 에서 같은 카테고리 우선·최신순 최대 3개 자동 생성), 카테고리 칩(Insight 목록의 필터로 연결), 공유, "다른 HITS 인사이트 더 보기", 구독이 들어감. `data-kt`, `data-ce-cat`, `data-ce-ameta` 에 글 번호만 넣으면 됨
+- **읽는 시간은 인사이트만의 공통 요소**: 첫 화면 메타에 `N MIN READ · YYYY.MM`, 카드와 목록에는 데이터의 `readTime` 으로 `N MIN READ` 형식으로 표기
+- 링크가 없는 카드("COMING SOON", `#`)와 "SEE IT IN PRACTICE" 영역은 만들지 않음
 
 ## 톤앤매너
 
