@@ -100,13 +100,20 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
         link_url: card.getAttribute('href'),
         from: location.pathname
       });
+      return;
+    }
+
+    /* 인사이트 글의 카테고리 칩(#PRODUCT 등) → 목록의 카테고리 필터로 이동 */
+    const cat = t.closest('a[href^="/insight/?category="]');
+    if (cat) {
+      track('insight_category_click', { value: (cat.textContent || '').trim().replace(/^#/, ''), from: location.pathname });
       return;
     }
 
@@ -388,6 +395,35 @@ async function initCaseEnd() {
     if (metaMount) {
       const [y, m] = c.publishDate.split('-');
       metaMount.textContent = `HITS CASE ${c.caseNumber} · ${c.brand} · ${y}.${m}`;
+    }
+  } catch (err) { console.error(err); }
+}
+
+/* ---------- 인사이트 공통 마무리: 다음 글(KEEP THINKING) · 카테고리 칩 · 메타 줄을 articles.json 에서 자동 생성 ----------
+   다음 글 규칙: 발행된 다른 글만, 같은 카테고리 먼저 → 최신순, 최대 3개 */
+async function initInsightEnd() {
+  const kt = document.querySelector('[data-kt]');
+  const catMount = document.querySelector('[data-ce-cat]');
+  const metaMount = document.querySelector('[data-ce-ameta]');
+  const first = kt || catMount || metaMount;
+  if (!first) return;
+  try {
+    const res = await fetch('/data/articles.json');
+    const all = (await res.json()).filter(a => a.url && a.url !== '#');
+    const num = parseInt(first.dataset.kt || first.dataset.ceCat || first.dataset.ceAmeta, 10);
+    const cur = all.find(a => a.articleNumber === num);
+    if (!cur) return;
+    if (kt) {
+      const others = all.filter(a => a !== cur)
+        .sort((a, b) => (b.category === cur.category) - (a.category === cur.category) || b.articleNumber - a.articleNumber)
+        .slice(0, 3);
+      kt.innerHTML = others.map(a => `
+        <a class="kt-card" href="${a.url}"><small>${a.category}</small><h3>${a.title}</h3><span>${readTimeLabel(a)} →</span></a>`).join('');
+    }
+    if (catMount) catMount.innerHTML = `<a href="/insight/?category=${encodeURIComponent(cur.category)}">#${cur.category}</a>`;
+    if (metaMount) {
+      const [y, m] = cur.publishDate.split('-');
+      metaMount.textContent = `HITS INSIGHT ${String(cur.articleNumber).padStart(3, '0')} · ${y}.${m}`;
     }
   } catch (err) { console.error(err); }
 }
@@ -907,6 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initShareButtons();
   initDiagnoseButton();
   initCaseEnd();
+  initInsightEnd();
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();

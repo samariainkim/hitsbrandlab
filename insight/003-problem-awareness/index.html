@@ -519,74 +519,8 @@
       line-height:1.8;
     }
 
-    .ia-related{
-      padding:66px 0;
-      background:var(--ia-paper);
-    }
-    .ia-related h2,.ia-practice h2{
-      margin:0;
-      font-size:24px;
-      letter-spacing:-.025em;
-    }
-    .ia-related-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:24px;
-    }
-    .ia-related-item{
-      display:block;
-      padding-top:16px;
-      border-top:1px solid var(--ia-line);
-      color:inherit;
-      text-decoration:none;
-    }
-    .ia-related-item small{
-      color:var(--ia-blue);
-      font-size:10px;
-      font-weight:800;
-    }
-    .ia-related-item h3{
-      margin:7px 0 6px;
-      font-size:16px;
-      line-height:1.5;
-    }
-    .ia-related-item span{
-      color:var(--ia-muted);
-      font-size:12px;
-    }
-
-    .ia-practice{
-      padding:66px 0 78px;
-      background:var(--ia-black);
-      color:white;
-    }
-    .ia-practice-link{
-      display:grid;
-      grid-template-columns:110px 1fr auto;
-      gap:24px;
-      align-items:center;
-      margin-top:24px;
-      padding:25px 0;
-      border-top:1px solid #353532;
-      border-bottom:1px solid #353532;
-      color:inherit;
-      text-decoration:none;
-    }
-    .ia-practice-link small{
-      color:var(--ia-blue);
-      font-size:10px;
-      font-weight:800;
-    }
-    .ia-practice-link b{
-      font-size:17px;
-      line-height:1.5;
-    }
-    .ia-practice-link span{
-      color:#969690;
-      font-size:13px;
-    }
-
+                            
+                    
     @media(max-width:860px){
       .ia-hero-grid,.ia-case-grid{grid-template-columns:1fr}
       .ia-gap-grid{grid-template-columns:1fr}
@@ -600,8 +534,7 @@
       .ia-hero,.ia-block,.ia-block-alt,.ia-case,.ia-habits,.ia-transition,.ia-return{padding:58px 0}
       .ia-compare-cell{padding:15px 12px}
       .ia-return-sheet,.ia-note-box{padding:28px 22px}
-      .ia-practice-link{grid-template-columns:1fr;gap:7px}
-    }
+          }
   </style>
 </head>
 
@@ -855,44 +788,27 @@
         </div>
       </section>
 
-      <section class="ia-related">
-        <div class="ia-shell">
-          <div class="ia-label">KEEP THINKING</div>
-          <h2>다음 질문으로 이어가기</h2>
-
-          <div class="ia-related-grid">
-            <a class="ia-related-item" href="/insight/001-fomo-and-jomo/">
-              <small>MARKET</small>
-              <h3>남의 성공이 나의 기획이 되는 순간</h3>
-              <span>7 MIN READ →</span>
-            </a>
-            <a class="ia-related-item" href="/insight/002-where-does-planning-lead/">
-              <small>PRODUCT</small>
-              <h3>기획은 결국 어디로 향하는가</h3>
-              <span>7 MIN READ →</span>
-            </a>
-            <a class="ia-related-item" href="#">
-              <small>CUSTOMER</small>
-              <h3>고객의 말과 고객의 문제는 왜 다를까?</h3>
-              <span>6 MIN READ →</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="ia-practice">
-        <div class="ia-shell">
-          <div class="ia-label">SEE IT IN PRACTICE</div>
-          <h2>문제의식은 실제 상품을 어떻게 바꿀까?</h2>
-
-          <a class="ia-practice-link" href="#">
-            <small>HITS LIBRARY</small>
-            <b>관련 HITS Case 연결 예정</b>
-            <span>VIEW CASE →</span>
-          </a>
-        </div>
-      </section>
-    </article>
+      <section class="kt">
+<div class="ce-wrap">
+<div class="ce-label">KEEP THINKING</div>
+<h2 class="kt-title">다음 질문으로 이어가기</h2>
+<div class="kt-grid" data-kt="3"></div>
+</div>
+</section>
+<section class="ce">
+<div class="ce-wrap">
+<div class="ce-tags" data-ce-cat="3"></div>
+<p class="ce-meta" data-ce-ameta="3"></p>
+<div id="share-mount"></div>
+<a class="ce-more" href="/insight/">다른 HITS 인사이트 더 보기 →</a>
+</div>
+</section>
+<section class="ce ce-news">
+<div class="ce-wrap">
+<div id="insight-003-newsletter" data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+</div>
+</section>
+</article>
   </main>
 
   <div id="float-newsletter-mount"></div>

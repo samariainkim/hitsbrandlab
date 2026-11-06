@@ -225,6 +225,15 @@ html { scroll-behavior: smooth; }
 .ce-tags a:hover { border-color: var(--accent); color: var(--accent); }
 .ce-meta { margin: 0 0 24px; font-size: var(--fs-caption); letter-spacing: .04em; color: var(--text-secondary); text-transform: uppercase; }
 .ce-more { font-size: var(--fs-body); font-weight: 850; color: var(--accent); text-decoration: none; }
+.kt { padding: 72px 0 0; }
+.kt-title { margin: 12px 0 22px; font-size: var(--fs-lead); font-weight: 900; line-height: 1.4; letter-spacing: -.02em; }
+.kt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.kt-card { display: block; padding-top: 16px; border-top: 2px solid var(--text-dark); text-decoration: none; color: inherit; }
+.kt-card:hover { border-top-color: var(--accent); }
+.kt-card small { display: block; margin-bottom: 8px; font-size: var(--fs-caption); font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+.kt-card h3 { margin: 0 0 10px; font-size: var(--fs-body); font-weight: 800; line-height: 1.5; }
+.kt-card span { font-size: var(--fs-caption); font-weight: 700; color: var(--text-secondary); letter-spacing: .04em; }
+@media (max-width: 640px) { .kt-grid { grid-template-columns: 1fr; gap: 16px; } }
 .ce-note { margin: 34px 0 0; font-size: var(--fs-caption); line-height: 1.7; color: rgba(17, 17, 16, .62); }
 .ce .newsletter-inline, .ce-news .newsletter-inline { padding-left: 0; padding-right: 0; background: none; }
 

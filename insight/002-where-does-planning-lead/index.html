@@ -382,41 +382,7 @@
       line-height:1.78;
     }
 
-    .keep{
-      padding:68px 0 78px;
-    }
-    .keep h2{
-      margin:0;
-      font-size:25px;
-      letter-spacing:-.025em;
-    }
-    .keep-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:24px;
-    }
-    .keep-card{
-      padding-top:16px;
-      border-top:1px solid var(--hits-line);
-    }
-    .keep-card small{
-      color:var(--hits-blue);
-      font-weight:800;
-      font-size:10px;
-      letter-spacing:.08em;
-    }
-    .keep-card h3{
-      margin:7px 0 7px;
-      font-size:16px;
-      line-height:1.5;
-      letter-spacing:-.015em;
-    }
-    .keep-card span{
-      color:var(--hits-muted);
-      font-size:12px;
-    }
-
+                            
     @media(max-width:880px){
       .hero-grid{grid-template-columns:1fr;gap:36px}
       .concept-grid,.shift-flow,.keep-grid{grid-template-columns:1fr}
@@ -774,17 +740,27 @@
       </div>
     </section>
 
-    <section class="keep">
-      <div class="ia-wrap">
-        <div class="kicker">KEEP THINKING</div>
-        <h2>다음 질문으로 이어가기</h2>
-
-        <div class="keep-grid">
-          <article class="keep-card">
-            <small>CUSTOMER</small>
-            <h3>고객은 자신이 원하는 것을 정말 알고 있을까?</h3>
-            <span>6 MIN READ →</span>
-          </article>
+    <section class="kt">
+<div class="ce-wrap">
+<div class="ce-label">KEEP THINKING</div>
+<h2 class="kt-title">다음 질문으로 이어가기</h2>
+<div class="kt-grid" data-kt="2"></div>
+</div>
+</section>
+<section class="ce">
+<div class="ce-wrap">
+<div class="ce-tags" data-ce-cat="2"></div>
+<p class="ce-meta" data-ce-ameta="2"></p>
+<div id="share-mount"></div>
+<a class="ce-more" href="/insight/">다른 HITS 인사이트 더 보기 →</a>
+</div>
+</section>
+<section class="ce ce-news">
+<div class="ce-wrap">
+<div id="insight-002-newsletter" data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+</div>
+</section>
+</article>
           <article class="keep-card">
             <small>PRODUCT</small>
             <h3>좋은 상품일수록 설명하기 어려운 이유</h3>
