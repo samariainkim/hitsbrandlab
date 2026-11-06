@@ -100,7 +100,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -615,117 +615,102 @@ async function renderInsightCards(mountId, limit) {
   } catch (err) { console.error(err); }
 }
 
-/* ---------- Insight: 전체 페이지 (Featured + 1-2-3 Editorial Rhythm + 페이지네이션) ---------- */
+/* ---------- Insight: 전체 목록 (최신 글 50:50 분할 + 목록형, 글이 있는 카테고리만 노출) ---------- */
 let allArticles = [];
-let insightPage = 1;
-const INSIGHT_PER_PAGE = 5; // 2(큰+작은) + 3(균등) = 5개(Featured 제외)
+let insightFilter = 'all';
+
+function insightDate(s) {
+  const [y, m, d] = s.split('-');
+  return `${y.slice(2)}.${m}.${d}`;
+}
+
+function insightMetaHTML(a, featured) {
+  return `<p class="ix-meta">${featured ? 'FEATURED · ' : ''}${a.category} <span>· ${a.readTime} READ · ${insightDate(a.publishDate)}</span></p>`;
+}
+
+/* 이미지: thumb → thumbnail → 없으면 태그 글자(텍스트 비주얼) */
+function insightThumbHTML(a, preferOriginal) {
+  const img = preferOriginal ? (a.thumbnail || a.thumb) : (a.thumb || a.thumbnail);
+  const pos = a.imagePosition ? ` style="object-position:${a.imagePosition}"` : '';
+  return `<div class="ix-thumb">${img
+    ? `<img src="${img}" alt="" loading="lazy"${pos}>`
+    : `<div class="ix-thumb-text">${(a.tags && a.tags[0]) || a.category}</div>`}</div>`;
+}
+
+function insightCategories() {
+  const count = {};
+  allArticles.forEach(a => { count[a.category] = (count[a.category] || 0) + 1; });
+  return Object.keys(count).sort((a, b) => count[b] - count[a] || a.localeCompare(b)).map(c => [c, count[c]]);
+}
 
 async function initInsightPage() {
-  const featuredMount = document.getElementById('insight-featured-mount');
   const gridMount = document.getElementById('insight-grid-mount');
   const nav = document.getElementById('insight-nav');
   if (!gridMount) return;
-
   try {
     const res = await fetch('/data/articles.json');
-    allArticles = await res.json();
+    const all = await res.json();
+    allArticles = all.filter(a => a.url && a.url !== '#')
+      .sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1));
+
+    const fromURL = new URLSearchParams(window.location.search).get('category');
+    if (fromURL) {
+      if (insightCategories().some(([c]) => c === fromURL)) insightFilter = fromURL;
+      else history.replaceState(null, '', window.location.pathname); // 글이 없는 카테고리면 전체로 보이고 주소도 정리
+    }
 
     if (nav) {
       nav.addEventListener('click', (e) => {
-        const btn = e.target.closest('.chip');
+        const btn = e.target.closest('.ix-chip');
         if (!btn) return;
-        nav.querySelectorAll('.chip').forEach(c => c.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        insightPage = 1;
-        paintInsightPage(btn.dataset.filter);
+        insightFilter = btn.dataset.filter;
+        hitsTrackSafe('insight_filter', { value: insightFilter });
+        history.replaceState(null, '', insightFilter === 'all' ? window.location.pathname : `?category=${encodeURIComponent(insightFilter)}`);
+        paintInsightPage();
       });
     }
-
-    paintInsightPage('all');
+    paintInsightPage();
   } catch (err) { console.error(err); }
 }
 
-function paintInsightPage(filter) {
+function paintInsightPage() {
   const featuredMount = document.getElementById('insight-featured-mount');
   const gridMount = document.getElementById('insight-grid-mount');
-  const pagerMount = document.getElementById('insight-pager');
+  const nav = document.getElementById('insight-nav');
 
-  const sorted = allArticles.slice().sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1));
-  const filtered = filter === 'all' ? sorted : sorted.filter(a => a.category === filter);
+  if (nav) {
+    const chips = [['all', allArticles.length], ...insightCategories()];
+    nav.innerHTML = chips.map(([k, n]) => {
+      const on = insightFilter === k;
+      return `<button type="button" class="ix-chip ${on ? 'is-active' : ''}" data-filter="${k}" aria-pressed="${on}">${k === 'all' ? 'ALL' : k} <em>${n}</em></button>`;
+    }).join('');
+  }
 
-  const featured = filtered[0];
-  const rest = filtered.filter(a => a !== featured);
+  const list = insightFilter === 'all' ? allArticles : allArticles.filter(a => a.category === insightFilter);
+  const [first, ...rest] = list;
 
   if (featuredMount) {
-    featuredMount.innerHTML = featured ? featuredCardHTML(featured) : '';
+    featuredMount.innerHTML = first ? `
+      <a class="ix-split" href="${first.url}">
+        ${insightThumbHTML(first, true)}
+        <div class="ix-split-body">
+          ${insightMetaHTML(first, true)}
+          <p class="ix-title">${first.title}</p>
+          <p class="ix-excerpt">${first.excerpt}</p>
+        </div>
+      </a>` : '';
   }
-
-  const totalPages = Math.max(1, Math.ceil(rest.length / INSIGHT_PER_PAGE));
-  if (insightPage > totalPages) insightPage = 1;
-  const pageItems = rest.slice((insightPage - 1) * INSIGHT_PER_PAGE, insightPage * INSIGHT_PER_PAGE);
-  const row2 = pageItems.slice(0, 2);
-  const row3 = pageItems.slice(2, 5);
-
-  let html = '';
-  if (row2.length) {
-    html += `<div class="insight-row insight-row-2">${row2.map(a => insightCardHTML(a, true)).join('')}</div>`;
-  }
-  if (row3.length) {
-    html += `<div class="insight-row insight-row-3">${row3.map(a => insightCardHTML(a, false)).join('')}</div>`;
-  }
-  gridMount.innerHTML = html || '<p style="font-size:13px;color:#6B6A66">아직 글이 없습니다.</p>';
-
-  if (pagerMount) {
-    if (totalPages <= 1) { pagerMount.innerHTML = ''; }
-    else {
-      let pagerHTML = '';
-      for (let i = 1; i <= totalPages; i++) {
-        pagerHTML += `<span class="page-num ${i === insightPage ? 'is-active' : ''}" data-page="${i}">${i}</span>`;
-      }
-      pagerMount.innerHTML = pagerHTML;
-      pagerMount.querySelectorAll('.page-num').forEach(el => {
-        el.addEventListener('click', () => {
-          insightPage = parseInt(el.dataset.page, 10);
-          const activeFilter = document.querySelector('#insight-nav .chip.is-active');
-          paintInsightPage(activeFilter ? activeFilter.dataset.filter : 'all');
-        });
-      });
-    }
-  }
+  gridMount.innerHTML = rest.length ? rest.map(a => `
+      <a class="ix-row" href="${a.url}">
+        ${insightThumbHTML(a)}
+        <div>
+          ${insightMetaHTML(a)}
+          <p class="ix-title">${a.title}</p>
+          <p class="ix-excerpt">${a.excerpt}</p>
+        </div>
+        <span class="ix-row-go" aria-hidden="true">→</span>
+      </a>`).join('') : (first ? '' : '<p style="font-size:13px;color:#6B6A66">아직 글이 없습니다.</p>');
 }
-
-function featuredCardHTML(a) {
-  const media = a.thumbnail
-    ? `<img src="${a.thumbnail}" alt="${a.title}" loading="lazy">`
-    : `<div class="insight-idea-visual">${(a.tags && a.tags[0]) || a.category}</div>`;
-  return `
-    <a class="insight-featured" href="${a.url}">
-      <div class="insight-featured-text">
-        <p class="insight-featured-label">FEATURED · ${a.category}</p>
-        <p class="insight-featured-title">${a.title}</p>
-        <p class="insight-featured-desc">${a.excerpt}</p>
-        <p class="insight-featured-time">${a.readTime} READ →</p>
-      </div>
-      <div class="image-slot light-slot insight-featured-img" style="--ratio:4/3">${media}</div>
-    </a>`;
-}
-
-function insightCardHTML(a, withMedia) {
-  const media = !withMedia ? '' : a.thumbnail
-    ? `<div class="insight-card-media"><img src="${a.thumbnail}" alt="${a.title}" loading="lazy"></div>`
-    : `<div class="insight-idea-visual">${(a.tags && a.tags[0]) || a.category}</div>`;
-  return `
-    <a class="insight-card" href="${a.url}">
-      <div class="insight-card-text">
-        <p class="insight-card-num">INSIGHT · ${a.category}</p>
-        <p class="insight-card-title">${a.title}</p>
-        <p class="insight-card-desc">${a.excerpt}</p>
-        <p class="insight-card-time">${a.readTime} READ →</p>
-      </div>
-      ${media}
-    </a>`;
-}
-
 
 /* ---------- Canvas Master: 로컬 저장 + 검토요청 ---------- */
 function initCanvasMasterForm() {
