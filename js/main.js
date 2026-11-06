@@ -100,7 +100,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -383,32 +383,39 @@ function clampExcerpt(text, maxChars) {
   return `${trimmed}... 더보기`;
 }
 
-/* ---------- Weekly HITS: 홈 티저 (5:5 대형 카드) ---------- */
+/* ---------- 홈: 가장 최근 발행 사례 선택 (Weekly 카드와 Library 목록이 같은 기준을 씀) ---------- */
+function pickLatestCase(cases) {
+  const published = cases.filter(c => c.hasDetail);
+  return (published.length ? published : cases).slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate))[0];
+}
+
+/* ---------- Weekly HITS: 홈 대표 카드 (좌 이미지 / 우 본문 콘텐츠) ---------- */
 async function renderWeeklyTeaser() {
   const mount = document.getElementById('weekly-teaser-mount');
   if (!mount) return;
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    const published = cases.filter(c => c.hasDetail);
-    const latest = (published.length ? published : cases).slice().sort((a, b) => b.publishDate.localeCompare(a.publishDate))[0];
+    const latest = pickLatestCase(cases);
     const dateStr = latest.publishDate.replaceAll('-', '.');
-    const excerpt = clampExcerpt(latest.excerpt || latest.description, 380);
-    const imgInner = latest.image
-      ? `<img src="${latest.image}" alt="${latest.title}" style="width:100%;height:100%;object-fit:cover">`
-      : `<div class="slot-placeholder">대표 이미지</div>`;
+    const tags = [...(latest.category || []), ...(latest.business || []), ...(latest.signal || [])].slice(0, 5);
+    const imgInner = latest.image ? `<img src="${latest.image}" alt="" loading="lazy">` : '';
     const inner = `
-      <div class="image-slot weekly-feature-img" style="--ratio:1/1">
-        ${imgInner}
-      </div>
-      <div class="weekly-feature-text">
-        <p class="weekly-feature-label">WEEKLY HITS #${latest.caseNumber} · ${dateStr}</p>
-        <p class="weekly-feature-title">${latest.question}</p>
-        <p class="weekly-feature-excerpt">${excerpt}</p>
+      <div class="wk2-img">${imgInner}</div>
+      <div class="wk2-body">
+        <div class="wk2-meta">
+          <p class="wk2-label">WEEKLY HITS #${latest.caseNumber} · ${dateStr}</p>
+          <div class="wk2-tags">${tags.map(t => `<span>${t}</span>`).join('')}</div>
+        </div>
+        <p class="wk2-title">${latest.question}</p>
+        <p class="wk2-excerpt">${latest.excerpt || latest.description || ''}</p>
+        ${latest.hitsPoint ? `<div class="wk2-bigquote"><p>${latest.hitsPoint}</p></div>` : ''}
+        ${latest.applyQuestion ? `<div class="wk2-ask"><span>ONE LAST QUESTION</span>${latest.applyQuestion}</div>` : ''}
+        <span class="wk2-more">사례 읽어보기 →</span>
       </div>`;
     mount.innerHTML = latest.hasDetail
-      ? `<a class="weekly-feature" href="${latest.detailUrl}">${inner}</a>`
-      : `<div class="weekly-feature">${inner}</div>`;
+      ? `<a class="wk2" href="${latest.detailUrl}">${inner}</a>`
+      : `<div class="wk2">${inner}</div>`;
   } catch (err) { console.error(err); }
 }
 
@@ -418,29 +425,29 @@ function shortDate(dateStr) {
   return `${y.slice(2)}.${m}.${d}`;
 }
 
-/* ---------- Library: 홈 티저 (도서관 색인카드) ---------- */
+/* ---------- Library: 홈 지난 사례 (썸네일 카드 줄) — 대표 카드로 보이는 최신 사례는 제외 ---------- */
 async function renderLibraryPreview() {
   const mount = document.getElementById('library-preview-mount');
   if (!mount) return;
   try {
     const res = await fetch('/data/cases.json');
     const cases = await res.json();
-    const sorted = cases.slice().sort((a, b) => b.caseNumber.localeCompare(a.caseNumber)).slice(0, 3);
-    const cards = sorted.map(c => {
+    const latest = pickLatestCase(cases);
+    const list = cases.filter(c => c.id !== latest.id)
+      .sort((a, b) => b.caseNumber.localeCompare(a.caseNumber)).slice(0, 4);
+    const cards = list.map(c => {
       const tag = (c.signal && c.signal[0]) || (c.category && c.category[0]) || '';
+      const img = c.thumb || c.image;
       const inner = `
-        <p class="lib-card-no">NO. ${c.caseNumber} · ${tag.toUpperCase()}</p>
-        <p class="lib-card-title">${c.title}</p>
-        <p class="lib-card-meta">${(c.category || []).join('·').toUpperCase()} / ${shortDate(c.publishDate)}</p>`;
+        <div class="lib-card2-img">${img ? `<img src="${img}" alt="" loading="lazy">` : ''}</div>
+        <p class="lib-card2-no">NO. ${c.caseNumber} · ${tag.toUpperCase()}</p>
+        <p class="lib-card2-title">${c.title}</p>
+        <p class="lib-card2-meta">${(c.category || []).join('·').toUpperCase()} / ${shortDate(c.publishDate)}</p>`;
       return c.hasDetail
-        ? `<a class="lib-card" href="${c.detailUrl}">${inner}</a>`
-        : `<div class="lib-card">${inner}</div>`;
+        ? `<a class="lib-card2" href="${c.detailUrl}">${inner}</a>`
+        : `<div class="lib-card2">${inner}</div>`;
     }).join('');
-    mount.innerHTML = `
-      <div class="lib-card-row">
-        ${cards}
-        <a class="lib-card-more" href="/library/">전체 보기 →</a>
-      </div>`;
+    mount.innerHTML = `<div class="lib-strip">${cards}</div>`;
   } catch (err) { console.error(err); }
 }
 

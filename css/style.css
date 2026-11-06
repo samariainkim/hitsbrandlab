@@ -231,6 +231,45 @@ html { scroll-behavior: smooth; }
 .hits-notice-actions { display: flex; gap: 8px; justify-content: flex-end; }
 .hits-notice-close { background: var(--bg-white); color: var(--text-dark); border: 1px solid var(--border-light); }
 html.hits-notice-open { overflow: hidden; }
+/* ==========================================================
+   홈: Weekly 대표 카드 (좌 이미지 / 우 본문 콘텐츠) + Library 썸네일 줄
+   ========================================================== */
+.wk2 { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius); overflow: hidden; }
+.wk2-img { position: relative; background: var(--bg-main); min-height: 100%; }
+.wk2-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.wk2-body { display: flex; flex-direction: column; padding: 30px 34px 28px; }
+.wk2-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 0 0 14px; }
+.wk2-label { margin: 0 10px 0 0; font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: .04em; }
+.wk2-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.wk2-tags span { font-size: 11px; font-weight: 700; color: var(--text-secondary); border: 1px solid var(--border-light); border-radius: 999px; padding: 3px 10px; }
+.wk2-title { font-size: 27px; font-weight: 900; line-height: 1.32; letter-spacing: -.01em; margin: 0 0 10px; }
+.wk2-excerpt { margin: 0 0 22px; font-size: 14px; line-height: 1.85; color: #3b3b39; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.wk2-bigquote { margin: 0 0 22px; padding: 2px 0 2px 18px; border-left: 4px solid var(--accent); }
+.wk2-bigquote p { margin: 0; font-size: 20px; font-weight: 900; line-height: 1.5; letter-spacing: -.02em; }
+.wk2-ask { margin: 0 0 22px; padding: 14px 16px; background: var(--bg-content); border-radius: 8px; font-size: 13px; font-weight: 700; line-height: 1.6; }
+.wk2-ask span { display: block; margin: 0 0 4px; font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--text-secondary); }
+.wk2-more { margin-top: auto; font-size: 13px; font-weight: 800; color: var(--accent); }
+.lib-strip-head { display: flex; justify-content: space-between; align-items: baseline; margin: 36px 0 14px; }
+.lib-strip-head h3 { margin: 0; font-size: 15px; font-weight: 900; }
+.lib-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.lib-card2 { display: block; }
+.lib-card2-img { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; background: var(--bg-main); margin-bottom: 10px; }
+.lib-card2-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lib-card2-no { margin: 0 0 6px; font-size: 10px; color: var(--text-secondary); letter-spacing: .04em; font-family: ui-monospace, monospace; }
+.lib-card2-title { margin: 0 0 6px; font-size: 15px; font-weight: 800; line-height: 1.4; }
+.lib-card2-meta { margin: 0; font-size: 11px; color: var(--text-secondary); font-family: ui-monospace, monospace; }
+.slim-cta { margin: 26px 0 0; font-size: 14px; font-weight: 700; }
+.slim-cta a { margin-left: 6px; color: var(--accent); font-weight: 800; }
+@media (max-width: 900px) {
+  .wk2 { grid-template-columns: 1fr; }
+  .wk2-img { aspect-ratio: 4 / 3; min-height: 0; }
+  .wk2-body { padding: 22px 20px; }
+  .wk2-title { font-size: 22px; }
+}
+@media (max-width: 720px) {
+  .lib-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 0 20px 6px; }
+  .lib-strip > * { flex: 0 0 74%; scroll-snap-align: start; }
+}
 .float-newsletter-btn.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .2s; }
 @media (max-width: 640px) {
   .float-newsletter-btn, html.site-frame .float-newsletter-btn { right: 12px; bottom: 12px; font-size: 12px; padding: 9px 14px; }
