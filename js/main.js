@@ -100,7 +100,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -119,10 +119,6 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const chip = t.closest('#explore-cases .chip');
-    if (chip) {
-      track('library_filter', { value: chip.dataset.value || '' });
-    }
   });
 })();
 
@@ -450,36 +446,16 @@ async function renderLibraryPreview() {
   } catch (err) { console.error(err); }
 }
 
-/* ---------- Library: 케이스 카드 (전체 페이지 CASE DATABASE) ---------- */
-function caseDbCardHTML(c) {
-  const tags = [...(c.category || []), ...(c.business || []), ...(c.signal || [])].slice(0, 5);
-  const tagsHTML = tags.map(t => {
-    const isSignal = (c.signal || []).includes(t);
-    return `<span class="case-db-tag ${isSignal ? 'signal' : ''}">${t}</span>`;
-  }).join('');
-  const inner = `
-    <p class="case-db-num">CASE ${c.caseNumber}</p>
-    <p class="case-db-brand">${c.brand}</p>
-    <p class="case-db-question">${c.question}</p>
-    <div class="case-db-tags">${tagsHTML}</div>
-    ${c.hasDetail ? '<span class="case-db-cta">H × I × T × S →</span>' : ''}`;
-  return c.hasDetail
-    ? `<a class="case-db-card" href="${c.detailUrl}">${inner}</a>`
-    : `<div class="case-db-card" style="opacity:.7">${inner}</div>`;
-}
-
-/* ---------- Library: 전체 페이지 — EXPLORE CASES 다중선택 필터 ---------- */
+/* ---------- Library: 전체 목록 (이미지 카드 2열 + 사례에 실제로 있는 값만 칩으로 노출) ---------- */
 let allCases = [];
-const AXES = {
-  category: ['식품', '뷰티', '패션', '리빙', '테크', '모빌리티', '금융', '여행', '렌탈', '생활'],
-  business: ['제조', '유통', '플랫폼', 'D2C', '구독', '멤버십', '서비스'],
-  signal: ['문제재정의', '차별화', '컨셉', '프리미엄', '가격혁신', 'UX혁신', '스토리', '팬덤', '재구매', '카테고리확장']
-};
-let selected = { category: new Set(), business: new Set(), signal: new Set() };
+const AXIS_ORDER = ['signal', 'category', 'business'];
+const AXIS_LABEL = { signal: 'SIGNAL', category: 'CATEGORY', business: 'BUSINESS' };
+const TOP_CHIPS = 5; // 상단에 바로 보이는 SIGNAL 칩 수 (나머지는 "필터 더보기")
+let selected = { signal: new Set(), category: new Set(), business: new Set() };
 
 function parseFiltersFromURL() {
   const params = new URLSearchParams(window.location.search);
-  ['category', 'business', 'signal'].forEach(axis => {
+  AXIS_ORDER.forEach(axis => {
     const val = params.get(axis);
     if (val) selected[axis] = new Set(val.split(','));
   });
@@ -487,59 +463,61 @@ function parseFiltersFromURL() {
 
 function updateURL() {
   const params = new URLSearchParams();
-  ['category', 'business', 'signal'].forEach(axis => {
+  AXIS_ORDER.forEach(axis => {
     if (selected[axis].size) params.set(axis, [...selected[axis]].join(','));
   });
   const qs = params.toString();
   history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
 }
 
-async function initLibraryPage() {
-  const grid = document.getElementById('case-db-grid');
-  const explore = document.getElementById('explore-cases');
-  const statEl = document.getElementById('library-stat-num');
-  if (!grid) return;
+/* 사례 데이터에서 축별 값과 개수를 뽑는다 (개수 많은 순, 같으면 가나다순) */
+function chipsForAxis(axis) {
+  const count = {};
+  allCases.forEach(c => (c[axis] || []).forEach(v => { count[v] = (count[v] || 0) + 1; }));
+  return Object.keys(count)
+    .sort((a, b) => count[b] - count[a] || a.localeCompare(b, 'ko'))
+    .map(v => [v, count[v]]);
+}
 
-  try {
-    const res = await fetch('/data/cases.json');
-    allCases = await res.json();
-    if (statEl) statEl.textContent = allCases.length;
+function libChipHTML(axis, value, n) {
+  const on = selected[axis].has(value);
+  return `<button type="button" class="chip lb-chip ${on ? 'is-active' : ''}" data-axis="${axis}" data-value="${value}" aria-pressed="${on}">${value} <em>${n}</em></button>`;
+}
 
-    parseFiltersFromURL();
+function renderLibraryFilter() {
+  const top = document.getElementById('lb-top-chips');
+  const panel = document.getElementById('lb-panel');
+  if (!top || !panel) return;
+  const signal = chipsForAxis('signal');
+  top.innerHTML = signal.slice(0, TOP_CHIPS).map(([v, n]) => libChipHTML('signal', v, n)).join('');
+  const groups = [['signal', signal.slice(TOP_CHIPS)], ['category', chipsForAxis('category')], ['business', chipsForAxis('business')]];
+  panel.innerHTML = groups.filter(([, list]) => list.length).map(([axis, list]) => `
+    <div class="explore-axis">
+      <p class="explore-axis-label">${AXIS_LABEL[axis]}${axis === 'signal' ? ' (더보기)' : ''}</p>
+      <div class="chip-row">${list.map(([v, n]) => libChipHTML(axis, v, n)).join('')}</div>
+    </div>`).join('');
+  const more = document.getElementById('lb-more');
+  if (!panel.innerHTML.trim()) { more.hidden = true; panel.hidden = true; }
+}
 
-    if (explore) {
-      explore.innerHTML = Object.entries(AXES).map(([axis, values]) => `
-        <div class="explore-axis">
-          <p class="explore-axis-label">${axis.toUpperCase()}</p>
-          <div class="chip-row" data-axis="${axis}">
-            ${values.map(v => `<button class="chip ${selected[axis].has(v) ? 'is-active' : ''}" data-value="${v}">${v}</button>`).join('')}
-          </div>
-        </div>`).join('');
-
-      explore.addEventListener('click', (e) => {
-        const btn = e.target.closest('.chip');
-        if (!btn) return;
-        const axis = btn.closest('.chip-row').dataset.axis;
-        const value = btn.dataset.value;
-        if (selected[axis].has(value)) selected[axis].delete(value);
-        else selected[axis].add(value);
-        btn.classList.toggle('is-active');
-        updateURL();
-        renderLibraryResults();
-        renderActiveFilterBar();
-      });
-    }
-
-    renderLibraryResults();
-    renderActiveFilterBar();
-  } catch (err) {
-    grid.innerHTML = '<p style="font-size:13px;color:#6B6A66">사례 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해주세요.</p>';
-    console.error(err);
-  }
+function libraryCardHTML(c) {
+  const tags = [...(c.signal || []).map(t => [t, true]), ...[...(c.category || []), ...(c.business || [])].map(t => [t, false])].slice(0, 3);
+  const tagsHTML = tags.map(([t, isSignal]) => `<span class="lb-tag ${isSignal ? 'signal' : ''}">${t}</span>`).join('');
+  const img = c.thumb || c.image;
+  const inner = `
+    <div class="lb-card-img">${img ? `<img src="${img}" alt="" loading="lazy">` : ''}</div>
+    <div class="lb-card-body">
+      <p class="lb-meta">CASE ${c.caseNumber} · ${c.brand} · ${shortDate(c.publishDate)}</p>
+      <p class="lb-q">${c.question}</p>
+      <div class="lb-card-tags">${tagsHTML}</div>
+    </div>`;
+  return c.hasDetail
+    ? `<a class="lb-card" href="${c.detailUrl}">${inner}</a>`
+    : `<div class="lb-card" style="opacity:.7">${inner}</div>`;
 }
 
 function matchesFilters(c) {
-  return ['category', 'business', 'signal'].every(axis => {
+  return AXIS_ORDER.every(axis => {
     if (!selected[axis].size) return true;
     const values = c[axis] || [];
     return [...selected[axis]].some(v => values.includes(v));
@@ -549,44 +527,65 @@ function matchesFilters(c) {
 function renderLibraryResults() {
   const grid = document.getElementById('case-db-grid');
   const list = allCases.filter(matchesFilters).sort((a, b) => b.caseNumber.localeCompare(a.caseNumber));
+  const active = AXIS_ORDER.flatMap(axis => [...selected[axis]]);
+  document.getElementById('lb-count').textContent = `${list.length} CASES`;
+  document.getElementById('lb-active').innerHTML = active.map(v => `<button type="button" class="active-chip" data-value="${v}">${v} ×</button>`).join('');
+  document.getElementById('lb-reset').hidden = !active.length;
   grid.innerHTML = list.length
-    ? list.map(caseDbCardHTML).join('')
+    ? list.map(libraryCardHTML).join('')
     : '<p style="font-size:13px;color:#6B6A66;grid-column:1/-1">조건에 맞는 사례가 아직 없습니다.</p>';
 }
 
-function renderActiveFilterBar() {
-  const bar = document.getElementById('active-filter-bar');
-  if (!bar) return;
-  const total = [...selected.category, ...selected.business, ...selected.signal];
-  const count = allCases.filter(matchesFilters).length;
+function refreshLibrary() {
+  renderLibraryFilter();
+  renderLibraryResults();
+  updateURL();
+}
 
-  if (!total.length) { bar.style.display = 'none'; return; }
-  bar.style.display = 'flex';
+async function initLibraryPage() {
+  const grid = document.getElementById('case-db-grid');
+  const statEl = document.getElementById('library-stat-num');
+  if (!grid) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    allCases = await res.json();
+    if (statEl) statEl.textContent = allCases.length;
+    parseFiltersFromURL();
+    refreshLibrary();
 
-  const chips = total.map(v => `<span class="active-chip" data-value="${v}">${v} ×</span>`).join('');
-  bar.innerHTML = `
-    <span class="active-filter-count">${count} CASES</span>
-    <div class="active-filter-chips">${chips}</div>
-    <button class="filter-reset" id="filter-reset-btn">RESET</button>`;
+    // 선택한 값이 "더보기" 안에 있으면 처음부터 펼쳐서 보이게 한다 (사례 페이지 태그에서 들어온 경우)
+    const panel = document.getElementById('lb-panel');
+    const more = document.getElementById('lb-more');
+    if (panel && panel.querySelector('.chip.is-active')) { panel.hidden = false; more.setAttribute('aria-expanded', 'true'); }
 
-  bar.querySelectorAll('.active-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const val = chip.dataset.value;
-      ['category', 'business', 'signal'].forEach(axis => selected[axis].delete(val));
-      document.querySelectorAll(`.chip[data-value="${val}"]`).forEach(c => c.classList.remove('is-active'));
-      updateURL();
-      renderLibraryResults();
-      renderActiveFilterBar();
+    document.getElementById('explore-cases').addEventListener('click', (e) => {
+      const btn = e.target.closest('.lb-chip');
+      if (btn) {
+        hitsTrackSafe('library_filter', { value: btn.dataset.value || '' }); // 목록을 다시 그리기 전에 기록
+        const set = selected[btn.dataset.axis];
+        if (set.has(btn.dataset.value)) set.delete(btn.dataset.value); else set.add(btn.dataset.value);
+        refreshLibrary();
+        return;
+      }
+      if (e.target.closest('#lb-more')) {
+        panel.hidden = !panel.hidden;
+        more.setAttribute('aria-expanded', String(!panel.hidden));
+      }
     });
-  });
-  const resetBtn = document.getElementById('filter-reset-btn');
-  if (resetBtn) resetBtn.addEventListener('click', () => {
-    selected = { category: new Set(), business: new Set(), signal: new Set() };
-    document.querySelectorAll('.chip.is-active').forEach(c => c.classList.remove('is-active'));
-    updateURL();
-    renderLibraryResults();
-    renderActiveFilterBar();
-  });
+    document.getElementById('lb-active').addEventListener('click', (e) => {
+      const chip = e.target.closest('.active-chip');
+      if (!chip) return;
+      AXIS_ORDER.forEach(axis => selected[axis].delete(chip.dataset.value));
+      refreshLibrary();
+    });
+    document.getElementById('lb-reset').addEventListener('click', () => {
+      AXIS_ORDER.forEach(axis => selected[axis].clear());
+      refreshLibrary();
+    });
+  } catch (err) {
+    grid.innerHTML = '<p style="font-size:13px;color:#6B6A66">사례 데이터를 불러오지 못했습니다. 로컬 서버로 실행 중인지 확인해주세요.</p>';
+    console.error(err);
+  }
 }
 
 /* ---------- Insight: 홈 최신 글 썸네일 카드 (발행된 글만, 최신순) ---------- */

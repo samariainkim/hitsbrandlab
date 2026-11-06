@@ -455,34 +455,48 @@ html.hits-notice-open { overflow: hidden; }
 .library-stat-label { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.05em; }
 .library-stat-num { font-size: 34px; font-weight: 900; color: var(--accent); }
 
-/* Library — EXPLORE CASES (3축 칩 필터, 다중선택) */
-.explore-cases { margin-bottom: 8px; }
-.explore-axis { margin-bottom: 20px; }
+/* Library — 목록: 칩 필터(사례에 있는 값만) + 이미지 카드 2열 */
+.explore-axis { margin-bottom: 16px; }
 .explore-axis-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; margin: 0 0 10px; }
 .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .chip { font-family: inherit; font-size: 12px; font-weight: 600; background: var(--bg-white); border: 0.5px solid var(--border-light); color: var(--text-secondary); padding: 7px 14px; border-radius: 20px; cursor: pointer; }
 .chip.is-active { background: var(--accent); color: var(--text-light); border-color: var(--accent); }
-
-/* Library — ACTIVE FILTER */
-.active-filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 0; border-top: 0.5px solid var(--border-light); border-bottom: 0.5px solid var(--border-light); margin: 24px 0; }
-.active-filter-count { font-size: 13px; font-weight: 800; color: var(--text-dark); }
-.active-filter-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.active-chip { font-size: 11px; font-weight: 600; background: var(--bg-content); color: var(--text-dark); padding: 5px 10px; border-radius: 20px; cursor: pointer; }
+.lb-axis-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: .05em; white-space: nowrap; }
+.lb-filter-main { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 8px 0 14px; }
+.lb-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.lb-chip { display: inline-flex; align-items: center; gap: 6px; }
+.lb-chip em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--text-muted); }
+.lb-chip.is-active em { color: rgba(255, 255, 255, .8); }
+.lb-more { margin-left: auto; font-family: inherit; font-size: 12px; font-weight: 700; color: var(--text-dark); background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 20px; padding: 7px 14px; cursor: pointer; }
+.lb-more[aria-expanded="true"] i { display: inline-block; transform: rotate(180deg); }
+.lb-panel { padding: 18px 20px 6px; margin: 0 0 6px; background: var(--bg-content); border-radius: var(--radius); }
+.lb-bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 0; margin-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+.lb-count { font-size: 13px; font-weight: 800; color: var(--text-dark); }
+.lb-active { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.active-chip { font-family: inherit; font-size: 11px; font-weight: 600; background: var(--bg-content); color: var(--text-dark); padding: 5px 10px; border: 0; border-radius: 20px; cursor: pointer; }
 .filter-reset { font-size: 11px; font-weight: 700; color: var(--text-muted); background: none; border: none; cursor: pointer; font-family: inherit; }
-
-/* Library — CASE DATABASE (2열 카드 그리드) */
-.case-db-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.case-db-card { background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); padding: 22px; display: block; }
-.case-db-num { font-size: 10px; font-weight: 700; color: var(--text-muted); font-family: monospace; margin: 0 0 6px; }
-.case-db-brand { font-size: 12px; font-weight: 800; color: var(--text-dark); margin: 0 0 10px; }
-.case-db-question { font-size: 16px; font-weight: 900; color: var(--text-dark); line-height: 1.4; margin: 0 0 16px; }
-.case-db-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.case-db-tag { font-size: 10px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 3px 9px; border-radius: 20px; }
-.case-db-tag.signal { color: var(--accent); background: transparent; border: 0.5px solid var(--accent); }
-.case-db-cta { display: block; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 16px; }
+.lb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.lb-card { display: block; background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); overflow: hidden; transition: border-color .15s; }
+a.lb-card:hover { border-color: var(--accent); }
+.lb-card-img { aspect-ratio: 16 / 9; background: var(--bg-main); overflow: hidden; }
+.lb-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lb-card-body { padding: 20px 22px 22px; }
+.lb-meta { margin: 0 0 8px; font-size: 10px; letter-spacing: .04em; color: var(--text-secondary); font-family: ui-monospace, monospace; text-transform: uppercase; }
+.lb-q { margin: 0 0 12px; font-size: 17px; font-weight: 900; line-height: 1.4; color: var(--text-dark); }
+.lb-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.lb-tag { font-size: 10px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 3px 9px; border-radius: 20px; }
+.lb-tag.signal { color: var(--accent); background: transparent; border: 0.5px solid var(--accent); }
 @media (max-width: 640px) {
-  .case-db-grid { grid-template-columns: 1fr; }
+  .lb-grid { grid-template-columns: 1fr; }
+  .lb-filter-main { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px; padding: 8px 20px 12px; }
+  .lb-chips { flex-wrap: nowrap; }
+  .lb-chip, .lb-more { white-space: nowrap; }
+  .lb-axis-label { display: none; }
+  .lb-more { margin-left: 4px; }
+  .lb-card-body { padding: 16px 18px 18px; }
+  .lb-q { font-size: 16px; }
 }
+
 
 /* Library — 케이스 상세페이지 (SIGNAL/H/I/T/S 구조) */
 .case-detail-header { padding: 8px 0 24px; }

@@ -41,11 +41,22 @@
 <section class="section section-white">
   <div class="wrap">
 
-    <div class="explore-cases" id="explore-cases"></div>
+    <div class="lb-filter" id="explore-cases">
+      <div class="lb-filter-main">
+        <span class="lb-axis-label">SIGNAL</span>
+        <div class="lb-chips" id="lb-top-chips"></div>
+        <button type="button" class="lb-more" id="lb-more" aria-expanded="false" aria-controls="lb-panel">필터 더보기 <i aria-hidden="true">▾</i></button>
+      </div>
+      <div class="lb-panel" id="lb-panel" hidden></div>
+    </div>
 
-    <div class="active-filter-bar" id="active-filter-bar" style="display:none"></div>
+    <div class="lb-bar">
+      <span class="lb-count" id="lb-count"></span>
+      <div class="lb-active" id="lb-active"></div>
+      <button type="button" class="filter-reset" id="lb-reset" hidden>RESET</button>
+    </div>
 
-    <div class="case-db-grid" id="case-db-grid"></div>
+    <div class="lb-grid" id="case-db-grid"></div>
 
     <div class="library-bottom-cta">
       <p>분석에서 끝내지 마세요.<br>당신의 상품에도 HITS를 적용해보세요.</p>
