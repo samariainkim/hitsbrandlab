@@ -289,19 +289,17 @@ function initShareButtons() {
 
 /* ---------- 뉴스레터 폼 (3곳 공용) ---------- */
 const STIBEE_LIST_ACTION = 'https://stibee.com/api/v1.0/lists/1tov19hsoSpDl7psKidNtEdwknT9Wg==/public/subscribers';
-const STIBEE_POLICY_TEXT = `[개인정보 수집 및 이용 동의]
-
-HITS Brand Lab은 아래와 같이 개인정보를 수집·이용합니다.
-
-1. 수집 항목: 이름, 이메일 주소, 직군(선택)
-2. 수집 목적:
-- HITS LETTER 뉴스레터 발송
-- 신규 콘텐츠, 세미나 등 자체 서비스 안내
-- 협업·강연·자문 등 사업 제안 및 안내
-- 제3자 제휴사의 광고성 정보(제품, 서비스, 프로모션 등) 제공
-- 금융 상품·서비스 관련 정보 제공
-3. 보유 및 이용 기간: 수신 동의 철회 시 또는 구독 해지 시까지
-4. 동의를 거부할 권리가 있으며, 거부 시 뉴스레터 구독이 제한될 수 있습니다.`;
+/* 레터 구독 동의 문구 (필수 동의 1건). 문구를 바꾸면 기존 구독자 재동의가 필요할 수 있음 */
+const NEWSLETTER_CONSENT_HTML = `
+  <p class="hits-notice-title">[필수] 개인정보 수집·이용 동의</p>
+  <ol class="hits-consent-list">
+    <li><b>수집·이용 목적:</b> HITS Letter(뉴스레터) 발송 및 구독자 관리</li>
+    <li><b>수집 항목:</b> 이름, 이메일 주소, 직군(선택 입력)</li>
+    <li><b>보유·이용 기간:</b> 구독 해지 또는 동의 철회 시까지</li>
+    <li><b>동의를 거부할 권리 및 불이익:</b> 동의를 거부할 수 있습니다. 다만 거부하시면 뉴스레터를 구독하실 수 없습니다.</li>
+    <li>뉴스레터에는 HITS의 도서, 강연, 서비스, 상품안내 등을 소개하는 광고성 정보가 포함될 수 있습니다. 수신을 원하지 않으시면 메일 하단의 [수신거부]를 눌러 언제든 해지하실 수 있습니다.</li>
+    <li><b>동의 철회·수신거부 안내:</b> 동의는 언제든 철회하실 수 있습니다. 메일 하단의 [수신거부]를 누르시면 해지됩니다. 메일 없이 요청하시려면 <a href="/work-with-hits/">[문의 페이지]</a>로 알려 주세요. 요청을 받으면 14일 이내에 처리 결과를 알려드립니다.</li>
+  </ol>`;
 
 function newsletterFormHTML(idPrefix) {
   return `
@@ -355,7 +353,7 @@ function bindNewsletterSubmit(formId) {
   const iframe = document.querySelector(`iframe[name="${idPrefix}-target"]`);
   const policyBtn = form.querySelector('[data-policy]');
   if (policyBtn) {
-    policyBtn.addEventListener('click', () => alert(STIBEE_POLICY_TEXT));
+    policyBtn.addEventListener('click', () => showConsentDialog(policyBtn));
   }
   let submitted = false;
   form.addEventListener('submit', () => {
@@ -786,48 +784,84 @@ function initDiagnoseButton() {
   });
 }
 
-function showDiagnoseNotice(opener) {
+/* 공용 안내 창: 포커스 이동 제한, Esc·바깥 클릭·버튼으로 닫기, 닫은 뒤 포커스 복원
+   buttons: [{ text, className, autofocus, onClick(닫기 전), after(닫은 뒤) }] */
+function openHitsDialog({ label, html, buttons, opener, extraClass }) {
   if (document.getElementById('hits-notice')) return;
   const overlay = document.createElement('div');
   overlay.id = 'hits-notice';
   overlay.className = 'hits-notice';
   overlay.innerHTML = `
-    <div class="hits-notice-box" role="dialog" aria-modal="true" aria-label="진단 테스트 안내">
-      <p class="hits-notice-text">진단 테스트 서비스는 준비중입니다.<br>레터 구독하기를 신청하시면 오픈 소식을 가장 먼저 받아보실 수 있습니다.</p>
-      <div class="hits-notice-actions">
-        <button type="button" class="btn hits-notice-close" data-notice-close>닫기</button>
-        <button type="button" class="btn btn-accent" data-notice-subscribe>레터 구독하기</button>
-      </div>
+    <div class="hits-notice-box ${extraClass || ''}" role="dialog" aria-modal="true" aria-label="${label}">
+      ${html}
+      <div class="hits-notice-actions"></div>
     </div>`;
-  document.body.appendChild(overlay);
-  document.documentElement.classList.add('hits-notice-open');
-
-  const buttons = overlay.querySelectorAll('button');
-  const onKey = (e) => {
-    if (e.key === 'Escape') { close(); return; }
-    if (e.key === 'Tab') { // 안내 창 안에서만 포커스 이동
-      const first = buttons[0], last = buttons[buttons.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  };
+  const actions = overlay.querySelector('.hits-notice-actions');
+  let focusEl = null;
   function close() {
     overlay.remove();
     document.documentElement.classList.remove('hits-notice-open');
     document.removeEventListener('keydown', onKey);
     if (opener) opener.focus();
   }
+  buttons.forEach(b => {
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = b.className;
+    el.textContent = b.text;
+    el.addEventListener('click', () => {
+      if (b.onClick) b.onClick();
+      close();
+      if (b.after) b.after();
+    });
+    if (b.autofocus) focusEl = el;
+    actions.appendChild(el);
+  });
+  const onKey = (e) => {
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') { // 안내 창 안에서만 포커스 이동
+      const items = overlay.querySelectorAll('button, a[href]');
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
+  document.body.appendChild(overlay);
+  document.documentElement.classList.add('hits-notice-open');
   document.addEventListener('keydown', onKey);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
-  overlay.querySelector('[data-notice-close]').addEventListener('click', close);
-  overlay.querySelector('[data-notice-subscribe]').addEventListener('click', () => {
-    hitsTrackSafe('newsletter_cta_click', { cta_text: '레터 구독하기', cta_location: 'diagnose_notice' });
-    close();
-    const section = document.getElementById('hits-letter');
-    if (section) { section.scrollIntoView({ behavior: 'smooth' }); flashHitsLetter(); }
-    else window.location.href = '/#hits-letter';
+  (focusEl || actions.querySelector('button')).focus();
+}
+
+function showDiagnoseNotice(opener) {
+  openHitsDialog({
+    label: '진단 테스트 안내',
+    opener,
+    html: '<p class="hits-notice-text">진단 테스트 서비스는 준비중입니다.<br>레터 구독하기를 신청하시면 오픈 소식을 가장 먼저 받아보실 수 있습니다.</p>',
+    buttons: [
+      { text: '닫기', className: 'btn hits-notice-close' },
+      {
+        text: '레터 구독하기', className: 'btn btn-accent', autofocus: true,
+        onClick: () => hitsTrackSafe('newsletter_cta_click', { cta_text: '레터 구독하기', cta_location: 'diagnose_notice' }),
+        after: () => {
+          const section = document.getElementById('hits-letter');
+          if (section) { section.scrollIntoView({ behavior: 'smooth' }); flashHitsLetter(); }
+          else window.location.href = '/#hits-letter';
+        }
+      }
+    ]
   });
-  overlay.querySelector('[data-notice-subscribe]').focus();
+}
+
+/* 레터 구독 폼의 "개인정보 수집 및 이용" 동의 문구 */
+function showConsentDialog(opener) {
+  openHitsDialog({
+    label: '개인정보 수집·이용 동의',
+    opener,
+    extraClass: 'is-consent',
+    html: NEWSLETTER_CONSENT_HTML,
+    buttons: [{ text: '닫기', className: 'btn btn-accent', autofocus: true }]
+  });
 }
 
 /* ---------- 협업 문의 폼 ---------- */
