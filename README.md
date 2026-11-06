@@ -80,6 +80,18 @@ python3 -m http.server
 - `<html class="site-frame">` 인 페이지(홈·목록·소개·캔버스·문의·404)는 색상 면을 1240px(`--frame-width`) 패널 안으로 제한하고, 바깥은 `--bg-outer`(연회색)로 채웁니다. 값은 `css/style.css` 상단 토큰에서 한 번에 바꿉니다.
 - 글 상세 페이지(사례·인사이트)는 각자 레이아웃을 쓰므로 `site-frame`을 붙이지 않습니다.
 
+## 사례(Library) 상세 페이지 공통 규격
+
+사례마다 글의 구조와 첫 화면 톤은 자유롭게 가져가되, 아래 공통 골격은 지켜서 만듭니다.
+
+- **화면 최대 폭**: `<html class="site-frame">` 를 붙여 색상 면을 1240px 패널 안으로 제한 (홈과 동일)
+- **폭 2종**: 읽는 폭 `var(--w-read)` 800px, 넓은 폭 `var(--w-wide)` 1140px. 이 외의 폭 값은 쓰지 않음
+- **글자 크기 5단계**: `var(--fs-caption)` 12 / `var(--fs-body)` 16 / `var(--fs-lead)` 22 / `var(--fs-heading)` 26~40 / `var(--fs-display)` 40~72. 새 글에서도 `font-size: Npx` 를 직접 쓰지 말고 이 토큰만 사용
+- **공통 마무리 영역**: 글 맨 아래에 `.ce` 블록을 그대로 복사해 사용 (EXPLORE 칩, 메타 줄, 공유, 다른 사례 보기, 구독). 칩과 메타 줄은 `data/cases.json` 의 분류 → 사업 → 시그널 값으로 **자동 생성**되므로 `data-ce-tags`, `data-ce-meta` 에 사례 번호만 넣으면 됨
+- **CTA 버튼**: `class="btn-case"` (HITS CANVAS에서 진단하기 →)
+- **이미지**: 가로 1600px 이하, JPG(투명도가 필요 없으면 PNG 사용 금지), 한 장 약 300KB 이하 권장
+- 카드(홈, Library)의 제목은 `cases.json` 의 `question` 이며, 본문 H1과 같은 문구로 맞춤
+
 ## 톤앤매너
 
 - 메인 `#111110` / 콘텐츠 배경 `#F5F5F2` / 포인트 `#2F5CFF`
