@@ -21,7 +21,7 @@
   --fs-body: 16px;                             /* 본문, 버튼 */
   --fs-lead: 22px;                             /* 리드 문장, 작은 소제목 */
   --fs-heading: clamp(26px, 3.6vw, 40px);      /* 구간 제목, 큰 문장 */
-  --fs-display: clamp(40px, 6vw, 72px);        /* 표지 제목, 큰 숫자
+  --fs-display: clamp(40px, 6vw, 72px);        /* 표지 제목, 큰 숫자 */
   --frame-width: 1240px; /* 색상 면(패널) 최대 폭 */
   --bg-outer: #DCDCD6;   /* 패널 바깥 여백 색 */
 }
@@ -48,14 +48,14 @@ h1, h2, h3, p { margin: 0; }
 
 /* ==========================================================
    프레임 레이아웃 — 넓은 화면에서 색상 면을 --frame-width 안으로 제한
-   <html class="site-frame"> 인 페이지(홈·목록·소개·캔버스·문의·404)에만 적용.
+    인 페이지(홈·목록·소개·캔버스·문의·404)에만 적용.
    글 상세 페이지(사례·인사이트)는 각자 레이아웃을 쓰므로 적용하지 않음.
    ========================================================== */
 html.site-frame { background: var(--bg-outer); }
 html.site-frame body { max-width: var(--frame-width); margin: 0 auto; }
-/* 내용이 짧은 페이지에서도 푸터가 화면 맨 아래에 오도록 */
-html.site-frame body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
-html.site-frame #site-footer-mount { margin-top: auto; }
+/* 내용이 짧은 페이지에서만(html.stick-footer) 푸터를 화면 맨 아래로 */
+html.site-frame.stick-footer body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+html.site-frame.stick-footer #site-footer-mount { margin-top: auto; }
 html.site-frame .float-newsletter-btn {
   right: max(20px, calc((100vw - var(--frame-width)) / 2 + 20px));
 }
