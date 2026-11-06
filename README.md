@@ -48,6 +48,11 @@ python3 -m http.server
 
 상세 페이지 없이 목록에만 먼저 올리고 싶다면 `hasDetail: false`로 두면 됩니다 (Library 테이블에는 나오되 클릭은 안 되는 상태). **가장 최근(issueNumber가 가장 큰) 항목이 자동으로 홈페이지 Weekly 티저가 됩니다** — 별도로 홈페이지를 수정할 필요 없습니다.
 
+**홈 카드용 선택 항목** (`cases.json` / `articles.json`)
+- `thumb`: 홈 썸네일 이미지(사례 640×480, 글 800×500 권장, 수십 KB). 없으면 원본 `image`/`thumbnail`을 그대로 써서 느려질 수 있음
+- `imagePosition`(사례): 홈 Weekly 카드에서 사진이 잘릴 때 보여줄 중심 위치. 예: `"68% 50%"`
+- Weekly 카드 오른쪽은 `excerpt`, `hitsPoint`, `applyQuestion` 및 분류 태그에서 자동으로 채워짐
+
 ## 새 Insight 아티클 추가하는 법
 
 1. 가장 최근 아티클 폴더(예: `insight/005-game-round/`)를 복사해서 새 번호-슬러그 폴더 생성

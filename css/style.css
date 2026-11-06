@@ -273,9 +273,11 @@ html.hits-notice-open { overflow: hidden; }
 .slim-cta a { margin-left: 6px; color: var(--accent); font-weight: 800; }
 @media (max-width: 900px) {
   .wk2 { grid-template-columns: 1fr; }
-  .wk2-img { aspect-ratio: 4 / 3; min-height: 0; }
+  .wk2-img { aspect-ratio: 16 / 9; min-height: 0; }
   .wk2-body { padding: 22px 20px; }
-  .wk2-title { font-size: 22px; }
+}
+@media (max-width: 560px) {
+  .wk2-img { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 720px) {
   .lib-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 0 20px 6px; }
@@ -286,6 +288,11 @@ html.hits-notice-open { overflow: hidden; }
 @media (max-width: 640px) {
   .float-newsletter-btn, html.site-frame .float-newsletter-btn { right: 12px; bottom: 12px; font-size: 12px; padding: 9px 14px; }
 }
+  .wk2-body { padding: 22px; }
+  .wk2-title { font-size: 22px; }
+  .wk2-bigquote p { font-size: 17px; }
+}
+@media (max-width: 720px) {
 
 /* ==========================================================
    Formula 섹션 (핵심 브랜드 자산)

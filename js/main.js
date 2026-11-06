@@ -399,7 +399,8 @@ async function renderWeeklyTeaser() {
     const latest = pickLatestCase(cases);
     const dateStr = latest.publishDate.replaceAll('-', '.');
     const tags = [...(latest.category || []), ...(latest.business || []), ...(latest.signal || [])].slice(0, 5);
-    const imgInner = latest.image ? `<img src="${latest.image}" alt="" loading="lazy">` : '';
+    const pos = latest.imagePosition ? ` style="object-position:${latest.imagePosition}"` : '';
+    const imgInner = latest.image ? `<img src="${latest.image}" alt="" loading="lazy"${pos}>` : '';
     const inner = `
       <div class="wk2-img">${imgInner}</div>
       <div class="wk2-body">
