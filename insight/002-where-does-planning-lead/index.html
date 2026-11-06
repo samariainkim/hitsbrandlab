@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="site-frame">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -33,9 +33,9 @@
       --hits-muted:#71716C;
       --hits-line:#D9D9D3;
       --hits-soft:#ECECE7;
-      --hits-max:1140px;
-      --hits-read:740px;
-      --hits-media:960px;
+      --hits-max:var(--w-wide);
+      --hits-read:var(--w-read);
+      --hits-media:var(--w-wide);
     }
 
     *{box-sizing:border-box}
@@ -56,7 +56,7 @@
     .kicker{
       margin:0 0 10px;
       color:var(--hits-blue);
-      font-size:11px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.1em;
       text-transform:uppercase;
@@ -76,7 +76,7 @@
     }
     .ia-hero h1{
       margin:10px 0 20px;
-      font-size:clamp(35px,4.5vw,52px);
+      font-size:var(--fs-display);
       line-height:1.12;
       letter-spacing:-.04em;
     }
@@ -84,13 +84,13 @@
       max-width:610px;
       margin:0;
       color:#C8C8C3;
-      font-size:17px;
+      font-size:var(--fs-body);
       line-height:1.7;
     }
     .meta{
       margin-top:20px;
       color:#92928D;
-      font-size:11px;
+      font-size:var(--fs-caption);
       letter-spacing:.03em;
     }
 
@@ -117,17 +117,17 @@
     .idea-step:last-child{border-bottom:0}
     .idea-step b{
       color:var(--hits-white);
-      font-size:25px;
+      font-size:var(--fs-lead);
       letter-spacing:-.025em;
     }
     .idea-step span{
       color:#9C9C97;
-      font-size:12px;
+      font-size:var(--fs-caption);
       text-align:right;
     }
     .idea-arrow{
       color:var(--hits-blue);
-      font-size:20px;
+      font-size:var(--fs-body);
       line-height:1;
       padding-left:3px;
     }
@@ -138,16 +138,16 @@
     .soft{background:var(--hits-soft)}
     .ia-section h2{
       margin:0 0 23px;
-      font-size:clamp(26px,3vw,32px);
+      font-size:var(--fs-heading);
       line-height:1.3;
       letter-spacing:-.03em;
     }
     .ia-section p{
       margin:0 0 19px;
-      font-size:16px;
+      font-size:var(--fs-body);
     }
     .lead{
-      font-size:17.5px!important;
+      font-size:var(--fs-body) !important;
       line-height:1.72;
       letter-spacing:-.012em;
     }
@@ -160,7 +160,7 @@
     }
     .dialogue p{
       margin:0 0 11px;
-      font-size:16.5px;
+      font-size:var(--fs-body);
     }
     .dialogue p:last-child{margin-bottom:0}
 
@@ -172,7 +172,7 @@
     }
     .visual-break .question{
       margin:0;
-      font-size:clamp(30px,4vw,42px);
+      font-size:var(--fs-heading);
       font-weight:800;
       letter-spacing:-.035em;
       line-height:1.12;
@@ -180,7 +180,7 @@
     .visual-break .sub{
       margin-top:12px;
       color:#A5A59F;
-      font-size:13px;
+      font-size:var(--fs-caption);
     }
 
     /* Editorial image break — thumbnail asset is reused here as story beat */
@@ -210,7 +210,7 @@
     }
     .editorial-caption .fig{
       color:var(--hits-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.09em;
       text-transform:uppercase;
@@ -219,7 +219,7 @@
       margin:0;
       max-width:640px;
       color:var(--hits-muted);
-      font-size:13px;
+      font-size:var(--fs-caption);
       line-height:1.65;
     }
     .editorial-caption strong{
@@ -236,14 +236,14 @@
     }
     .chapter-no{
       color:var(--hits-blue);
-      font-size:38px;
+      font-size:var(--fs-heading);
       font-weight:900;
       line-height:1;
       letter-spacing:-.04em;
     }
 
     .concept-grid{
-      width:min(calc(100% - 40px),920px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:42px auto 0;
       display:grid;
       grid-template-columns:repeat(3,1fr);
@@ -260,21 +260,21 @@
     }
     .concept-card b{
       color:var(--hits-blue);
-      font-size:20px;
+      font-size:var(--fs-body);
       letter-spacing:-.02em;
     }
     .concept-card span{
       color:var(--hits-muted);
-      font-size:13px;
+      font-size:var(--fs-caption);
     }
 
     .pull{
-      width:min(calc(100% - 40px),860px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:48px auto;
       padding:30px 36px;
       border-top:1px solid var(--hits-line);
       border-bottom:1px solid var(--hits-line);
-      font-size:clamp(21px,2.4vw,26px);
+      font-size:var(--fs-lead);
       line-height:1.48;
       font-weight:800;
       letter-spacing:-.025em;
@@ -282,7 +282,7 @@
     }
 
     .compare{
-      width:min(calc(100% - 40px),920px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:40px auto 0;
       display:grid;
       grid-template-columns:1fr 46px 1fr;
@@ -298,26 +298,26 @@
       display:block;
       margin-bottom:12px;
       color:var(--hits-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.09em;
     }
     .compare-box b{
       display:block;
       margin-bottom:6px;
-      font-size:17.5px;
+      font-size:var(--fs-body);
       line-height:1.5;
     }
     .compare-box span{
       color:var(--hits-muted);
-      font-size:13px;
+      font-size:var(--fs-caption);
     }
     .compare-vs{
       display:flex;
       align-items:center;
       justify-content:center;
       color:var(--hits-muted);
-      font-size:11px;
+      font-size:var(--fs-caption);
       font-weight:800;
     }
 
@@ -328,7 +328,7 @@
     }
     .shift h2{
       margin:0;
-      font-size:clamp(27px,3.2vw,34px);
+      font-size:var(--fs-heading);
       line-height:1.32;
       letter-spacing:-.03em;
     }
@@ -347,16 +347,16 @@
       display:block;
       margin-bottom:9px;
       color:var(--hits-blue);
-      font-size:21px;
+      font-size:var(--fs-lead);
     }
     .shift-card strong{
       display:block;
       margin-bottom:5px;
-      font-size:16px;
+      font-size:var(--fs-body);
     }
     .shift-card span{
       color:#A6A69F;
-      font-size:13px;
+      font-size:var(--fs-caption);
     }
 
     .note{
@@ -364,7 +364,7 @@
       background:var(--hits-white);
     }
     .note-box{
-      width:min(calc(100% - 40px),860px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:0 auto;
       padding:40px;
       border:1px solid var(--hits-line);
@@ -372,13 +372,13 @@
     }
     .note-box h2{
       margin:7px 0 20px;
-      font-size:clamp(26px,3vw,32px);
+      font-size:var(--fs-heading);
       line-height:1.35;
       letter-spacing:-.03em;
     }
     .note-box p{
       margin:0;
-      font-size:16px;
+      font-size:var(--fs-body);
       line-height:1.78;
     }
 
@@ -395,7 +395,7 @@
       .ia-hero{padding:58px 0 54px}
       .ia-section{padding:60px 0}
       .chapter-head{grid-template-columns:44px 1fr}
-      .chapter-no{font-size:32px}
+      .chapter-no{font-size:var(--fs-heading)}
       .dialogue{padding:20px}
       .note-box{padding:28px 22px}
       .editorial-media-section{padding:42px 0 48px}
@@ -760,21 +760,7 @@
 <div id="insight-002-newsletter" data-newsletter-inline="다음 HITS가 궁금하다면"></div>
 </div>
 </section>
-</article>
-          <article class="keep-card">
-            <small>PRODUCT</small>
-            <h3>좋은 상품일수록 설명하기 어려운 이유</h3>
-            <span>5 MIN READ →</span>
-          </article>
-          <article class="keep-card">
-            <small>BRAND</small>
-            <h3>브랜드는 언제 이야기가 되는가?</h3>
-            <span>7 MIN READ →</span>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
+</main>
 
   <div id="float-newsletter-mount"></div>
   <div id="site-footer-mount"></div>

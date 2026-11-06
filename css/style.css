@@ -741,16 +741,16 @@ a.lb-card:hover { border-color: var(--accent); }
    뉴스레터 (3곳 공용)
    ========================================================== */
 .newsletter-inline { background: var(--bg-content); border-radius: var(--radius); padding: 24px; margin-top: 20px; }
-.newsletter-inline-title { font-size: 14px; font-weight: 800; margin-bottom: 14px; }
+.newsletter-inline-title { font-size: var(--fs-body); font-weight: 800; margin-bottom: 14px; }
 .newsletter-main { background: var(--bg-main); padding: 48px 0; }
 .newsletter-main-inner { text-align: center; }
-.newsletter-main-label { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; }
-.newsletter-main-title { color: var(--text-light); font-size: 22px; font-weight: 900; margin-bottom: 8px; }
-.newsletter-main-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+.newsletter-main-label { color: var(--accent); font-size: var(--fs-caption); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; }
+.newsletter-main-title { color: var(--text-light); font-size: var(--fs-lead); font-weight: 900; margin-bottom: 8px; }
+.newsletter-main-desc { color: var(--text-muted); font-size: var(--fs-caption); margin-bottom: 24px; }
 .newsletter-form { display: flex; flex-wrap: wrap; gap: 8px; }
 .newsletter-main .newsletter-form { justify-content: center; }
 .newsletter-form input, .newsletter-form select {
-  font-family: inherit; font-size: 13px; padding: 10px 12px; border-radius: 6px;
+  font-family: inherit; font-size: var(--fs-body); padding: 10px 12px; border-radius: 6px;
   border: 0.5px solid var(--border-light); background: var(--bg-white); color: var(--text-dark);
 }
 .newsletter-main .newsletter-form input, .newsletter-main .newsletter-form select {
@@ -761,7 +761,7 @@ a.lb-card:hover { border-color: var(--accent); }
 }
 .newsletter-main .newsletter-form input::placeholder { color: var(--text-muted); }
 .newsletter-consent {
-  display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px; font-size: var(--fs-caption); color: var(--text-muted);
   width: 100%; justify-content: center; margin-top: -2px;
 }
 .newsletter-main .newsletter-consent { color: var(--text-muted); }
@@ -770,8 +770,9 @@ a.lb-card:hover { border-color: var(--accent); }
   background: none; border: 0; padding: 0; font: inherit; color: inherit;
   text-decoration: underline; cursor: pointer;
 }
+.newsletter-form .btn { font-size: var(--fs-body); }
 .newsletter-hidden-frame { position: absolute; width: 1px; height: 1px; opacity: 0; border: 0; pointer-events: none; }
-.newsletter-thanks { text-align: center; font-size: 13px; color: var(--text-dark); padding: 10px 0; }
+.newsletter-thanks { text-align: center; font-size: var(--fs-caption); color: var(--text-dark); padding: 10px 0; }
 .newsletter-main .newsletter-thanks { color: var(--text-light); }
 
 /* ==========================================================

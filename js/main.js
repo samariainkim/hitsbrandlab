@@ -264,7 +264,7 @@ function initShareButtons() {
     style.textContent = `
       .hits-share { display: flex; align-items: center; gap: 14px; margin: 4px 0 32px; }
       .hits-share-label { font-size: 12px; font-weight: 850; letter-spacing: .12em; color: #6B6A66; }
-      .hits-share-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #DEDDD8; display: flex; align-items: center; justify-content: center; color: #111110; text-decoration: none; font-weight: 800; font-size: 14px; background: #fff; cursor: pointer; transition: border-color .15s, color .15s; }
+      .hits-share-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid #DEDDD8; display: flex; align-items: center; justify-content: center; color: #111110; text-decoration: none; font-weight: 800; font-size: var(--fs-body); background: #fff; cursor: pointer; transition: border-color .15s, color .15s; }
       .hits-share-btn:hover { border-color: #2F5CFF; color: #2F5CFF; }
     `;
     document.head.appendChild(style);

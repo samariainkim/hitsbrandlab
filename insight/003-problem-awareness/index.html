@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="site-frame">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,9 +32,9 @@
       --ia-white:#FFFFFF;
       --ia-muted:#70706B;
       --ia-line:#D9D9D3;
-      --ia-max:1140px;
-      --ia-read:740px;
-      --ia-wide:960px;
+      --ia-max:var(--w-wide);
+      --ia-read:var(--w-read);
+      --ia-wide:var(--w-wide);
     }
 
     *{box-sizing:border-box}
@@ -53,7 +53,7 @@
     .ia-label{
       margin:0 0 10px;
       color:var(--ia-blue);
-      font-size:11px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.1em;
     }
@@ -72,7 +72,7 @@
     }
     .ia-hero h1{
       margin:10px 0 19px;
-      font-size:clamp(35px,4.5vw,51px);
+      font-size:var(--fs-display);
       line-height:1.14;
       letter-spacing:-.045em;
     }
@@ -80,13 +80,13 @@
       max-width:600px;
       margin:0;
       color:#BDBDB8;
-      font-size:17px;
+      font-size:var(--fs-body);
       line-height:1.72;
     }
     .ia-meta{
       margin-top:22px;
       color:#858580;
-      font-size:11px;
+      font-size:var(--fs-caption);
     }
     .ia-equation{
       border-top:1px solid #383835;
@@ -102,12 +102,12 @@
     .ia-equation-row:last-child{border-bottom:0}
     .ia-equation-key{
       color:var(--ia-blue);
-      font-size:12px;
+      font-size:var(--fs-caption);
       font-weight:900;
       letter-spacing:.08em;
     }
     .ia-equation-value{
-      font-size:17px;
+      font-size:var(--fs-body);
       font-weight:750;
       line-height:1.4;
     }
@@ -115,7 +115,7 @@
       display:block;
       margin-top:4px;
       color:#858580;
-      font-size:12px;
+      font-size:var(--fs-caption);
       font-weight:400;
     }
 
@@ -125,17 +125,17 @@
     .ia-block-alt{background:var(--ia-paper)}
     .ia-block h2,.ia-block-alt h2{
       margin:0 0 24px;
-      font-size:clamp(26px,3vw,32px);
+      font-size:var(--fs-heading);
       line-height:1.32;
       letter-spacing:-.032em;
     }
     .ia-block p,.ia-block-alt p{
       margin:0 0 19px;
-      font-size:16px;
+      font-size:var(--fs-body);
       line-height:1.82;
     }
     .ia-lead{
-      font-size:17.5px!important;
+      font-size:var(--fs-body) !important;
       line-height:1.75!important;
     }
 
@@ -145,16 +145,16 @@
       border-left:2px solid var(--ia-blue);
       background:var(--ia-paper);
     }
-    .ia-dialogue p{margin:0 0 12px;font-size:16.5px}
+    .ia-dialogue p{margin:0 0 12px;font-size:var(--fs-body)}
     .ia-dialogue p:last-child{margin-bottom:0}
 
     .ia-pull{
-      width:min(calc(100% - 40px),880px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:50px auto;
       padding:30px 34px;
       border-top:1px solid var(--ia-line);
       border-bottom:1px solid var(--ia-line);
-      font-size:clamp(21px,2.5vw,26px);
+      font-size:var(--fs-lead);
       font-weight:800;
       line-height:1.52;
       text-align:center;
@@ -176,20 +176,20 @@
     .ia-gap-side{padding:6px 0}
     .ia-gap-side small{
       color:var(--ia-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.1em;
     }
     .ia-gap-side h3{
       margin:14px 0 18px;
-      font-size:24px;
+      font-size:var(--fs-lead);
       line-height:1.3;
       letter-spacing:-.03em;
     }
     .ia-gap-side p{
       margin:0;
       color:#999994;
-      font-size:14px;
+      font-size:var(--fs-body);
       line-height:1.72;
     }
     .ia-gap-mark{
@@ -197,12 +197,12 @@
       align-items:center;
       justify-content:center;
       color:var(--ia-blue);
-      font-size:36px;
+      font-size:var(--fs-heading);
       font-weight:300;
     }
 
     .ia-compare{
-      width:min(calc(100% - 40px),940px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:38px auto 0;
       border-top:1px solid var(--ia-line);
     }
@@ -213,12 +213,12 @@
     }
     .ia-compare-cell{
       padding:19px 22px;
-      font-size:14px;
+      font-size:var(--fs-body);
       line-height:1.55;
     }
     .ia-compare-cell:first-child{border-right:1px solid var(--ia-line)}
     .ia-compare-head{
-      font-size:11px!important;
+      font-size:var(--fs-caption) !important;
       font-weight:850;
       letter-spacing:.08em;
       color:var(--ia-blue);
@@ -231,22 +231,22 @@
       color:var(--ia-white);
     }
     .ia-depth-intro{
-      width:min(calc(100% - 40px),740px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:0 auto 46px;
     }
     .ia-depth-intro h2{
       margin:0 0 18px;
-      font-size:clamp(27px,3vw,33px);
+      font-size:var(--fs-heading);
       letter-spacing:-.035em;
     }
     .ia-depth-intro p{
       margin:0;
       color:#A5A5A0;
-      font-size:15px;
+      font-size:var(--fs-body);
       line-height:1.75;
     }
     .ia-depth-stack{
-      width:min(calc(100% - 40px),760px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:0 auto;
     }
     .ia-depth-step{
@@ -267,25 +267,25 @@
       display:block;
       margin-bottom:7px;
       color:var(--ia-blue);
-      font-size:9px;
+      font-size:var(--fs-caption);
       font-weight:850;
       letter-spacing:.1em;
     }
     .ia-depth-step b{
-      font-size:15px;
+      font-size:var(--fs-body);
       line-height:1.5;
     }
     .ia-depth-arrow{
       text-align:center;
       color:#696965;
-      font-size:14px;
+      font-size:var(--fs-body);
       height:16px;
     }
     .ia-depth-final{
       margin-top:38px;
       text-align:center;
       color:var(--ia-blue);
-      font-size:12px;
+      font-size:var(--fs-caption);
       font-weight:900;
       letter-spacing:.14em;
     }
@@ -306,7 +306,7 @@
       top:110px;
     }
     .ia-case-no{
-      font-size:56px;
+      font-size:var(--fs-display);
       font-weight:850;
       letter-spacing:-.06em;
       color:var(--ia-blue);
@@ -314,15 +314,15 @@
     }
     .ia-case-index h3{
       margin:12px 0 5px;
-      font-size:20px;
+      font-size:var(--fs-body);
     }
     .ia-case-index span{
       color:var(--ia-muted);
-      font-size:12px;
+      font-size:var(--fs-caption);
     }
     .ia-case-copy p{
       margin:0 0 19px;
-      font-size:16px;
+      font-size:var(--fs-body);
       line-height:1.82;
     }
     .ia-case-flow{
@@ -335,11 +335,11 @@
       gap:20px;
       padding:17px 0;
       border-bottom:1px solid var(--ia-line);
-      font-size:14px;
+      font-size:var(--fs-body);
     }
     .ia-case-flow b{
       color:var(--ia-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       letter-spacing:.09em;
     }
 
@@ -350,7 +350,7 @@
     }
     .ia-habits h2{
       margin:0;
-      font-size:clamp(26px,3vw,32px);
+      font-size:var(--fs-heading);
       line-height:1.35;
       letter-spacing:-.03em;
     }
@@ -367,25 +367,25 @@
     }
     .ia-habit-num{
       color:var(--ia-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:850;
       letter-spacing:.1em;
     }
     .ia-habit h3{
       margin:28px 0 10px;
-      font-size:22px;
+      font-size:var(--fs-lead);
       letter-spacing:-.03em;
     }
     .ia-habit strong{
       display:block;
       margin-bottom:14px;
-      font-size:15px;
+      font-size:var(--fs-body);
       line-height:1.55;
     }
     .ia-habit p{
       margin:0;
       color:var(--ia-muted);
-      font-size:13px;
+      font-size:var(--fs-caption);
       line-height:1.7;
     }
 
@@ -395,12 +395,12 @@
       background:var(--ia-paper);
     }
     .ia-transition-copy{
-      width:min(calc(100% - 40px),740px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:0 auto 42px;
     }
     .ia-transition-copy p{
       margin:0 0 12px;
-      font-size:18px;
+      font-size:var(--fs-body);
       line-height:1.75;
       letter-spacing:-.015em;
     }
@@ -425,14 +425,14 @@
     }
     .ia-editorial-caption small{
       color:var(--ia-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:850;
       letter-spacing:.09em;
     }
     .ia-editorial-caption p{
       margin:0;
       color:var(--ia-muted);
-      font-size:13px;
+      font-size:var(--fs-caption);
       line-height:1.65;
     }
 
@@ -443,17 +443,17 @@
     }
     .ia-return h2{
       margin:0 0 24px;
-      font-size:clamp(26px,3vw,32px);
+      font-size:var(--fs-heading);
       line-height:1.32;
       letter-spacing:-.032em;
     }
     .ia-return p{
       margin:0 0 19px;
-      font-size:16px;
+      font-size:var(--fs-body);
       line-height:1.82;
     }
     .ia-return-sheet{
-      width:min(calc(100% - 40px),820px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:42px auto 0;
       padding:38px 42px;
       background:var(--ia-paper);
@@ -461,13 +461,13 @@
     }
     .ia-return-sheet small{
       color:var(--ia-blue);
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:850;
       letter-spacing:.1em;
     }
     .ia-return-sheet p{
       margin:22px 0 0;
-      font-size:18px;
+      font-size:var(--fs-body);
       line-height:1.75;
     }
     .ia-return-sheet em{
@@ -482,14 +482,14 @@
       text-align:center;
     }
     .ia-ending small{
-      font-size:10px;
+      font-size:var(--fs-caption);
       font-weight:800;
       letter-spacing:.1em;
     }
     .ia-ending p{
       margin:16px auto 0;
-      width:min(calc(100% - 40px),800px);
-      font-size:clamp(27px,3.4vw,37px);
+      width:min(calc(100% - 40px),var(--w-read));
+      font-size:var(--fs-heading);
       font-weight:850;
       line-height:1.4;
       letter-spacing:-.035em;
@@ -501,7 +501,7 @@
       background:var(--ia-white);
     }
     .ia-note-box{
-      width:min(calc(100% - 40px),860px);
+      width:min(calc(100% - 40px),var(--w-read));
       margin:auto;
       padding:38px 40px;
       border:1px solid var(--ia-line);
@@ -509,13 +509,13 @@
     }
     .ia-note-box h2{
       margin:8px 0 17px;
-      font-size:clamp(25px,3vw,31px);
+      font-size:var(--fs-heading);
       line-height:1.35;
       letter-spacing:-.03em;
     }
     .ia-note-box p{
       margin:0;
-      font-size:16px;
+      font-size:var(--fs-body);
       line-height:1.8;
     }
 
