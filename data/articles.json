@@ -9,6 +9,7 @@
     "tags": ["전략", "우선순위", "의사결정"],
     "publishDate": "2026-09-07",
     "thumbnail": "/images/insight/game-round/editorial-01.jpeg",
+    "thumb": "/images/thumbs/insight-005.jpg",
     "url": "/insight/005-game-round/"
   },
   {
@@ -21,6 +22,7 @@
     "tags": ["콘텐츠", "컨텍스트", "경험설계"],
     "publishDate": "2026-09-07",
     "thumbnail": "/images/insight/content-context/editorial-01.jpg",
+    "thumb": "/images/thumbs/insight-004.jpg",
     "url": "/insight/004-content-context/"
   },
   {
@@ -33,6 +35,7 @@
     "tags": ["문제의식", "기획력", "다이슨"],
     "publishDate": "2026-09-07",
     "thumbnail": "/images/insight/problem-awareness/editorial-01.jpg",
+    "thumb": "/images/thumbs/insight-003.jpg",
     "url": "/insight/003-problem-awareness/"
   },
   {
@@ -45,6 +48,7 @@
     "tags": ["기획", "자기성찰", "성장"],
     "publishDate": "2026-09-03",
     "thumbnail": "/images/insight/where-does-planning-lead/editorial-01.png",
+    "thumb": "/images/thumbs/insight-002.jpg",
     "url": "/insight/002-where-does-planning-lead/"
   },
   {
