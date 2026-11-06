@@ -258,6 +258,20 @@ html.hits-notice-open { overflow: hidden; }
 .lib-card2-no { margin: 0 0 6px; font-size: 10px; color: var(--text-secondary); letter-spacing: .04em; font-family: ui-monospace, monospace; }
 .lib-card2-title { margin: 0 0 6px; font-size: 15px; font-weight: 800; line-height: 1.4; }
 .lib-card2-meta { margin: 0; font-size: 11px; color: var(--text-secondary); font-family: ui-monospace, monospace; }
+/* 홈: Canvas 한 줄 띠 */
+.cv-slim { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: stretch; }
+.cv-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.cv-chip { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); transition: border-color .15s; }
+.cv-chip:hover { border-color: var(--accent); }
+.cv-chip b { font-size: 12px; font-weight: 800; color: var(--accent); }
+.cv-chip .canvas-soon { align-self: flex-start; }
+.cv-master { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 250px; padding: 16px 22px; background: var(--bg-white); border: 1px solid var(--accent); border-radius: var(--radius); }
+.cv-master .canvas-num { margin: 0; }
+.cv-master strong { font-size: 17px; font-weight: 900; }
+.cv-master em { font-style: normal; font-size: 13px; font-weight: 800; color: var(--accent); }
+@media (max-width: 900px) { .cv-slim { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .cv-chips { grid-template-columns: repeat(2, 1fr); } }
+
 /* 홈: Insight 최신 글 카드 */
 .ins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ins-card { display: block; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius); overflow: hidden; transition: border-color .15s; }
@@ -272,6 +286,11 @@ html.hits-notice-open { overflow: hidden; }
 .slim-cta { margin: 26px 0 0; font-size: 14px; font-weight: 700; }
 .slim-cta a { margin-left: 6px; color: var(--accent); font-weight: 800; }
 @media (max-width: 900px) {
+  .wk2-body { padding: 22px; }
+  .wk2-title { font-size: 22px; }
+  .wk2-bigquote p { font-size: 17px; }
+}
+@media (max-width: 720px) {
   .wk2 { grid-template-columns: 1fr; }
   .wk2-img { aspect-ratio: 16 / 9; min-height: 0; }
   .wk2-body { padding: 22px 20px; }
@@ -288,11 +307,6 @@ html.hits-notice-open { overflow: hidden; }
 @media (max-width: 640px) {
   .float-newsletter-btn, html.site-frame .float-newsletter-btn { right: 12px; bottom: 12px; font-size: 12px; padding: 9px 14px; }
 }
-  .wk2-body { padding: 22px; }
-  .wk2-title { font-size: 22px; }
-  .wk2-bigquote p { font-size: 17px; }
-}
-@media (max-width: 720px) {
 
 /* ==========================================================
    Formula 섹션 (핵심 브랜드 자산)
@@ -594,8 +608,6 @@ html.hits-notice-open { overflow: hidden; }
 .canvas-name { font-size: 16px; font-weight: 800; margin: 0 0 14px; }
 .canvas-cta { font-size: 13px; font-weight: 700; color: var(--accent); }
 .canvas-card.is-ready { border: 1px solid var(--accent); }
-a.canvas-card { display: block; transition: border-color .15s; }
-a.canvas-card:hover { border-color: var(--accent); }
 .canvas-soon { display: inline-block; font-size: 11px; font-weight: 700; color: var(--text-secondary); background: var(--bg-content); padding: 2px 9px; border-radius: 10px; }
 .canvas-badge-ready { display: inline-block; font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg-content); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
 
