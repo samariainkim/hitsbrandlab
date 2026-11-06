@@ -100,7 +100,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -590,21 +590,30 @@ function renderActiveFilterBar() {
   });
 }
 
-/* ---------- Insight: 홈 미리보기 (간단 2열, 이미지 없음) ---------- */
-async function renderInsightGrid(mountId, limit) {
+/* ---------- Insight: 홈 최신 글 썸네일 카드 (발행된 글만, 최신순) ---------- */
+async function renderInsightCards(mountId, limit) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
   try {
     const res = await fetch('/data/articles.json');
     const articles = await res.json();
-    const sorted = articles.slice().sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1));
-    const list = limit ? sorted.slice(0, limit) : sorted;
-    mount.innerHTML = list.map(a => `
-      <a class="insight-preview-card" href="${a.url}">
-        <p class="insight-preview-cat">${a.category}</p>
-        <p class="insight-preview-title">${a.title}</p>
-        <p class="insight-preview-desc">${a.excerpt}</p>
-      </a>`).join('');
+    const list = articles.filter(a => a.url && a.url !== '#')
+      .sort((a, b) => (b.articleNumber ?? -1) - (a.articleNumber ?? -1)).slice(0, limit);
+    mount.innerHTML = list.map(a => {
+      const img = a.thumb || a.thumbnail;
+      const visual = img
+        ? `<img src="${img}" alt="" loading="lazy">`
+        : `<div class="ins-thumb-text">${(a.tags && a.tags[0]) || a.category}</div>`;
+      return `
+        <a class="ins-card" href="${a.url}">
+          <div class="ins-thumb">${visual}</div>
+          <div class="ins-body">
+            <p class="ins-cat">${a.category} · ${a.readTime} READ</p>
+            <p class="ins-title">${a.title}</p>
+            <p class="ins-excerpt">${a.excerpt}</p>
+          </div>
+        </a>`;
+    }).join('');
   } catch (err) { console.error(err); }
 }
 
@@ -853,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWeeklyTeaser();
   renderLibraryPreview();
   initLibraryPage();
-  renderInsightGrid('insight-preview-mount', 2);
+  renderInsightCards('insight-preview-mount', 3);
   initInsightPage();
   renderRelatedCounts();
 

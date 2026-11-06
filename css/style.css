@@ -258,6 +258,17 @@ html.hits-notice-open { overflow: hidden; }
 .lib-card2-no { margin: 0 0 6px; font-size: 10px; color: var(--text-secondary); letter-spacing: .04em; font-family: ui-monospace, monospace; }
 .lib-card2-title { margin: 0 0 6px; font-size: 15px; font-weight: 800; line-height: 1.4; }
 .lib-card2-meta { margin: 0; font-size: 11px; color: var(--text-secondary); font-family: ui-monospace, monospace; }
+/* 홈: Insight 최신 글 카드 */
+.ins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ins-card { display: block; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius); overflow: hidden; transition: border-color .15s; }
+.ins-card:hover { border-color: var(--accent); }
+.ins-thumb { aspect-ratio: 16 / 10; background: var(--bg-main); overflow: hidden; }
+.ins-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ins-thumb-text { height: 100%; display: flex; align-items: center; justify-content: center; padding: 18px; text-align: center; font-size: 26px; font-weight: 900; line-height: 1.3; color: var(--text-light); }
+.ins-body { padding: 16px 18px 20px; }
+.ins-cat { margin: 0 0 8px; font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: .04em; }
+.ins-title { margin: 0 0 8px; font-size: 16px; font-weight: 800; line-height: 1.4; }
+.ins-excerpt { margin: 0; font-size: 12.5px; color: var(--text-secondary); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .slim-cta { margin: 26px 0 0; font-size: 14px; font-weight: 700; }
 .slim-cta a { margin-left: 6px; color: var(--accent); font-weight: 800; }
 @media (max-width: 900px) {
@@ -268,7 +279,8 @@ html.hits-notice-open { overflow: hidden; }
 }
 @media (max-width: 720px) {
   .lib-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 0 20px 6px; }
-  .lib-strip > * { flex: 0 0 74%; scroll-snap-align: start; }
+  .lib-strip > *, .ins-grid > * { flex: 0 0 74%; scroll-snap-align: start; }
+  .ins-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 0 20px 6px; }
 }
 .float-newsletter-btn.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity .2s, transform .2s; }
 @media (max-width: 640px) {
