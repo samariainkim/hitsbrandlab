@@ -630,7 +630,7 @@ async function renderInsightCards(mountId, limit) {
         <a class="ins-card" href="${a.url}">
           <div class="ins-thumb">${visual}</div>
           <div class="ins-body">
-            <p class="ins-cat">${a.category} · ${a.readTime} READ</p>
+            <p class="ins-cat">${a.category} · ${readTimeLabel(a)}</p>
             <p class="ins-title">${a.title}</p>
             <p class="ins-excerpt">${a.excerpt}</p>
           </div>
@@ -643,13 +643,19 @@ async function renderInsightCards(mountId, limit) {
 let allArticles = [];
 let insightFilter = 'all';
 
+/* 읽는 시간은 인사이트만의 공통 요소: 데이터의 "9분"을 "9 MIN READ"로 한 형식으로 표기 */
+function readTimeLabel(a) {
+  const n = parseInt(a.readTime, 10);
+  return n ? `${n} MIN READ` : '';
+}
+
 function insightDate(s) {
   const [y, m, d] = s.split('-');
   return `${y.slice(2)}.${m}.${d}`;
 }
 
 function insightMetaHTML(a, featured) {
-  return `<p class="ix-meta">${featured ? 'FEATURED · ' : ''}${a.category} <span>· ${a.readTime} READ · ${insightDate(a.publishDate)}</span></p>`;
+  return `<p class="ix-meta">${featured ? 'FEATURED · ' : ''}${a.category} <span>· ${readTimeLabel(a)} · ${insightDate(a.publishDate)}</span></p>`;
 }
 
 /* 이미지: thumb → thumbnail → 없으면 태그 글자(텍스트 비주얼) */
