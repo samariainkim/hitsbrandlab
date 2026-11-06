@@ -368,6 +368,30 @@ function bindNewsletterSubmit(formId) {
   }
 }
 
+/* ---------- 사례 상세 공통 마무리: EXPLORE 칩 + 메타 줄을 cases.json 에서 자동 생성 ----------
+   규칙: 분류(category) → 사업(business) → 시그널(signal) 순서, 각 칩은 /library/?축=값 으로 연결 */
+async function initCaseEnd() {
+  const tagMount = document.querySelector('[data-ce-tags]');
+  const metaMount = document.querySelector('[data-ce-meta]');
+  if (!tagMount && !metaMount) return;
+  try {
+    const res = await fetch('/data/cases.json');
+    const cases = await res.json();
+    const num = (tagMount || metaMount).dataset.ceTags || (tagMount || metaMount).dataset.ceMeta;
+    const c = cases.find(x => x.caseNumber === num);
+    if (!c) return;
+    if (tagMount) {
+      tagMount.innerHTML = ['category', 'business', 'signal']
+        .flatMap(axis => (c[axis] || []).map(v => `<a href="/library/?${axis}=${encodeURIComponent(v)}">#${v}</a>`))
+        .join('');
+    }
+    if (metaMount) {
+      const [y, m] = c.publishDate.split('-');
+      metaMount.textContent = `HITS CASE ${c.caseNumber} · ${c.brand} · ${y}.${m}`;
+    }
+  } catch (err) { console.error(err); }
+}
+
 /* ---------- 긴 텍스트를 대략 10줄 분량으로 자르고 자연스럽게 "... 더보기" 이어붙이기 ---------- */
 function clampExcerpt(text, maxChars) {
   if (!text || text.length <= maxChars) return text || '';
@@ -876,6 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFloatingButton();
   initShareButtons();
   initDiagnoseButton();
+  initCaseEnd();
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();

@@ -92,16 +92,6 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
 .w4-point h2{width:100%;max-width:none;margin:16px 0 26px;font-size:clamp(28px,4vw,42px);line-height:1.35;letter-spacing:-.045em}
 .w4-point h2 em{font-style:normal;color:var(--w4-b)}
 .w4-point p{width:100%;max-width:none;margin:0 0 20px;font-size:16px;line-height:1.95}
-.w4-btn{display:inline-block;margin-top:34px;background:var(--w4-b);color:#fff;padding:14px 20px;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none}
-.w4-explore{padding:64px 0 0}
-.w4-tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px}
-.w4-tags a{border:1px solid #DEDDD8;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;color:var(--w4-c);text-decoration:none;background:#fff}
-.w4-tags a:hover{border-color:var(--w4-b);color:var(--w4-b)}
-.w4-explore .w4-explore-meta{font-size:11px;color:#6B6A66;letter-spacing:.04em;margin:0 0 24px}
-.w4-explore-more{font-size:14px;font-weight:850;color:var(--w4-b);text-decoration:none}
-.w4-explore .w4-note{width:auto;margin:34px 0 0;padding:0;font-size:12px;line-height:1.7;color:rgba(17,17,16,.62)}
-.w4-newsletter{padding:64px 0 40px}
-.w4-newsletter .newsletter-inline{padding-left:0;padding-right:0;background:none}
 .w4-photo img,.w4-keep img,.w4-episode img{height:auto}
 .w4-video{position:relative;display:block;width:100%;padding:0;border:0;background:#000;cursor:pointer;aspect-ratio:1280/965;overflow:hidden}
 .w4-video img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s,opacity .25s}
@@ -265,24 +255,26 @@ body{margin:0;background:var(--w4-p);color:var(--w4-c);font-family:Pretendard,-a
     <div class="w4-last-question">
       <span class="w4-label">ONE LAST QUESTION</span>
       <p>당신의 브랜드가 하는 말과<br>실제로 하는 행동은<br>같은 방향을 가리키고 있는가?</p>
-      <a class="w4-btn" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a>
+      <a class="btn-case" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a>
     </div>
   </div>
 </section>
 
-<section class="w4-explore"><div class="w4-read">
-<div class="w4-label">EXPLORE THIS CASE</div>
-<div class="w4-tags">
-<a href="/library/?category=테크">#테크</a><a href="/library/?business=서비스">#서비스</a><a href="/library/?signal=차별화">#차별화</a><a href="/library/?signal=스토리">#스토리</a><a href="/library/?signal=문제재정의">#문제재정의</a>
-</div>
-<p class="w4-explore-meta">HITS CASE 004 · CLAUDE / ANTHROPIC · 2026.10</p>
+<section class="ce">
+<div class="ce-wrap">
+<div class="ce-label">EXPLORE THIS CASE</div>
+<div class="ce-tags" data-ce-tags="004"></div>
+<p class="ce-meta" data-ce-meta="004"></p>
 <div id="share-mount"></div>
-<a class="w4-explore-more" href="/library/">다른 HITS 사례 더 보기 →</a>
-<p class="w4-note">이미지 출처: Anthropic (A Time and a Place · Keep Thinking 캠페인). 캠페인 사실 관계는 Anthropic의 공개 캠페인과 Adweek 보도를 참고해 정리했습니다.</p>
-</div></section>
-<section class="w4-newsletter"><div class="w4-read">
+<a class="ce-more" href="/library/">다른 HITS 사례 더 보기 →</a>
+<p class="ce-note">이미지 출처: Anthropic (A Time and a Place · Keep Thinking 캠페인). 캠페인 사실 관계는 Anthropic의 공개 캠페인과 Adweek 보도를 참고해 정리했습니다.</p>
+</div>
+</section>
+<section class="ce ce-news">
+<div class="ce-wrap">
 <div id="library-004-newsletter" data-newsletter-inline="다음 HITS가 궁금하다면"></div>
-</div></section>
+</div>
+</section>
 </article></main>
 <div id="float-newsletter-mount"></div>
 <div id="site-footer-mount"></div>

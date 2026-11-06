@@ -14,6 +14,14 @@
   --border-light: #DEDDD8;
   --radius: 10px;
   --wrap-width: 1180px; /* 콘텐츠 영역 1140px + 좌우 패딩 20px */
+  /* 상세 글(사례·인사이트) 공통 규격: 폭 2종, 글자 크기 5단계 */
+  --w-read: 800px;   /* 읽는 폭(본문·인용·질문) */
+  --w-wide: 1140px;  /* 넓은 폭(이미지·카드·표지) */
+  --fs-caption: 12px;                          /* 라벨, 메타, 태그, 출처 */
+  --fs-body: 16px;                             /* 본문, 버튼 */
+  --fs-lead: 22px;                             /* 리드 문장, 작은 소제목 */
+  --fs-heading: clamp(26px, 3.6vw, 40px);      /* 구간 제목, 큰 문장 */
+  --fs-display: clamp(40px, 6vw, 72px);        /* 표지 제목, 큰 숫자
   --frame-width: 1240px; /* 색상 면(패널) 최대 폭 */
   --bg-outer: #DCDCD6;   /* 패널 바깥 여백 색 */
 }
@@ -201,6 +209,24 @@ html { scroll-behavior: smooth; }
 .hero-sub { color: var(--text-muted); font-size: 15px; margin: 0 0 20px; max-width: 460px; }
 .hero-formula { color: var(--text-muted); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; margin: 0 0 26px; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ==========================================================
+   사례 상세 공통 마무리 영역 (EXPLORE 칩 · 공유 · 다른 사례 · 구독) + 공통 CTA 버튼
+   칩은 data/cases.json 에서 분류 → 사업 → 시그널 순서로 자동 생성됨
+   ========================================================== */
+.btn-case { display: inline-block; background: var(--accent); color: #fff; padding: 14px 22px; border-radius: 9px; font-size: var(--fs-body); font-weight: 800; line-height: 1.3; text-decoration: none; }
+.ce { padding: 64px 0 0; }
+.ce.ce-news { padding: 40px 0 40px; }
+.ce-wrap { width: min(calc(100% - 40px), var(--w-read)); margin: 0 auto; }
+.ce-cta { margin: 0 0 40px; }
+.ce-label { font-size: var(--fs-caption); font-weight: 850; letter-spacing: .14em; color: var(--accent); }
+.ce-tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 22px; }
+.ce-tags a { border: 1px solid var(--border-light); border-radius: 999px; padding: 8px 16px; font-size: var(--fs-caption); font-weight: 700; color: var(--text-dark); background: #fff; text-decoration: none; }
+.ce-tags a:hover { border-color: var(--accent); color: var(--accent); }
+.ce-meta { margin: 0 0 24px; font-size: var(--fs-caption); letter-spacing: .04em; color: var(--text-secondary); text-transform: uppercase; }
+.ce-more { font-size: var(--fs-body); font-weight: 850; color: var(--accent); text-decoration: none; }
+.ce-note { margin: 34px 0 0; font-size: var(--fs-caption); line-height: 1.7; color: rgba(17, 17, 16, .62); }
+.ce .newsletter-inline, .ce-news .newsletter-inline { padding-left: 0; padding-right: 0; background: none; }
 
 /* ==========================================================
    플로팅 뉴스레터 버튼

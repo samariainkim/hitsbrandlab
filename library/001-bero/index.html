@@ -78,11 +78,6 @@ font-family:Pretendard,Inter,"Noto Sans KR",Arial,sans-serif;line-height:1.78}
 .bero .point{display:grid;grid-template-columns:1.2fr .8fr;gap:58px;align-items:start}
 .bero .point h3{font-size:clamp(34px,4.3vw,46px)}
 .bero .apply{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
-.bero .btn{background:var(--blue);color:#fff;padding:13px 17px;border-radius:9px;font-size:13px;font-weight:800;text-decoration:none}
-.bero .tag-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.bero .tax-tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#fff;font-size:12px;color:#4b4e57;text-decoration:none}
-.bero .case-id{margin-top:18px;color:var(--muted);font-size:11px;letter-spacing:.04em}
-.bero .more-cases{margin-top:58px;text-align:center;padding:32px 0}
 @media(max-width:900px){
 .bero .hero-grid,.bero .article-grid,.bero .point,.bero .apply{grid-template-columns:1fr}
 .bero .signal{grid-template-columns:1fr 1fr}.bero .signal>div:first-child{grid-column:1/-1}
@@ -266,32 +261,24 @@ font-family:Pretendard,Inter,"Noto Sans KR",Arial,sans-serif;line-height:1.78}
 <section class="section">
 <div class="wrap apply">
   <div><div class="kicker">05 · APPLY TO YOUR PRODUCT</div><h3>고객이 버리고 싶은 것은 무엇이고,<br>끝까지 포기하고 싶지 않은 것은 무엇인가?</h3></div>
-  <a class="btn" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a>
-</div>
-
-<div class="wrap" style="margin-top:58px">
-  <div class="kicker">EXPLORE THIS CASE</div>
-  <div class="tag-cloud">
-    <a class="tax-tag" href="/library/?category=식품">#식음료</a>
-    <a class="tax-tag" href="/library/?business=D2C">#D2C</a>
-    <a class="tax-tag" href="/library/?business=제조">#제조</a>
-    <a class="tax-tag" href="/library/?signal=프리미엄">#프리미엄</a>
-    <a class="tax-tag" href="/library/?signal=문제재정의">#문제재정의</a>
-    <a class="tax-tag" href="/library/?signal=스토리">#스토리</a>
-    <a class="tax-tag" href="/library/?signal=팬덤">#팬덤</a>
-  </div>
-  <div class="case-id">HITS CASE 001 · BERO · 2026.09</div>
-  <div id="share-mount"></div>
-</div>
-
-<div class="wrap more-cases">
-  <a href="/library/" style="color:var(--blue);font-weight:700;font-size:14px">다른 HITS 사례 더 보기 →</a>
+  <a class="btn-case" href="/canvas/master/">HITS CANVAS에서 진단하기 →</a>
 </div>
 </section>
 
-<div class="wrap" style="max-width:1140px;margin:0 auto 40px">
-  <div data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+<section class="ce">
+<div class="ce-wrap">
+<div class="ce-label">EXPLORE THIS CASE</div>
+<div class="ce-tags" data-ce-tags="001"></div>
+<p class="ce-meta" data-ce-meta="001"></p>
+<div id="share-mount"></div>
+<a class="ce-more" href="/library/">다른 HITS 사례 더 보기 →</a>
 </div>
+</section>
+<section class="ce ce-news">
+<div class="ce-wrap">
+<div data-newsletter-inline="다음 HITS가 궁금하다면"></div>
+</div>
+</section>
 
 <div id="site-footer-mount"></div>
 <div id="float-newsletter-mount"></div>
