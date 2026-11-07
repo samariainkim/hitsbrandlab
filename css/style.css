@@ -671,41 +671,48 @@ a.lb-card:hover { border-color: var(--accent); }
    Canvas
    ========================================================== */
 .canvas-hero { background: var(--bg-main); padding: 56px 0 40px; }
-.canvas-hero h1 { color: var(--text-light); font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin: 4px 0 10px; }
-.canvas-hero p { color: var(--text-muted); font-size: 14px; }
-.canvas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-.canvas-card { background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); padding: 20px; }
-.canvas-num { font-size: 11px; font-weight: 700; color: var(--accent); margin: 0 0 10px; }
-.canvas-name { font-size: 16px; font-weight: 800; margin: 0 0 14px; }
-.canvas-cta { font-size: 13px; font-weight: 700; color: var(--accent); }
-.canvas-card.is-ready { border: 1px solid var(--accent); }
-.canvas-soon { display: inline-block; font-size: 11px; font-weight: 700; color: var(--text-secondary); background: var(--bg-content); padding: 2px 9px; border-radius: 10px; }
-.canvas-badge-ready { display: inline-block; font-size: 10px; font-weight: 700; color: var(--accent); background: var(--bg-content); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
-
+.canvas-hero h1 { color: var(--text-light); font-size: var(--fs-heading); font-weight: 900; line-height: 1.25; margin: 4px 0 10px; }
+.canvas-hero p { color: var(--text-muted); font-size: var(--fs-body); }
+.canvas-hero .canvas-soon { margin-top: 18px; }
+.canvas-label { margin: 0 0 16px; font-size: var(--fs-caption); font-weight: 800; letter-spacing: .12em; color: var(--text-secondary); }
+.canvas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.canvas-card { display: flex; flex-direction: column; gap: 10px; background: var(--bg-white); border: 0.5px solid var(--border-light); border-radius: var(--radius); padding: 22px 20px; transition: border-color .15s; }
+a.canvas-card:hover { border-color: var(--accent); }
+.canvas-card .canvas-soon { align-self: flex-start; }
+.canvas-num { font-size: var(--fs-caption); font-weight: 700; color: var(--accent); margin: 0; }
+.canvas-name { font-size: var(--fs-body); font-weight: 800; margin: 0; }
+.canvas-desc { margin: 0; font-size: var(--fs-caption); line-height: 1.65; color: var(--text-secondary); }
+.canvas-cta { font-size: var(--fs-caption); font-weight: 700; color: var(--accent); }
+.canvas-card .canvas-cta { margin-top: auto; padding-top: 6px; }
+.canvas-soon { display: inline-block; font-size: var(--fs-caption); font-weight: 700; color: var(--text-secondary); background: var(--bg-content); padding: 2px 9px; border-radius: 10px; }
+.canvas-hero .canvas-soon { color: var(--text-light); background: rgba(255,255,255,.12); }
+.canvas-badge-ready { display: inline-block; font-size: var(--fs-caption); font-weight: 700; color: var(--accent); background: var(--bg-content); padding: 2px 9px; border-radius: 20px; margin-bottom: 8px; }
 .canvas-master-banner {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
-  border: 1px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; margin-top: 14px;
+  border: 1px solid var(--accent); border-radius: var(--radius); padding: 22px 24px; margin-top: 16px;
 }
 .canvas-master-banner .canvas-num { margin-bottom: 6px; }
-.canvas-master-banner .canvas-name { font-size: 18px; }
-
-.canvas-form-page { padding: 40px 0; }
-.canvas-form { display: flex; flex-direction: column; gap: 20px; max-width: 640px; }
-.canvas-field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-.canvas-field p.hint { font-size: 12px; color: var(--text-secondary); margin: 0 0 8px; }
+.canvas-master-banner .canvas-name { font-size: var(--fs-lead); margin: 0; }
+.canvas-form-page { padding: 40px 0; max-width: var(--w-read); }
+.canvas-form { display: flex; flex-direction: column; gap: 20px; }
+.canvas-field label { display: block; font-size: var(--fs-body); font-weight: 700; margin-bottom: 8px; }
+.canvas-field p.hint { font-size: var(--fs-caption); color: var(--text-secondary); margin: 0 0 8px; }
 .canvas-field textarea, .canvas-field input {
-  width: 100%; font-family: inherit; font-size: 13px; padding: 12px 14px;
+  width: 100%; font-family: inherit; font-size: var(--fs-body); padding: 12px 14px;
   border-radius: 6px; border: 0.5px solid var(--border-light); background: var(--bg-content); color: var(--text-dark);
 }
 .canvas-field textarea { resize: vertical; }
-.review-note { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+.review-note { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; font-size: var(--fs-caption); color: var(--text-secondary); line-height: 1.7; }
 .review-note strong { color: var(--text-dark); }
-.review-note .redirect { display: block; margin-top: 10px; font-size: 11px; }
+.review-note .redirect { display: block; margin-top: 10px; }
 .review-note .redirect a { color: var(--accent); font-weight: 700; }
-
-.canvas-placeholder { text-align: center; padding: 60px 20px; }
-.canvas-placeholder h1 { font-size: 20px; font-weight: 900; margin: 8px 0 10px; }
-.canvas-placeholder p { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+.canvas-wait { max-width: var(--w-read); margin: 0 auto; padding: 56px 0 72px; }
+.canvas-wait .canvas-master-banner { margin: 0 0 40px; }
+.canvas-wait-main { padding: 40px 0 24px; }
+.canvas-form .btn { font-size: var(--fs-body); }
+.canvas-wait-back { display: inline-block; margin-top: 28px; font-size: var(--fs-caption); font-weight: 700; color: var(--text-secondary); }
+@media (max-width: 1000px) { .canvas-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .canvas-grid { grid-template-columns: 1fr; } }
 
 /* ==========================================================
    Book
