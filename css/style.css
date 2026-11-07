@@ -778,6 +778,15 @@ a.canvas-card:hover { border-color: var(--accent); }
   text-decoration: underline; cursor: pointer;
 }
 .newsletter-form .btn { font-size: var(--fs-body); }
+/* 구독 폼 공통 배치: 이름·이메일·직군·버튼을 가로 한 줄로, 동의 문구는 아래 줄로 */
+.newsletter-form { max-width: 880px; margin-left: auto; margin-right: auto; align-items: center; }
+.newsletter-form input[type="text"], .newsletter-form input[type="email"] { flex: 1 1 150px; min-width: 0; }
+.newsletter-form select { flex: 0 1 190px; min-width: 0; }
+.newsletter-form .btn { flex: none; order: 1; }
+.newsletter-form .newsletter-consent { order: 2; }
+@media (max-width: 640px) {
+  .newsletter-form input[type="text"], .newsletter-form input[type="email"], .newsletter-form select, .newsletter-form .btn { flex: 1 1 100%; }
+}
 .newsletter-hidden-frame { position: absolute; width: 1px; height: 1px; opacity: 0; border: 0; pointer-events: none; }
 .newsletter-thanks { text-align: center; font-size: var(--fs-caption); color: var(--text-dark); padding: 10px 0; }
 .newsletter-main .newsletter-thanks { color: var(--text-light); }
