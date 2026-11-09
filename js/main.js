@@ -953,7 +953,7 @@ function initContactForm() {
 
 /* ==========================================================
    HITS NOW (카드뉴스) — data/now.json 의 한 회차를 카드 가로 스크롤로 보여줌
-   ?d=YYYY-MM-DD 로 지난 회차 선택, 없으면 최신
+   ?n=회차번호 로 지난 회차 선택, 없으면 최신
    ========================================================== */
 async function initNowPage() {
   const mount = document.getElementById('now-mount');
@@ -962,18 +962,16 @@ async function initNowPage() {
   try {
     all = await (await fetch('/data/now.json', { cache: 'no-cache' })).json();
   } catch (e) { return; }
-  all.sort((a, b) => b.date.localeCompare(a.date));
-  const want = new URLSearchParams(location.search).get('d');
-  const cur = all.find(e => e.id === want) || all[0];
+  all.sort((a, b) => b.no - a.no);
+  const want = Number(new URLSearchParams(location.search).get('n'));
+  const cur = all.find(e => e.no === want) || all[0];
   if (!cur) return;
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-  const [y, m, d] = cur.date.split('-').map(Number);
-  const wd = ['일', '월', '화', '수', '목', '금', '토'][new Date(y, m - 1, d).getDay()];
   const base = `/images/now/${cur.id}/`;
   const cards = cur.cards.map((f, i) => `
     <figure class="now-card">
-      <img src="${base}${f}" alt="HITS NOW ${cur.date} ${i + 1}번 카드" width="1080" height="1350" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
-      <a class="now-save" data-now-save href="${base}${f}" download="HITS-NOW_${cur.date}_${String(i + 1).padStart(2, '0')}.jpg">↓ ${i + 1}번 카드 저장</a>
+      <img src="${base}${f}" alt="HITS NOW No.${cur.no} ${i + 1}번 카드" width="1080" height="1350" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
+      <a class="now-save" data-now-save href="${base}${f}" download="HITS-NOW_No${cur.no}_${String(i + 1).padStart(2, '0')}.jpg">↓ ${i + 1}번 카드 저장</a>
     </figure>`).join('');
   const news = cur.news.map(n => `
     <li><small>${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
@@ -982,16 +980,16 @@ async function initNowPage() {
   const arch = rest.length ? `
     <h2 class="now-arch-title">지난 HITS NOW</h2>
     <div class="now-arch">${rest.map(e => `
-      <a class="now-arch-card" href="/now/?d=${e.id}">
+      <a class="now-arch-card" href="/now/?n=${e.no}">
         <img src="/images/now/${e.id}/${e.cards[0]}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
-        <b>${e.date.replace(/-/g, '.')}</b><span>${esc(e.insight)}</span>
+        <b>No.${e.no}</b><span>${esc(e.insight)}</span>
       </a>`).join('')}</div>` : '';
   mount.innerHTML = `
-    <div class="now-head"><span class="now-date">${cur.date.replace(/-/g, '.')} (${wd})</span><span class="now-badge">${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span><div class="now-nav"><button type="button" data-now-dir="-1" aria-label="이전 카드">←</button><button type="button" data-now-dir="1" aria-label="다음 카드">→</button></div></div>
+    <div class="now-head"><span class="now-date">No.${cur.no}</span><span class="now-badge">${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span><div class="now-nav"><button type="button" data-now-dir="-1" aria-label="이전 카드">←</button><button type="button" data-now-dir="1" aria-label="다음 카드">→</button></div></div>
     <p class="now-insight">${esc(cur.insight)}</p>
     <div class="now-track">${cards}</div>
     <ul class="now-news">${news}</ul>${arch}`;
-  document.title = `HITS NOW ${cur.date.replace(/-/g, '.')} — HITS Brand Lab`;
+  document.title = `HITS NOW No.${cur.no} — HITS Brand Lab`;
   const track = mount.querySelector('.now-track');
   mount.querySelectorAll('[data-now-dir]').forEach(b => b.addEventListener('click', () => {
     track.scrollBy({ left: Number(b.dataset.nowDir) * track.clientWidth * 0.9, behavior: 'smooth' });

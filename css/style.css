@@ -819,6 +819,7 @@ a.canvas-card:hover { border-color: var(--accent); }
    HITS NOW (카드뉴스)
    ========================================================== */
 .now-hero { background: var(--bg-main); padding: 56px 0 40px; }
+.now-hero .eyebrow { font-size: var(--fs-lead); font-weight: 900; letter-spacing: .06em; color: var(--accent); margin: 0 0 10px; }
 .now-hero h1 { color: var(--text-light); font-size: var(--fs-heading); font-weight: 900; line-height: 1.3; margin: 4px 0 12px; }
 .now-hero p { color: var(--text-muted); font-size: var(--fs-body); }
 .now-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin: 0 0 8px; }
