@@ -17,6 +17,7 @@ function hitsPageType(path) {
   if (p.startsWith('/library/')) return 'library_case';
   if (p === '/insight/') return 'insight_list';
   if (p.startsWith('/insight/')) return 'insight_article';
+  if (p === '/now/') return 'now';
   if (p === '/canvas/') return 'canvas_list';
   if (p === '/canvas/master/') return 'canvas_master';
   if (p.startsWith('/canvas/')) return 'canvas_waitlist';
@@ -84,7 +85,7 @@ function hitsFormLocation(form) {
 
     const share = t.closest('#share-mount [data-share]');
     if (share) {
-      track('share', { method: share.dataset.share, content_type: hitsPageType() === 'insight_article' ? 'insight_article' : 'library_case', item_id: location.pathname });
+      track('share', { method: share.dataset.share, content_type: ({ insight_article: 'insight_article', now: 'now' })[hitsPageType()] || 'library_case', item_id: location.pathname });
       return;
     }
 
@@ -94,13 +95,25 @@ function hitsFormLocation(form) {
       return;
     }
 
+    const nowSave = t.closest('[data-now-save]');
+    if (nowSave) {
+      track('now_card_save', { file_name: nowSave.getAttribute('download'), from: location.pathname });
+      return;
+    }
+
+    const nowSrc = t.closest('.now-news a');
+    if (nowSrc) {
+      track('now_source_click', { link_url: nowSrc.getAttribute('href'), from: location.pathname });
+      return;
+    }
+
     const canvasCta = t.closest('a[href^="/canvas/"]');
     if (canvasCta) {
       track('canvas_cta_click', { link_url: canvasCta.getAttribute('href'), from: location.pathname });
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card, .now-arch-card');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -937,8 +950,57 @@ function initContactForm() {
 }
 
 /* ---------- 초기화 ---------- */
+
+/* ==========================================================
+   HITS NOW (카드뉴스) — data/now.json 의 한 회차를 카드 가로 스크롤로 보여줌
+   ?d=YYYY-MM-DD 로 지난 회차 선택, 없으면 최신
+   ========================================================== */
+async function initNowPage() {
+  const mount = document.getElementById('now-mount');
+  if (!mount) return;
+  let all = [];
+  try {
+    all = await (await fetch('/data/now.json', { cache: 'no-cache' })).json();
+  } catch (e) { return; }
+  all.sort((a, b) => b.date.localeCompare(a.date));
+  const want = new URLSearchParams(location.search).get('d');
+  const cur = all.find(e => e.id === want) || all[0];
+  if (!cur) return;
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const [y, m, d] = cur.date.split('-').map(Number);
+  const wd = ['일', '월', '화', '수', '목', '금', '토'][new Date(y, m - 1, d).getDay()];
+  const base = `/images/now/${cur.id}/`;
+  const cards = cur.cards.map((f, i) => `
+    <figure class="now-card">
+      <img src="${base}${f}" alt="HITS NOW ${cur.date} ${i + 1}번 카드" width="1080" height="1350" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
+      <a class="now-save" data-now-save href="${base}${f}" download="HITS-NOW_${cur.date}_${String(i + 1).padStart(2, '0')}.jpg">↓ ${i + 1}번 카드 저장</a>
+    </figure>`).join('');
+  const news = cur.news.map(n => `
+    <li><small>${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
+    <a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} — ${esc(n.outlet)} ↗</a></li>`).join('');
+  const rest = all.filter(e => e !== cur);
+  const arch = rest.length ? `
+    <h2 class="now-arch-title">지난 HITS NOW</h2>
+    <div class="now-arch">${rest.map(e => `
+      <a class="now-arch-card" href="/now/?d=${e.id}">
+        <img src="/images/now/${e.id}/${e.cards[0]}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
+        <b>${e.date.replace(/-/g, '.')}</b><span>${esc(e.insight)}</span>
+      </a>`).join('')}</div>` : '';
+  mount.innerHTML = `
+    <div class="now-head"><span class="now-date">${cur.date.replace(/-/g, '.')} (${wd})</span><span class="now-badge">${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span><div class="now-nav"><button type="button" data-now-dir="-1" aria-label="이전 카드">←</button><button type="button" data-now-dir="1" aria-label="다음 카드">→</button></div></div>
+    <p class="now-insight">${esc(cur.insight)}</p>
+    <div class="now-track">${cards}</div>
+    <ul class="now-news">${news}</ul>${arch}`;
+  document.title = `HITS NOW ${cur.date.replace(/-/g, '.')} — HITS Brand Lab`;
+  const track = mount.querySelector('.now-track');
+  mount.querySelectorAll('[data-now-dir]').forEach(b => b.addEventListener('click', () => {
+    track.scrollBy({ left: Number(b.dataset.nowDir) * track.clientWidth * 0.9, behavior: 'smooth' });
+  }));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
+  initNowPage();
   initFloatingButton();
   initShareButtons();
   initDiagnoseButton();

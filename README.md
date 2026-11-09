@@ -101,6 +101,16 @@ python3 -m http.server
 - **읽는 시간은 인사이트만의 공통 요소**: 첫 화면 메타에 `N MIN READ · YYYY.MM`, 카드와 목록에는 데이터의 `readTime` 으로 `N MIN READ` 형식으로 표기
 - 링크가 없는 카드("COMING SOON", `#`)와 "SEE IT IN PRACTICE" 영역은 만들지 않음
 
+## HITS NOW (카드뉴스) 운영 규칙
+
+- **발행**: 월~금 평일 하루 1편. 해외 마케팅 사례·뉴스 5개 + 표지 + 오늘의 인사이트 = 카드 7장
+- **소재 기준**: 소개하는 뉴스·사례가 HITS 세계관(Hook·Insight·Tale·System)과 부합해야 함. 인사 이동, 인수합병, 실적, 플랫폼 운영 팁, 바이럴 자체가 목적인 이벤트는 제외
+- **수집원**: Ads of the World, Campaign, The Drum, Creative Review, It's Nice That, WARC / Adweek, Ad Age, Marketing Dive, Modern Retail, Digiday / 태국: Ads of the World Thailand, Brand Buffet, Campaign Brief Asia
+- **원고 원칙**: 숫자·날짜·인용은 원문을 열어 확인한 것만 쓰고, 브랜드 제공 수치는 그렇게 표기. 출처(매체·날짜·대행사)와 이미지 출처를 카드에 적음
+- **카드**: 1080×1350(4:5) JPG, 7장. 하단에 HITS Brand Lab 워터마크. 사진은 최종 컨펌 때 사용자가 검수
+- **데이터**: `data/now.json` 에 회차 1건을 맨 앞에 추가(`id`=발행일, `insight`, `cards`, `news`), 이미지는 `images/now/<발행일>/01.jpg ~ 07.jpg`. 페이지(`/now/`)는 최신 회차를 보여주고 `?d=발행일` 로 지난 회차를 봄
+- **이미지 용량**: 회차당 약 1MB(장당 120~170KB). 누적이 커지면 오래된 회차의 카드 해상도를 줄이는 정리가 필요
+
 ## 톤앤매너
 
 - 메인 `#111110` / 콘텐츠 배경 `#F5F5F2` / 포인트 `#2F5CFF`

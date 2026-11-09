@@ -1,0 +1,64 @@
+[
+  {
+    "id": "2026-11-09",
+    "date": "2026-11-09",
+    "insight": "상품은 그대로였다. 바뀐 건 상품이 놓인 자리다.",
+    "subtitle": "세상의 HITS를 우리만의 관점에서 가장 빠르게 다루고 소개합니다.",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "태국",
+        "brand": "PTT Station",
+        "tag": "역할을 다시 정하다",
+        "headline": "주유소가 ‘주유하는 곳’을 그만뒀다",
+        "title": "Yell Bangkok sets a new direction for PTT Station with ‘Smooth For Life’ rebrand",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/09/yell-bangkok-sets-a-new-direction-for-ptt-station-with-smooth-for-life-rebrand/"
+      },
+      {
+        "region": "베트남",
+        "brand": "KitKat Kit=Code",
+        "tag": "문제를 코드에서 찾다",
+        "headline": "킷캣은 코드 안에서 자기 모양을 찾았다",
+        "title": "Leo Vietnam launches ‘Kit=Code’ for KitKat to encourage breaks during AI coding sessions",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/09/leo-vietnam-launches-kitcode-for-kitkat-to-encourage-breaks-during-ai-coding-sessions/"
+      },
+      {
+        "region": "중동·북아프리카",
+        "brand": "KFC “A Taste of What’s Next”",
+        "tag": "과거를 팔다",
+        "headline": "KFC는 자기 과거를 중고로 내놨다",
+        "title": "KFC and TBWA\\RAAD say goodbye to the past and serve up what’s next across MENA",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/06/kfc-and-tbwaraad-say-goodbye-to-the-past-and-serve-up-whats-next-across-mena/"
+      },
+      {
+        "region": "미국",
+        "brand": "Urban Decay “Ghost Hunter Hotline”",
+        "tag": "광고가 아니라 오락",
+        "headline": "화장품 브랜드가 드라마를 만들었다",
+        "title": "L’Oréal’s evolving microdrama strategy puts entertainment over product",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/loreals-evolving-microdrama-strategy-puts-entertainment-over-product/873646/"
+      },
+      {
+        "region": "미국",
+        "brand": "Jetty",
+        "tag": "평범한 사람을 위한 수분 보충",
+        "headline": "포피 창업자의 다음 문제는 ‘일상의 수분’",
+        "title": "After a $2 Billion Exit, Poppi’s Founders Take Aim at Hydration Drinks",
+        "outlet": "Adweek",
+        "url": "https://www.adweek.com/brand-marketing/after-a-2-billion-exit-poppis-founders-take-aim-at-hydration-drinks/"
+      }
+    ]
+  }
+]
