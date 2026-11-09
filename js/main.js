@@ -101,7 +101,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const nowSrc = t.closest('.now-news a');
+    const nowSrc = t.closest('.now-item a');
     if (nowSrc) {
       track('now_source_click', { link_url: nowSrc.getAttribute('href'), from: location.pathname });
       return;
@@ -968,32 +968,63 @@ async function initNowPage() {
   if (!cur) return;
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const base = `/images/now/${cur.id}/`;
-  const cards = cur.cards.map((f, i) => `
-    <figure class="now-card">
-      <img src="${base}${f}" alt="HITS NOW No.${cur.no} ${i + 1}번 카드" width="1080" height="1350" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async">
-      <a class="now-save" data-now-save href="${base}${f}" download="HITS-NOW_No${cur.no}_${String(i + 1).padStart(2, '0')}.jpg">↓ ${i + 1}번 카드 저장</a>
-    </figure>`).join('');
-  const news = cur.news.map(n => `
-    <li><small>${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
-    <a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} — ${esc(n.outlet)} ↗</a></li>`).join('');
-  const rest = all.filter(e => e !== cur);
-  const arch = rest.length ? `
-    <h2 class="now-arch-title">지난 HITS NOW</h2>
-    <div class="now-arch">${rest.map(e => `
-      <a class="now-arch-card" href="/now/?n=${e.no}">
-        <img src="/images/now/${e.id}/${e.cards[0]}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
-        <b>No.${e.no}</b><span>${esc(e.insight)}</span>
-      </a>`).join('')}</div>` : '';
+  const total = cur.cards.length;
+  const strip = cur.cards.map((f, k) => `<button type="button" data-now-k="${k}" aria-label="${k + 1}번 카드"><img src="${base}${f}" alt="" width="1080" height="1350" loading="lazy" decoding="async"></button>`).join('');
+  const news = cur.news.map((n, k) => `
+    <li><div class="now-item" role="button" tabindex="0" data-now-k="${k + 1}">
+      <i>${String(k + 1).padStart(2, '0')}</i><small>${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
+      <span><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} — ${esc(n.outlet)} ↗</a></span>
+    </div></li>`).join('');
+  const arch = `
+    <div class="now-arch">
+      <h2>지난 HITS NOW</h2>
+      <div class="now-arch-row">${all.map(e => `
+        <a class="now-arch-card${e === cur ? ' on' : ''}" href="/now/?n=${e.no}">
+          <img src="/images/now/${e.id}/${e.cards[0]}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
+          <b>No.${e.no}</b><span>${esc(e.insight)}</span>
+        </a>`).join('')}</div>
+    </div>`;
   mount.innerHTML = `
-    <div class="now-head"><span class="now-date">No.${cur.no}</span><span class="now-badge">${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span><div class="now-nav"><button type="button" data-now-dir="-1" aria-label="이전 카드">←</button><button type="button" data-now-dir="1" aria-label="다음 카드">→</button></div></div>
-    <p class="now-insight">${esc(cur.insight)}</p>
-    <div class="now-track">${cards}</div>
-    <ul class="now-news">${news}</ul>${arch}`;
+    <div class="now-main">
+      <div class="now-view">
+        <div class="now-stage">
+          <img id="now-img" alt="" width="1080" height="1350" decoding="async">
+          <button type="button" class="now-arrow l" data-now-dir="-1" aria-label="이전 카드">←</button>
+          <button type="button" class="now-arrow r" data-now-dir="1" aria-label="다음 카드">→</button>
+        </div>
+        <div class="now-strip">${strip}</div>
+        <a class="now-save" id="now-save" data-now-save download>↓ 이 카드 저장</a>
+      </div>
+      <div>
+        <div class="now-no"><b>No.${cur.no}</b><span>${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span></div>
+        <p class="now-ins">${esc(cur.insight)}</p>
+        <ul class="now-list">${news}</ul>
+        <div class="now-share" id="share-mount"></div>
+      </div>
+    </div>${arch}`;
   document.title = `HITS NOW No.${cur.no} — HITS Brand Lab`;
-  const track = mount.querySelector('.now-track');
-  mount.querySelectorAll('[data-now-dir]').forEach(b => b.addEventListener('click', () => {
-    track.scrollBy({ left: Number(b.dataset.nowDir) * track.clientWidth * 0.9, behavior: 'smooth' });
-  }));
+  let idx = 0;
+  const img = mount.querySelector('#now-img');
+  const save = mount.querySelector('#now-save');
+  const show = (k, user) => {
+    idx = (k + total) % total;
+    img.src = base + cur.cards[idx];
+    img.alt = `HITS NOW No.${cur.no} ${idx + 1}번 카드`;
+    save.href = base + cur.cards[idx];
+    save.setAttribute('download', `HITS-NOW_No${cur.no}_${String(idx + 1).padStart(2, '0')}.jpg`);
+    mount.querySelectorAll('.now-strip button').forEach((b, i) => b.classList.toggle('on', i === idx));
+    mount.querySelectorAll('.now-item').forEach(b => b.classList.toggle('on', Number(b.dataset.nowK) === idx));
+    if (user) hitsTrackSafe('now_card_select', { no: cur.no, card: idx + 1 });
+  };
+  mount.querySelectorAll('[data-now-dir]').forEach(b => b.addEventListener('click', () => show(idx + Number(b.dataset.nowDir), true)));
+  mount.querySelectorAll('.now-strip button').forEach(b => b.addEventListener('click', () => show(Number(b.dataset.nowK), true)));
+  mount.querySelectorAll('.now-item').forEach(b => {
+    b.addEventListener('click', e => { if (!e.target.closest('a')) show(Number(b.dataset.nowK), true); });
+    b.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) { e.preventDefault(); show(Number(b.dataset.nowK), true); } });
+  });
+  show(0, false);
+  /* 공유 버튼은 위 mount 가 만들어진 뒤에 붙인다 */
+  if (typeof initShareButtons === 'function') initShareButtons();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
