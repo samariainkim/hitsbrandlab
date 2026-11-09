@@ -27,6 +27,7 @@ function hitsPageType(path) {
 /* 구독 CTA 버튼이 어느 위치에 있는지 (cta_location) */
 function hitsCtaLocation(el) {
   if (el.classList && el.classList.contains('float-newsletter-btn')) return 'floating';
+  if (el.getAttribute && el.getAttribute('href') === '#now-letter') return 'now_tile';
   const sec = el.closest('section');
   if (!sec) return 'other';
   if (sec.id === 'book') return 'home_book';
@@ -41,6 +42,7 @@ function hitsFormLocation(form) {
   if (form.closest('#hits-letter')) return 'home_main';
   const pt = hitsPageType();
   if (pt === 'canvas_waitlist') return 'canvas_waitlist';
+  if (pt === 'now') return 'now_page';
   if (pt === 'library_case' || pt === 'insight_article') return 'article_end';
   return 'other';
 }
@@ -89,7 +91,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const letterCta = t.closest('a[href="#hits-letter"], .float-newsletter-btn');
+    const letterCta = t.closest('a[href="#hits-letter"], a[href="#now-letter"], .float-newsletter-btn');
     if (letterCta) {
       track('newsletter_cta_click', { cta_text: (letterCta.textContent || '').trim().slice(0, 40), cta_location: hitsCtaLocation(letterCta) });
       return;
@@ -101,7 +103,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const nowSrc = t.closest('.now-item a');
+    const nowSrc = t.closest('.now-src a');
     if (nowSrc) {
       track('now_source_click', { link_url: nowSrc.getAttribute('href'), from: location.pathname });
       return;
@@ -968,63 +970,62 @@ async function initNowPage() {
   if (!cur) return;
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   const base = `/images/now/${cur.id}/`;
-  const total = cur.cards.length;
-  const strip = cur.cards.map((f, k) => `<button type="button" data-now-k="${k}" aria-label="${k + 1}번 카드"><img src="${base}${f}" alt="" width="1080" height="1350" loading="lazy" decoding="async"></button>`).join('');
-  const news = cur.news.map((n, k) => `
-    <li><div class="now-item" role="button" tabindex="0" data-now-k="${k + 1}">
-      <i>${String(k + 1).padStart(2, '0')}</i><small>${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
-      <span><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} — ${esc(n.outlet)} ↗</a></span>
-    </div></li>`).join('');
-  const arch = `
-    <div class="now-arch">
-      <h2>지난 HITS NOW</h2>
-      <div class="now-arch-row">${all.map(e => `
-        <a class="now-arch-card${e === cur ? ' on' : ''}" href="/now/?n=${e.no}">
-          <img src="/images/now/${e.id}/${e.cards[0]}" alt="" width="1080" height="1350" loading="lazy" decoding="async">
-          <b>No.${e.no}</b><span>${esc(e.insight)}</span>
-        </a>`).join('')}</div>
-    </div>`;
+  const urls = cur.cards.map(f => base + f);
+  const fig = (k, cls) => `<figure class="now-fig${cls ? ' ' + cls : ''}"><button type="button" data-now-open="${k}" aria-label="${k + 1}번 카드 크게 보기"><img src="${urls[k]}" alt="HITS NOW No.${cur.no} ${k + 1}번 카드" width="1080" height="1350" loading="${k < 3 ? 'eager' : 'lazy'}" decoding="async"></button></figure>`;
+  const cells = urls.map((u, k) => fig(k, k === 0 ? 'big' : '')).join('');
+  const tiles = `
+    <div class="now-tile blue"><div><h3>다음 HITS가<br>궁금하다면</h3><p>HITS 레터로 먼저 받아보세요.</p></div><a href="#now-letter">HITS 레터 받아보기 →</a></div>
+    <div class="now-tile"><div><h3>지난 HITS NOW</h3><p>지난 회차의 카드를 다시 볼 수 있어요.</p></div><a href="#now-past">지난 회차 →</a></div>`;
+  const src = cur.news.map((n, k) => `
+    <div><small>${String(k + 1).padStart(2, '0')} · ${esc(n.region)}</small><b>${esc(n.brand)} · ${esc(n.headline)}</b>
+    <a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)} — ${esc(n.outlet)} ↗</a></div>`).join('');
+  const past = all.map(e => `
+    <a class="now-pc${e === cur ? ' on' : ''}" href="/now/?n=${e.no}">
+      <img src="/images/now/${e.id}/${e.cards[0]}" alt="HITS NOW No.${e.no} 표지" width="1080" height="1350" loading="lazy" decoding="async">
+      <b>No.${e.no}</b><span>${esc(e.insight)}</span>
+    </a>`).join('');
   mount.innerHTML = `
-    <div class="now-main">
-      <div class="now-view">
-        <div class="now-stage">
-          <img id="now-img" alt="" width="1080" height="1350" decoding="async">
-          <button type="button" class="now-arrow l" data-now-dir="-1" aria-label="이전 카드">←</button>
-          <button type="button" class="now-arrow r" data-now-dir="1" aria-label="다음 카드">→</button>
-        </div>
-        <div class="now-strip">${strip}</div>
-        <a class="now-save" id="now-save" data-now-save download>↓ 이 카드 저장</a>
-      </div>
-      <div>
-        <div class="now-no"><b>No.${cur.no}</b><span>${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span></div>
-        <p class="now-ins">${esc(cur.insight)}</p>
-        <ul class="now-list">${news}</ul>
-        <div class="now-share" id="share-mount"></div>
-      </div>
-    </div>${arch}`;
+    <div class="now-meta"><b>No.${cur.no}</b><span>${cur === all[0] ? 'LATEST' : 'ARCHIVE'}</span><em>${esc(cur.insight)}</em></div>
+    <div class="now-grid">${cells}${tiles}</div>
+    <div class="now-src">${src}</div>
+    <div class="now-share" id="share-mount"></div>
+    <div class="now-past" id="now-past"><h2>지난 HITS NOW</h2><p class="sub">놓친 회차도 카드로 다시 볼 수 있어요.</p><div class="now-prow">${past}</div></div>`;
   document.title = `HITS NOW No.${cur.no} — HITS Brand Lab`;
-  let idx = 0;
-  const img = mount.querySelector('#now-img');
-  const save = mount.querySelector('#now-save');
-  const show = (k, user) => {
-    idx = (k + total) % total;
-    img.src = base + cur.cards[idx];
-    img.alt = `HITS NOW No.${cur.no} ${idx + 1}번 카드`;
-    save.href = base + cur.cards[idx];
-    save.setAttribute('download', `HITS-NOW_No${cur.no}_${String(idx + 1).padStart(2, '0')}.jpg`);
-    mount.querySelectorAll('.now-strip button').forEach((b, i) => b.classList.toggle('on', i === idx));
-    mount.querySelectorAll('.now-item').forEach(b => b.classList.toggle('on', Number(b.dataset.nowK) === idx));
-    if (user) hitsTrackSafe('now_card_select', { no: cur.no, card: idx + 1 });
-  };
-  mount.querySelectorAll('[data-now-dir]').forEach(b => b.addEventListener('click', () => show(idx + Number(b.dataset.nowDir), true)));
-  mount.querySelectorAll('.now-strip button').forEach(b => b.addEventListener('click', () => show(Number(b.dataset.nowK), true)));
-  mount.querySelectorAll('.now-item').forEach(b => {
-    b.addEventListener('click', e => { if (!e.target.closest('a')) show(Number(b.dataset.nowK), true); });
-    b.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) { e.preventDefault(); show(Number(b.dataset.nowK), true); } });
-  });
-  show(0, false);
-  /* 공유 버튼은 위 mount 가 만들어진 뒤에 붙인다 */
   if (typeof initShareButtons === 'function') initShareButtons();
+
+  /* 카드 크게 보기(라이트박스): 클릭/←→/Esc */
+  const lb = document.createElement('div');
+  lb.className = 'now-lb';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-label', '카드 크게 보기');
+  lb.innerHTML = `<div class="now-lb-in"><img alt=""><a data-now-save download>↓ 이 카드 저장</a>
+    <button type="button" class="x" aria-label="닫기">✕</button><button type="button" class="p" aria-label="이전 카드">←</button><button type="button" class="n" aria-label="다음 카드">→</button></div>`;
+  document.body.appendChild(lb);
+  let idx = 0;
+  const lbImg = lb.querySelector('img');
+  const lbSave = lb.querySelector('[data-now-save]');
+  const show = k => {
+    idx = (k + urls.length) % urls.length;
+    lbImg.src = urls[idx];
+    lbImg.alt = `HITS NOW No.${cur.no} ${idx + 1}번 카드`;
+    lbSave.href = urls[idx];
+    lbSave.setAttribute('download', `HITS-NOW_No${cur.no}_${String(idx + 1).padStart(2, '0')}.jpg`);
+  };
+  const open = k => { show(k); lb.classList.add('open'); hitsTrackSafe('now_card_open', { no: cur.no, card: k + 1 }); };
+  const close = () => lb.classList.remove('open');
+  mount.addEventListener('click', e => {
+    const b = e.target.closest('[data-now-open]');
+    if (b) open(Number(b.dataset.nowOpen));
+  });
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.closest('.x')) close(); });
+  lb.querySelector('.p').addEventListener('click', () => show(idx - 1));
+  lb.querySelector('.n').addEventListener('click', () => show(idx + 1));
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
