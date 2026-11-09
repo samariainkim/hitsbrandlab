@@ -1,5 +1,66 @@
 [
   {
+    "no": 2,
+    "id": "002",
+    "insight": "상품을 설명하지 않고, 고객이 이미 하고 있는 행동에서 출발했다.",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "태국",
+        "brand": "Dutch Mill Soghurt “Shake It to Win It”",
+        "tag": "공짜가 아니라 게임",
+        "headline": "공짜 샘플을, 사람들이 경쟁해서 땄다",
+        "title": "Dutch Mill vending machines become a competitive game via KNOCK Bangkok campaign",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/05/dutch-mill-vending-machines-become-a-competitive-game-via-knock-bangkok-campaign/"
+      },
+      {
+        "region": "인도",
+        "brand": "Skipper Pipes “Skipper On, Seelan Gone”",
+        "tag": "파이프가 아니라 벽을 판다",
+        "headline": "파이프를 팔지 않고, 벽을 지키겠다고 했다",
+        "title": "Skipper Pipes and Dentsu Creative take on seepage with ‘Skipper On, Seelan Gone’",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/04/skipper-pipes-and-dentsu-creative-take-on-seepage-with-skipper-on-seelan-gone/"
+      },
+      {
+        "region": "유럽 10개국",
+        "brand": "Deutsche Telekom “Take Time to Connect”",
+        "tag": "함께 있는 것과 연결되는 것",
+        "headline": "같이 있는 것과, 연결되어 있는 것은 다르다",
+        "title": "Festive Favourites: Deutsche Telekom and INGO’s Christmas campaign brings generations closer",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/04/deutsche-telekom-brings-generations-closer-in-new-ai-driven-christmas-campaign-via-ingo/"
+      },
+      {
+        "region": "미국",
+        "brand": "Wet Ones “Just For Hands”",
+        "tag": "조사 한 줄에서 나온 광고",
+        "headline": "물티슈가 ‘손 엉덩이’를 거리에 걸었다",
+        "title": "Campaign Trail: Wet Ones puts ‘hand butts’ on the streets",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/campaign-trail-wet-ones-puts-hand-butts-on-the-streets/873564/"
+      },
+      {
+        "region": "필리핀",
+        "brand": "DITO × Team Liquid Philippines",
+        "tag": "선수의 불편에서 만든 제품",
+        "headline": "게이머의 불편에서 모뎀이 나왔다",
+        "title": "DITO and Team Liquid Philippines launch limited-edition gaming modem with Co-Op Play and HUGO",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/06/dito-and-team-liquid-philippines-launch-limited-edition-gaming-modem-with-co-op-play-and-hugo/"
+      }
+    ]
+  },
+  {
     "id": "001",
     "insight": "상품은 그대로였다. 바뀐 건 상품이 놓인 자리다.",
     "cards": [
