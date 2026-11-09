@@ -1,0 +1,43 @@
+@font-face{font-family:P;src:url(fonts/node_modules/pretendard/dist/public/static/Pretendard-Medium.otf);font-weight:500}
+@font-face{font-family:P;src:url(fonts/node_modules/pretendard/dist/public/static/Pretendard-SemiBold.otf);font-weight:600}
+@font-face{font-family:P;src:url(fonts/node_modules/pretendard/dist/public/static/Pretendard-Bold.otf);font-weight:700}
+@font-face{font-family:P;src:url(fonts/node_modules/pretendard/dist/public/static/Pretendard-ExtraBold.otf);font-weight:800}
+@font-face{font-family:P;src:url(fonts/node_modules/pretendard/dist/public/static/Pretendard-Black.otf);font-weight:900}
+:root{--ink:#111110;--paper:#F5F5F2;--blue:#2F5CFF;--mute:#72726D}
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1350px;font-family:P,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.card{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--paper);color:var(--ink)}
+.bar{position:absolute;left:72px;right:72px;top:56px;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:800;letter-spacing:.08em;z-index:3}
+.bar b{font-weight:900}.bar span{color:var(--mute);font-weight:700;letter-spacing:.04em}
+.dots{position:absolute;left:72px;bottom:54px;display:flex;gap:12px;z-index:3}
+.dots i{width:16px;height:16px;border-radius:50%;background:#CFCFC8}.dots i.on{width:56px;border-radius:8px;background:var(--ink)}
+.dark{background:var(--ink);color:#fff}.dark .bar span{color:#9A9A94}.dark .dots i{background:#3A3A37}.dark .dots i.on{background:#fff}
+/* news */
+.photo{position:absolute;left:0;right:0;top:112px;height:560px;overflow:hidden;background:#222}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.credit{position:absolute;right:20px;bottom:14px;font-size:17px;font-weight:600;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.7);letter-spacing:.02em}
+.txt{position:absolute;left:72px;right:72px;top:706px}
+.chip{display:flex;align-items:center;gap:14px;font-size:24px;font-weight:800;color:var(--blue);letter-spacing:.02em}
+.chip em{font-style:normal;background:var(--ink);color:#fff;padding:6px 14px;border-radius:30px;font-size:22px;letter-spacing:0}
+h2.hl{margin-top:18px;font-size:60px;line-height:1.25;font-weight:900;letter-spacing:-.03em}
+p.bd{margin-top:24px;font-size:28px;line-height:1.62;font-weight:500;letter-spacing:-.015em;color:#2A2A28}
+.src{position:absolute;left:72px;right:72px;bottom:100px;font-size:21px;font-weight:600;color:var(--mute);border-top:2px solid #D8D8D2;padding-top:16px}
+/* cover */
+.cover .big{position:absolute;left:72px;top:250px;font-size:200px;line-height:.9;font-weight:900;letter-spacing:-.05em}
+.cover .big i{font-style:normal;color:var(--blue)}
+.cover .lab{position:absolute;left:76px;top:206px;font-size:30px;font-weight:800;letter-spacing:.1em;color:var(--blue)}
+.cover .sub{position:absolute;left:72px;right:140px;top:640px;font-size:46px;line-height:1.4;font-weight:700;letter-spacing:-.03em;color:#E8E8E3}
+.strip{position:absolute;left:0;right:0;bottom:130px;height:260px;display:flex;gap:6px}
+.strip div{flex:1;overflow:hidden}.strip img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .cap{position:absolute;left:72px;bottom:62px;font-size:22px;font-weight:700;color:#9A9A94;letter-spacing:.06em}
+/* insight */
+.ins .k{position:absolute;left:72px;top:200px;display:inline-block;background:var(--blue);color:#fff;font-size:28px;font-weight:800;padding:10px 22px;border-radius:40px}
+.ins .big{position:absolute;left:72px;right:72px;top:290px;font-size:88px;line-height:1.28;font-weight:900;letter-spacing:-.04em}
+.ins .big u{text-decoration:none;color:var(--blue)}
+.refs{position:absolute;left:72px;right:72px;top:690px;border-top:2px solid #3A3A37;padding-top:26px}
+.refs h4{font-size:24px;font-weight:800;color:#9A9A94;letter-spacing:.08em;margin-bottom:14px}
+.refs ul{padding:0}.refs li{list-style:none;font-size:22px;line-height:1.38;font-weight:600;color:#D8D8D2;margin-bottom:14px}
+.refs li small{display:block;font-size:19px;color:#8C8C86;font-weight:600;margin-top:2px;word-break:break-all}
+
+.wm{position:absolute;right:72px;bottom:50px;font-size:24px;font-weight:800;letter-spacing:-.01em;color:#111110;opacity:.38;z-index:3}
+.dark .wm{color:#fff;opacity:.45}
