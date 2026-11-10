@@ -1,5 +1,66 @@
 [
   {
+    "no": 3,
+    "id": "003",
+    "insight": "상품의 약속을 말하지 말고, 고객의 현실 속에서 증명하라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "미국",
+        "brand": "Rao’s “Limited-Time Only”",
+        "tag": "가장 한정된 시간",
+        "headline": "함께 앉는 식사가 한정판이었다",
+        "title": "Why Rao’s heated up brand building with a request to slow down meals",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/raos-heats-up-brand-building-with-a-request-to-slow-down-meals/874122/"
+      },
+      {
+        "region": "글로벌 4개국",
+        "brand": "Netflix",
+        "tag": "신작이 아니라 발견",
+        "headline": "신작 대신, ‘몰랐던 취향’을 내밀었다",
+        "title": "Netflix embraces 35mm film in international campaign",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/netflix-embraces-35mm-film-in-international-campaign/874237/"
+      },
+      {
+        "region": "태국",
+        "brand": "Jula’s Herb “Anti-Beauty Country”",
+        "tag": "악조건이 곧 소재",
+        "headline": "태국의 악조건이, 그대로 광고가 됐다",
+        "title": "Wolf BKK puts Thai beauty to the test in new ‘Anti-Beauty Country’ campaign for Jula’s Herb",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/10/wolf-bkk-puts-thai-beauty-to-the-test-in-new-anti-beauty-country-campaign-for-julas-herb/"
+      },
+      {
+        "region": "태국",
+        "brand": "Hada Labo “Bouncy Billboard”",
+        "tag": "광고판이 곧 사용감",
+        "headline": "광고판을 눌러 보면, ‘탄력’이 느껴졌다",
+        "title": "YOUNGSTER BKK invites Bangkok to poke, prod and play with Hada Labo’s ‘Bouncy Billboard’",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/10/youngster-bkk-invites-bangkok-to-poke-prod-and-play-with-hada-labos-bouncy-billboard/"
+      },
+      {
+        "region": "필리핀",
+        "brand": "TECNO Camon Slim 5G “#MakeItLighter”",
+        "tag": "부담이 아니라 가벼움",
+        "headline": "안쓰러워하지 않고, ‘가볍게’를 말했다",
+        "title": "Yell Worldwide and TECNO Mobile turn everyday Filipino challenges into lighter moments",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/04/yell-worldwide-and-tecno-mobile-turn-everyday-filipino-challenges-into-lighter-moments/"
+      }
+    ]
+  },
+  {
     "no": 2,
     "id": "002",
     "insight": "상품을 설명하는 것이 아니라, 고객이 이미 하고 있는 행동에서 출발하라",
