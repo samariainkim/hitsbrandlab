@@ -434,43 +434,51 @@ html.hits-notice-open { overflow: hidden; }
 /* ==========================================================
    About 페이지 — 02~07 통합 Reading Container (800px, 왼쪽 정렬)
    ========================================================== */
-.about-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin: 0 0 10px; }
+.about-label { font-size: var(--fs-caption); font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin: 0 0 10px; }
 .question-box { background: var(--bg-content); border-radius: var(--radius); padding: 16px 18px; text-align: left; }
 .question-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; line-height: 1.4; margin: 0 0 6px; }
 .question-text { font-size: 15px; font-weight: 800; color: var(--text-dark); line-height: 1.6; margin: 0; }
 
 /* About: 헤더 / 이야기 / HITS FLOW / H·I·T·S 행 (왼쪽 200px 라벨 열 + 오른쪽 740px 읽기 열, 1140 기준선에 정렬) */
 .ab-header { padding: 64px 0 52px; }
-.ab-header h1 { font-size: clamp(28px, 4.4vw, 44px); margin-bottom: 18px; }
-.ab-header p:last-child { max-width: 640px; font-size: 15px; line-height: 1.85; }
+.ab-header h1 { font-size: var(--fs-heading); line-height: 1.3; margin-bottom: 18px; }
+.ab-header p:last-child { max-width: 640px; font-size: var(--fs-body); line-height: 1.85; }
 .ab-grid { display: grid; grid-template-columns: 200px minmax(0, 740px); gap: 0 40px; align-items: start; }
 .ab-side { margin: 6px 0 0; }
 .ab-story.section, .ab-flow.section, .ab-blocks.section { padding-top: 72px; padding-bottom: 72px; }
-.ab-main p { margin: 0 0 22px; font-size: 17px; line-height: 1.95; color: #292927; }
-.ab-question { margin: 0 0 30px; font-size: clamp(28px, 3.6vw, 38px); font-weight: 900; line-height: 1.3; letter-spacing: -.03em; }
-.ab-quote { margin: 38px 0; padding: 4px 0 4px 22px; border-left: 4px solid var(--accent); font-size: clamp(22px, 3vw, 30px); font-weight: 900; line-height: 1.45; letter-spacing: -.02em; }
+.ab-main p { margin: 0 0 22px; font-size: var(--fs-body); line-height: 1.95; color: #292927; }
+.ab-question { margin: 0 0 30px; font-size: var(--fs-heading); font-weight: 900; line-height: 1.3; letter-spacing: -.03em; }
+.ab-quote { margin: 38px 0; padding: 4px 0 4px 22px; border-left: 4px solid var(--accent); font-size: var(--fs-lead); font-weight: 900; line-height: 1.45; letter-spacing: -.02em; }
 .ab-steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 0 clamp(6px, 2vw, 24px); margin: 0 0 24px; padding: 0; list-style: none; }
 .ab-step { display: flex; flex-direction: column; gap: 8px; }
-.ab-step-ko { font-size: clamp(20px, 4vw, 40px); font-weight: 900; line-height: 1.2; letter-spacing: -.02em; }
-.ab-step-en { font-size: clamp(9px, 1.4vw, 12px); font-weight: 800; letter-spacing: .1em; color: var(--accent); }
-.ab-arrow { font-size: clamp(16px, 3vw, 32px); font-weight: 900; line-height: 1.2; }
+.ab-step-ko { font-size: var(--fs-heading); font-weight: 900; line-height: 1.2; letter-spacing: -.02em; }
+.ab-step-en { font-size: var(--fs-caption); font-weight: 800; letter-spacing: .04em; color: var(--accent); }
+.ab-arrow { font-size: var(--fs-lead); font-weight: 900; line-height: 1.2; }
 .ab-main .ab-flow-mid { margin: 0; font-size: 16px; line-height: 1.85; color: var(--text-secondary); }
 .ab-row { display: grid; grid-template-columns: 200px minmax(0, 740px); gap: 0 40px; padding: 44px 0; border-top: 1px solid var(--border-light); }
 .ab-row:first-child { padding-top: 0; border-top: 0; }
-.ab-badge { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 900; color: var(--accent); background: var(--bg-content); border-radius: 16px; }
-.ab-row h2 { margin: 0 0 14px; font-size: clamp(20px, 2.4vw, 26px); font-weight: 900; line-height: 1.35; }
+.ab-badge { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-size: var(--fs-heading); font-weight: 900; color: var(--accent); background: var(--bg-content); border-radius: 16px; }
+.ab-row h2 { margin: 0 0 14px; font-size: var(--fs-lead); font-weight: 900; line-height: 1.35; }
 .ab-row-main > p { margin: 0 0 20px; font-size: 16px; line-height: 1.9; color: #3b3b39; }
-.ab-multiply .multiply-fails p { font-size: 15px; }
+.ab-header .eyebrow { font-size: var(--fs-caption); }
+.ab-row .question-label { font-size: var(--fs-caption); }
+.ab-row .question-text { font-size: var(--fs-body); }
+.ab-cta .btn { font-size: var(--fs-body); }
+.ab-multiply .multiply-eyebrow { font-size: var(--fs-caption); }
+.ab-multiply .multiply-formula { font-size: var(--fs-display); }
+.ab-multiply .multiply-slogan { font-size: var(--fs-lead); }
+.ab-multiply .multiply-fails p { font-size: var(--fs-body); }
+.ab-multiply .multiply-closing { font-size: var(--fs-body); }
 .ab-cta .wrap { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
 .btn-outline { background: var(--bg-white); color: var(--text-dark); border: 1px solid var(--border-light); }
 @media (max-width: 900px) {
   .ab-grid, .ab-row { grid-template-columns: 1fr; }
   .ab-side { margin-bottom: 12px; }
-  .ab-badge { width: 56px; height: 56px; font-size: 28px; border-radius: 12px; margin-bottom: 16px; }
+  .ab-badge { width: 56px; height: 56px; border-radius: 12px; margin-bottom: 16px; }
 }
 @media (max-width: 640px) {
   .ab-story.section, .ab-flow.section, .ab-blocks.section { padding-top: 48px; padding-bottom: 48px; }
-  .ab-main p { font-size: 16px; line-height: 1.9; }
+  .ab-main p { line-height: 1.9; }
 }
 
 /* ==========================================================
