@@ -732,17 +732,20 @@ a.canvas-card:hover { border-color: var(--accent); }
 .workwith-title { font-size: 18px; font-weight: 900; margin: 0 0 6px; }
 .workwith-desc { font-size: 13px; color: var(--text-secondary); }
 
-.contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; padding: 48px 0; }
-.contact-title { font-size: 26px; font-weight: 900; line-height: 1.35; letter-spacing: -0.01em; margin: 6px 0 16px; }
-.contact-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin: 0 0 20px; }
-.contact-email { font-size: 13px; font-weight: 600; }
+.contact-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 56px; padding: 56px 0 72px; align-items: start; }
+.contact-intro { position: sticky; top: 24px; }
+.contact-title { font-size: var(--fs-heading); font-weight: 900; line-height: 1.35; letter-spacing: -0.01em; margin: 8px 0 18px; }
+.contact-desc { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.7; margin: 0 0 22px; }
+.contact-email { font-size: var(--fs-body); font-weight: 600; }
 .contact-email a { color: var(--accent); }
-.contact-form { display: flex; flex-direction: column; gap: 16px; }
-.contact-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.contact-form label { display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-caption); font-weight: 700; letter-spacing: .04em; color: var(--text-secondary); }
 .contact-form input, .contact-form textarea {
-  font-family: inherit; font-size: 13px; padding: 12px 14px; border-radius: 6px;
+  font-family: inherit; font-size: var(--fs-body); padding: 14px 16px; border-radius: 6px;
   border: 0.5px solid var(--border-light); background: var(--bg-content); color: var(--text-dark); resize: vertical;
 }
+.contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.contact-form .btn { font-size: var(--fs-body); padding: 15px; }
 
 /* ==========================================================
    뉴스레터 (3곳 공용)
@@ -805,7 +808,8 @@ a.canvas-card:hover { border-color: var(--accent); }
    ========================================================== */
 @media (max-width: 720px) {
   .formula-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-inner { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 28px; padding: 36px 0 56px; }
+  .contact-intro { position: static; }
   .book-cover { width: 120px; }
 }
 @media (max-width: 640px) {
