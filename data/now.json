@@ -1,5 +1,66 @@
 [
   {
+    "no": 4,
+    "id": "004",
+    "insight": "완성된 결과가 아니라, 고객이 지나가는 과정에 들어가라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "인도",
+        "brand": "Campa Cola “Tayyari Big, Tyohaar Bada Big”",
+        "tag": "준비하는 시간",
+        "headline": "축제 광고 대신, ‘준비하는 시간’을 그렸다",
+        "title": "McCann India celebrates the festival of preparation in new campaign for Campa Cola",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/11/mccann-india-celebrates-the-festival-of-preparation-in-new-campaign-for-campa-cola/"
+      },
+      {
+        "region": "글로벌",
+        "brand": "Maybelline “Maybe.”",
+        "tag": "한 단어를 바꿨다",
+        "headline": "슬로건의 ‘그녀’가 ‘우리’로 바뀌었다",
+        "title": "Maybelline updates ‘Maybe’ tagline as beauty perceptions evolve",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/maybelline-updates-maybe-tagline-as-beauty-perceptions-evolve/874376/"
+      },
+      {
+        "region": "카자흐스탄",
+        "brand": "Beeline × Starlink “StarLinked Billboards”",
+        "tag": "신호를 시연으로",
+        "headline": "광고판의 신호 막대가 하늘로 솟았다",
+        "title": "GForce Grey Kazakhstan creates ‘StarLinked Billboards’ for Starlink and Beeline Kazakhstan",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/12/gforce-grey-kazakhstan-creates-starlinked-billboards-for-starlink-and-beeline-kazakhstan/"
+      },
+      {
+        "region": "미국",
+        "brand": "Carnival Cruise Line “Play Carnival”",
+        "tag": "체험을 게임으로",
+        "headline": "크루즈를 게임으로, 시청자가 고르게 했다",
+        "title": "Carnival gamifies cruise experience via interactive Twitch livestream",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/carnival-gamifies-cruise-experience-via-interactive-twitch-livestream/874033/"
+      },
+      {
+        "region": "인도",
+        "brand": "AJIO “Ghar Wapsi Deals”",
+        "tag": "귀향의 감정을 딜로",
+        "headline": "비행사가 다가올수록, 할인이 커졌다",
+        "title": "22feet and AJIO take Diwali shopping into space with new ‘Ghar Wapsi Deals’ campaign",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/09/22feet-and-ajio-take-diwali-shopping-into-space-with-new-ghar-wapsi-deals-campaign/"
+      }
+    ]
+  },
+  {
     "no": 3,
     "id": "003",
     "insight": "상품의 약속을 말하지 말고, 고객의 현실 속에서 증명하라",
