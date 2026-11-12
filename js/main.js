@@ -10,6 +10,7 @@
 /* 페이지 종류 — 모든 GA 이벤트에 page_type 으로 함께 전송됨 */
 function hitsPageType(path) {
   const p = path || location.pathname;
+  if (document.body && document.body.dataset.page === '404') return 'not_found';
   if (p === '/') return 'home';
   if (p === '/about/') return 'about';
   if (p === '/work-with-hits/') return 'work_with_hits';
@@ -37,12 +38,21 @@ function hitsCtaLocation(el) {
   return 'other';
 }
 
+/* 문의로 가는 링크가 어느 위치에 있는지 (cta_location) */
+function hitsContactLocation(el) {
+  if (el.closest('.hits-dialog, [role="dialog"]')) return 'consent_dialog';
+  if (el.closest('.review-note')) return 'canvas_master';
+  if (el.closest('.workwith-band')) return 'home_band';
+  return 'other';
+}
+
 /* 구독 폼이 어느 위치에 있는지 (form_location) */
 function hitsFormLocation(form) {
   if (form.closest('#hits-letter')) return 'home_main';
   const pt = hitsPageType();
   if (pt === 'canvas_waitlist') return 'canvas_waitlist';
   if (pt === 'now') return 'now_page';
+  if (pt === 'about') return 'about_page';
   if (pt === 'library_case' || pt === 'insight_article') return 'article_end';
   return 'other';
 }
@@ -85,6 +95,18 @@ function hitsFormLocation(form) {
     const t = e.target;
     if (!t || !t.closest) return;
 
+    /* 헤더·푸터 링크: 어느 메뉴를 눌렀는지 (canvas_cta_click 과 섞이지 않도록 가장 먼저 판별) */
+    const navLink = t.closest('.site-header a, .site-footer a');
+    if (navLink) {
+      track('nav_click', {
+        area: navLink.closest('.site-header') ? 'header' : 'footer',
+        label: (navLink.textContent || '').trim().slice(0, 30),
+        link_url: navLink.getAttribute('href') || '',
+        from: location.pathname
+      });
+      return;
+    }
+
     const share = t.closest('#share-mount [data-share]');
     if (share) {
       track('share', { method: share.dataset.share, content_type: ({ insight_article: 'insight_article', now: 'now' })[hitsPageType()] || 'library_case', item_id: location.pathname });
@@ -109,13 +131,25 @@ function hitsFormLocation(form) {
       return;
     }
 
+    /* 문의 의사: 이메일 링크, 협업 문의 버튼(홈 띠, 캔버스 마스터, 동의 창 안내) */
+    const mail = t.closest('a[href^="mailto:"]');
+    if (mail) {
+      track('contact_email_click', { from: location.pathname });
+      return;
+    }
+    const contactCta = t.closest('a[href="/work-with-hits/"]');
+    if (contactCta) {
+      track('contact_cta_click', { cta_location: hitsContactLocation(contactCta), from: location.pathname });
+      return;
+    }
+
     const canvasCta = t.closest('a[href^="/canvas/"]');
     if (canvasCta) {
       track('canvas_cta_click', { link_url: canvasCta.getAttribute('href'), from: location.pathname });
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card, .now-arch-card');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card, .now-arch-card, .now-pc');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -991,6 +1025,7 @@ async function initNowPage() {
     <div class="now-share" id="share-mount"></div>
     <div class="now-past" id="now-past"><h2>지난 HITS NOW</h2><p class="sub">놓친 회차도 카드로 다시 볼 수 있어요.</p><div class="now-prow">${past}</div></div>`;
   document.title = `HITS NOW No.${cur.no} — HITS Brand Lab`;
+  hitsTrackSafe('now_view', { no: cur.no, is_latest: cur === all[0] }); // 회차별 조회 (페이지 경로가 같아 리포트에서 구분이 안 되므로)
   if (typeof initShareButtons === 'function') initShareButtons();
 
   /* 카드 크게 보기(라이트박스): 클릭/←→/Esc */
@@ -1028,8 +1063,36 @@ async function initNowPage() {
   });
 }
 
+/* 스크롤 깊이: 본문이 있는 페이지에서 25/50/75/100% 도달을 한 번씩 기록 */
+function initScrollDepth() {
+  const pt = hitsPageType();
+  if (['home', 'about', 'library_case', 'insight_article', 'now'].indexOf(pt) === -1) return;
+  const marks = [25, 50, 75, 100];
+  const sent = new Set();
+  let ticking = false;
+  const check = () => {
+    ticking = false;
+    const h = document.documentElement.scrollHeight;
+    if (h <= window.innerHeight * 1.2) return; // 스크롤할 길이가 없는 페이지는 제외
+    const pct = Math.min(100, Math.round(((window.scrollY + window.innerHeight) / h) * 100));
+    marks.forEach(m => {
+      if (pct >= m && !sent.has(m)) {
+        sent.add(m);
+        hitsTrackSafe('scroll_depth', { percent: m, content_id: location.pathname + location.search });
+      }
+    });
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(check); }
+  }, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
+  initScrollDepth();
+  if (document.body.dataset.page === '404') {
+    hitsTrackSafe('page_not_found', { path: location.pathname, referrer: (document.referrer || '').slice(0, 120) });
+  }
   initNowPage();
   initFloatingButton();
   initShareButtons();

@@ -112,6 +112,30 @@ python3 -m http.server
 - **제작 방식**: 사용자가 요청할 때마다 한 회차를 만든다(예약 실행 없음). 절차와 도구는 `.claude/skills/hits-now/`(스킬), 작업 지침은 `CLAUDE.md` 에 있다. 카드는 `python3 .claude/skills/hits-now/scripts/build_cards.py <작업폴더> [--publish]` 로 만든다
 - **이미지 용량**: 회차당 약 1MB(장당 120~170KB). 누적이 커지면 오래된 회차의 카드 해상도를 줄이는 정리가 필요
 
+## 측정(GA4) 이벤트 목록
+
+측정 ID `G-QH98SJK4D6`, 운영 도메인(hitsbrandlab.com)에서만 전송. `?notrack=1` 로 접속하면 그 브라우저는 제외(`?notrack=0` 으로 해제). 모든 이벤트에는 `page_type`(home, about, library_list, library_case, insight_list, insight_article, now, canvas_*, work_with_hits, not_found)이 함께 붙는다. 이벤트 코드는 `js/main.js` 맨 위(클릭 위임)와 각 기능 안에 있다.
+
+| 이벤트 | 언제 | 주요 파라미터 |
+|---|---|---|
+| `nav_click` | 헤더·푸터 링크 클릭 | area(header/footer), label, link_url, from |
+| `content_card_click` | 홈·목록·글 끝·NOW 지난 회차의 카드 클릭 | card_type, link_url, from |
+| `library_filter` / `insight_filter` | 목록 필터 선택 | value |
+| `insight_category_click` / `case_tag_click` | 글 안의 카테고리·태그 칩 | value 또는 tag, axis, from |
+| `newsletter_cta_click` | 구독 유도 버튼(플로팅, 홈, NOW 타일) | cta_text, cta_location |
+| `newsletter_submit` / `newsletter_subscribe` | 구독 폼 제출 / 접수 완료(※접수 완료는 숨은 iframe 로드 기준) | form_id, form_location(home_main, article_end, now_page, about_page, canvas_waitlist, other), page_path |
+| `contact_cta_click` / `contact_email_click` | 협업 문의 링크(홈 띠, 캔버스 마스터, 동의 창) / 이메일 링크 | cta_location, from |
+| `contact_submit` / `contact_success` | 문의 폼 제출 / 접수 완료(※동일 방식) | form_id |
+| `diagnose_click` | 홈 "내 상품 진단하기" | cta_location |
+| `canvas_cta_click` | 캔버스로 가는 본문 링크(헤더 메뉴 제외) | link_url, from |
+| `share` | 공유 버튼 | method, content_type, item_id |
+| `now_view` | NOW 페이지가 회차를 그릴 때 | no, is_latest |
+| `now_card_open` / `now_card_save` / `now_source_click` | NOW 카드 확대 / 저장 / 원문 기사 클릭 | no·card, file_name, link_url |
+| `scroll_depth` | 홈·About·사례·인사이트·NOW에서 25/50/75/100% 도달(1회씩) | percent, content_id |
+| `page_not_found` | 404 페이지 노출 | path, referrer |
+
+GA 화면에서 사람이 설정해야 하는 것: ① 주요 이벤트로 표시 — `newsletter_subscribe`, `contact_success` ② 위 파라미터를 보고서에서 쓰려면 맞춤 측정기준으로 등록(`page_type`, `cta_location`, `form_location`, `card_type`, `link_url`, `value`, `tag`, `axis`, `area`, `label`, `percent`, `no`) ③ 향상된 측정(스크롤, 이탈 링크 클릭) 켜짐 확인.
+
 ## 톤앤매너
 
 - 메인 `#111110` / 콘텐츠 배경 `#F5F5F2` / 포인트 `#2F5CFF`
