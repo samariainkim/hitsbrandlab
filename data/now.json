@@ -1,5 +1,66 @@
 [
   {
+    "no": 5,
+    "id": "005",
+    "insight": "꾸미지 말고, 사람들이 이미 아는 진실을 먼저 인정하라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "글로벌",
+        "brand": "Guinness",
+        "tag": "천천히 가는 전략",
+        "headline": "유행을 쫓지 않아서, 오히려 쿨해졌다",
+        "title": "Future of Marketing Briefing: Inside Guinness’ go-slow approach to creators",
+        "outlet": "Digiday",
+        "url": "https://digiday.com/marketing/future-of-marketing-briefing-inside-guinness-go-slow-approach-to-creators/"
+      },
+      {
+        "region": "미국",
+        "brand": "Fetch “The Receipt”",
+        "tag": "시청에 보상을",
+        "headline": "광고를 보면 포인트를 주는, 로맨틱 코미디",
+        "title": "Fetch trades views for rewards with brand-backed holiday microseries",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/fetch-trades-views-for-rewards-with-brand-backed-holiday-microseries/874424/"
+      },
+      {
+        "region": "노르웨이",
+        "brand": "Visit Oslo “It’s Totally Even a City”",
+        "tag": "솔직한 자기 비하",
+        "headline": "도시가 스스로 ‘겨울엔 춥다’고 말했다",
+        "title": "Bestads Best TV / Film of the Week: Visit Oslo’s ‘It’s Totally Even a City’ via NewsLab Oslo",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/13/bestads-best-tv-film-of-the-week-visit-oslos-its-totally-even-a-city-via-newslab-oslo/"
+      },
+      {
+        "region": "미국",
+        "brand": "Oreo “Santa’s Favorite Cookie”",
+        "tag": "의식에 유머를",
+        "headline": "산타의 쿠키를 먹은 아빠가, 복수를 당했다",
+        "title": "Oreo refreshes holiday creative with spin on Santa’s milk and cookies",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/oreo-refreshes-holiday-creative-with-spin-on-santas-milk-and-cookies/874493/"
+      },
+      {
+        "region": "싱가포르",
+        "brand": "Grab “Anybody can be a Lobang Queen”",
+        "tag": "알림이 만든 변신",
+        "headline": "세일 알림에, 얌전한 손님이 흥정꾼이 됐다",
+        "title": "One Grab Mega Sale alert turns a quiet shopper into a ‘Lobang Queen’ in new film via GIGIL Manila",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/11/one-grab-mega-sale-alert-turns-a-quiet-shopper-into-a-lobang-queen-in-new-film-via-gigil-manila/"
+      }
+    ]
+  },
+  {
     "no": 4,
     "id": "004",
     "insight": "완성된 결과가 아니라, 고객이 지나가는 과정에 들어가라",
