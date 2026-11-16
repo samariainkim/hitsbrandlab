@@ -165,5 +165,38 @@
     "applyQuestion": "당신의 상품이 자랑하는 그 기능은, 지금도 고객이 당신을 선택해야 할 이유가 되고 있는가?",
     "hasDetail": true,
     "detailUrl": "/library/005-brompton-life-unfolded/"
+  },
+  {
+    "id": "pantone-standard-to-authority",
+    "caseNumber": "006",
+    "brand": "Pantone",
+    "product": "Pantone Matching System · 올해의 컬러",
+    "title": "색을 만들지 않은 회사가 세상의 색을 결정하는 법",
+    "question": "왜 우리는 팬톤의 다음 색을 기다릴까?",
+    "description": "색의 공통 언어에서 시대의 트렌드까지, 팬톤이 만든 기준의 힘",
+    "excerpt": "같은 색을 주문했는데 결과물이 달랐던 불편에서 출발해, 팬톤은 모두가 함께 쓰는 색의 기준을 만들었다. 그 기준 위에 쌓인 전문성은 ‘올해의 색’으로 확장되며, 발표 전부터 사람들이 다음 선택을 궁금해하는 브랜드가 되었다.",
+    "publishDate": "2026-11-16",
+    "image": "/images/library/006-pantone-standard-to-authority/cloud-dancer.jpg",
+    "thumb": "/images/thumbs/library-006.jpg",
+    "imagePosition": "50% 50%",
+    "category": [
+      "디자인"
+    ],
+    "business": [
+      "서비스"
+    ],
+    "signal": [
+      "문제재정의",
+      "차별화",
+      "스토리"
+    ],
+    "hook": "같은 색을 주문했는데 왜 결과물은 다를까? 고객이 원했던 것은 더 많은 색이 아니라, 내가 고른 색이 상대에게도 정확히 전달된다는 확신이었다.",
+    "insight": "팬톤은 색이 아니라 약속을 만들었다. 색상 번호와 실물 표본을 연결해, 서로 다른 사람들이 같은 기준으로 협업할 수 있도록 불확실성을 줄였다.",
+    "tale": "색을 정확히 전달하는 기준에서 멈추지 않고, ‘올해의 색’으로 색의 의미를 시대의 이야기로 확장했다. 발표 전부터 다음 색을 궁금해하게 만든다.",
+    "system": "디자이너·인쇄소·제조업체가 같은 기준을 반복해서 쓸수록 그 기준은 더 필요해진다. 업무 속 반복 사용과 문화 속 반복적인 관심이 관계를 이어준다.",
+    "hitsPoint": "제품을 선택받는 것보다 강력한 경쟁력은, 사람들이 선택할 때 사용하는 기준이 되는 것이다.",
+    "applyQuestion": "당신의 브랜드는 고객에게 선택받기 위해 경쟁하고 있는가, 아니면 고객이 선택할 때 참고하는 기준을 만들고 있는가?",
+    "hasDetail": true,
+    "detailUrl": "/library/006-pantone-standard-to-authority/"
   }
 ]
