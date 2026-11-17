@@ -1,5 +1,66 @@
 [
   {
+    "no": 6,
+    "id": "006",
+    "insight": "스펙 대신, 스펙이 필요한 이야기를 먼저 만들어라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "태국",
+        "brand": "IngOn Lab “Quick Shower · Big Shower”",
+        "tag": "비누가 아니라 샤워 습관",
+        "headline": "부모의 잔소리를, 비누 두 종류로 만들었다",
+        "title": "IngOn Lab launches ‘Quick Shower’ and ‘Big Shower’ in collaboration with Wolf BKK",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/16/ingon-lab-launches-quick-shower-and-big-shower-in-collaboration-with-wolf-bkk/"
+      },
+      {
+        "region": "말레이시아",
+        "brand": "ChipsMore! “18 Unrestricted”",
+        "tag": "금지를 상품으로",
+        "headline": "성인 게임에 밀려난 아이들을 위한 쿠키",
+        "title": "ChipsMore! and Leo Indonesia flip the age check for younger gamers with ‘18 Unrestricted’",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/16/chipsmore-and-leo-indonesia-flip-the-age-check-for-younger-gamers-with-18-unrestricted/"
+      },
+      {
+        "region": "싱가포르",
+        "brand": "MUJI to GO “Travel, Every Day.”",
+        "tag": "여행용이 아니라 매일용",
+        "headline": "여행용품을, 월요일의 물건으로 바꿨다",
+        "title": "MUJI Singapore and ANAK showcase MUJI to GO in ‘Travel, Every Day’ campaign",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/16/muji-singapore-and-anak-showcase-muji-to-go-in-travel-every-day-campaign/"
+      },
+      {
+        "region": "미국",
+        "brand": "CeraVe × “Dune: Part Three”",
+        "tag": "영화 속 자원을 보습제로",
+        "headline": "모래 행성에서 보습제가 귀한 자원이 됐다",
+        "title": "How CeraVe’s ‘Dune’ deal takes the brand’s social-first playbook global",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/how-ceraves-dune-deal-takes-the-brands-social-first-playbook-global/874654/"
+      },
+      {
+        "region": "인도",
+        "brand": "Mercedes-Benz India “A Diwali Homecoming”",
+        "tag": "스펙이 아니라 마음",
+        "headline": "이상한 시승은, 아기를 맞을 준비였다",
+        "title": "Mercedes-Benz India and BBDO India’s team x turn an unusual test drive into ‘A Diwali Homecoming’",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/17/mercedes-benz-india-and-bbdo-indias-team-x-turn-an-unusual-test-drive-into-a-diwali-homecoming/"
+      }
+    ]
+  },
+  {
     "no": 5,
     "id": "005",
     "insight": "억지로 꾸미려 하지 말고, 사람들이 이미 아는 진실을 먼저 말하라",
