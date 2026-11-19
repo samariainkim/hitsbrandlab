@@ -1,5 +1,66 @@
 [
   {
+    "no": 7,
+    "id": "007",
+    "insight": "고객이 이미 쓰는 말과 즐기는 세계에서, 이야기를 시작하라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "베트남",
+        "brand": "Duolingo × Mixue “Chief Matcha Officer”",
+        "tag": "광고가 아니라 연속극",
+        "headline": "마스코트의 싸움을, 협업으로 만들었다",
+        "title": "Duolingo and Mixue turn a mascot feud into a matcha comeback via Happiness Saigon",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/18/duolingo-and-mixue-turn-a-mascot-feud-into-a-matcha-comeback-via-happiness-saigon/"
+      },
+      {
+        "region": "태국",
+        "brand": "KFC Thailand “Dumb Luck”",
+        "tag": "치킨이 아니라 만화책",
+        "headline": "치킨 브랜드가, 만화책을 냈다",
+        "title": "KFC Thailand blends Japanese manga and Thai humour in debut title ‘Dumb Luck’",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/19/kfc-thailand-blends-japanese-manga-and-thai-humour-in-debut-title-dumb-luck/"
+      },
+      {
+        "region": "미국",
+        "brand": "Burger King “Rebuild My BK”",
+        "tag": "듣기를 행동으로",
+        "headline": "어느 매장을 고칠지, 고객에게 물었다",
+        "title": "Burger King’s feedback campaign takes aim at its own restaurants",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/burger-kings-push-for-consumer-feedback-takes-aim-at-its-own-restaurants/874704/"
+      },
+      {
+        "region": "싱가포르",
+        "brand": "PUB “Luckily You Didn’t Rely on Luck”",
+        "tag": "행운이 아니라 준비",
+        "headline": "‘운 좋게’를, 준비의 습관으로 바꿨다",
+        "title": "PUB urges Singaporeans to make their own luck in flood readiness campaign via TBWA\\Singapore",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/18/pub-urges-singaporeans-to-make-their-own-luck-in-flood-readiness-campaign-via-tbwasingapore/"
+      },
+      {
+        "region": "베트남",
+        "brand": "TABBBB “Take A Bread”",
+        "tag": "빵이 아니라 쉬는 키",
+        "headline": "Tab 키에서, 빵 브랜드 이름을 지었다",
+        "title": "M — N Associates gives Vietnam’s office workers a reason to ‘Take A Bread’ with TABBBB",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/17/m-n-associates-gives-vietnams-office-workers-a-reason-to-take-a-bread-with-tabbbb/"
+      }
+    ]
+  },
+  {
     "no": 6,
     "id": "006",
     "insight": "스펙 대신, 스펙이 필요한 이야기를 먼저 만들어라",
