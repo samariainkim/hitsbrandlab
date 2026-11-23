@@ -198,5 +198,38 @@
     "applyQuestion": "당신의 브랜드는 고객에게 선택받기 위해 경쟁하고 있는가, 아니면 고객이 선택할 때 참고하는 기준을 만들고 있는가?",
     "hasDetail": true,
     "detailUrl": "/library/006-pantone-standard-to-authority/"
+  },
+  {
+    "id": "yes-apples-differentiation",
+    "caseNumber": "007",
+    "brand": "Yes! Apples",
+    "product": "Yes! Apples 신선 사과",
+    "title": "차별화하기 힘든 것을 차별화하는 법",
+    "question": "사과는 다 비슷해 보이는데, 왜 우리는 특정 브랜드를 선택하게 될까?",
+    "description": "품종의 차이를 고객이 고를 수 있는 기준으로 번역한 Yes! Apples와 귤메달 사례",
+    "excerpt": "사과 앞에서 고객이 겪는 어려움은 ‘차이를 알 수 없어 고르기 어렵다’는 것이다. Yes! Apples는 품종의 풍미와 영양 정보를 고객의 취향 언어와 패키지로 번역했고, 귤메달은 테이스트 노트와 취향 테스트로 차이를 직접 경험하게 했다.",
+    "publishDate": "2026-11-23",
+    "image": "/images/library/007-yes-apples-differentiation/hero.jpg",
+    "thumb": "/images/thumbs/library-007.jpg",
+    "imagePosition": "50% 45%",
+    "category": [
+      "식품"
+    ],
+    "business": [
+      "제조"
+    ],
+    "signal": [
+      "문제재정의",
+      "차별화",
+      "고객여정"
+    ],
+    "hook": "다 비슷해 보이는데, 뭘 믿고 골라야 하지? 기획자에게 차별화의 부재가 경쟁의 문제라면, 고객에게는 선택의 어려움이다.",
+    "insight": "상품을 바꾸는 것이 아니라 고르는 기준을 바꿨다. 품종의 차이를 맛과 식감, 영양이라는 고객의 취향 언어로 번역했다.",
+    "tale": "패키지와 그래픽이 선택에 필요한 정보를 눈에 띄게 만들고, 귤메달은 테이스트 노트와 취향 테스트로 차이를 직접 발견하게 했다.",
+    "system": "좋았던 선택을 기억할 수 있는 이름과 기준으로 남겨, 다음 선택을 더 쉽게 만든다.",
+    "hitsPoint": "차별화의 본질은 남들과 다른 상품을 만드는 것만이 아니라, 고객이 그 차이를 알아보고 선택할 수 있게 만드는 것이다.",
+    "applyQuestion": "당신의 상품은 경쟁사와 무엇이 다른가? 그리고 고객은 그 차이를 알아보고 선택할 수 있는가?",
+    "hasDetail": true,
+    "detailUrl": "/library/007-yes-apples-differentiation/"
   }
 ]
