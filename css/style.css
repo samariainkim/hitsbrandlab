@@ -168,40 +168,6 @@ html { scroll-behavior: smooth; }
   pointer-events: none;
 }
 .hero .wrap { position: relative; z-index: 1; }
-.hero-split { display: flex; }
-.hero-left { width: 40%; flex-shrink: 0; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px 60px 0; min-height: 480px; }
-
-.hero-right { width: 60%; height: 480px; position: relative; overflow: hidden; }
-.hero-right svg { display: block; }
-
-@keyframes fadeH { 0%{opacity:0} 10%{opacity:0} 19%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
-@keyframes fadeITS { 0%{opacity:0} 22%{opacity:0} 34%{opacity:1} 90%{opacity:1} 100%{opacity:0} }
-@keyframes drawLine { 0%{opacity:0;stroke-dashoffset:120} 22%{opacity:0;stroke-dashoffset:120} 35%{opacity:.5;stroke-dashoffset:0} 90%{opacity:.5} 100%{opacity:0} }
-@keyframes fadeCenter { 0%{opacity:.12} 33%{opacity:.12} 43%{opacity:1} 90%{opacity:1} 100%{opacity:.12} }
-@keyframes fadeLabel { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.4} 90%{opacity:.4} 100%{opacity:0} }
-@keyframes fadeDiamond { 0%{opacity:0} 41%{opacity:0} 50%{opacity:.25} 90%{opacity:.25} 100%{opacity:0} }
-@keyframes twinkle { 0%,100%{opacity:.15} 50%{opacity:.5} }
-.sg-h { animation: fadeH 14.5s ease-in-out infinite; }
-.sg-its { animation: fadeITS 14.5s ease-in-out infinite; }
-.sg-line { animation: drawLine 14.5s ease-in-out infinite; }
-.sg-center { animation: fadeCenter 14.5s ease-in-out infinite; }
-.sg-label { animation: fadeLabel 14.5s ease-in-out infinite; }
-.sg-diamond { animation: fadeDiamond 14.5s ease-in-out infinite; }
-.sg-dot1 { animation: twinkle 4s ease-in-out infinite; }
-.sg-dot2 { animation: twinkle 5s ease-in-out infinite .8s; }
-.sg-dot3 { animation: twinkle 3.6s ease-in-out infinite 1.6s; }
-
-@media (max-width: 900px) {
-  .hero-split { flex-direction: column; }
-  .hero-left { width: 100%; padding: 48px 20px 24px; }
-  .hero-right { width: 100%; height: 280px; }
-}
-@media (max-width: 640px) {
-  .hero-right { display: none; }
-  .hero-left { padding: 40px 20px; }
-  .hero::before { width: 100%; opacity: .55; }
-}
-
 .hero-content { position: relative; padding: 60px 20px; width: 100%; }
 .eyebrow { color: var(--text-muted); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; margin: 0 0 14px; }
 .eyebrow-dark { color: var(--text-secondary); }
@@ -351,17 +317,6 @@ html.hits-notice-open { overflow: hidden; }
 /* ==========================================================
    Formula 섹션 (핵심 브랜드 자산)
    ========================================================== */
-.formula-section { background: var(--bg-content); padding: 48px 0; }
-.formula-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 36px; }
-.formula-card { background: var(--bg-white); border-radius: var(--radius); padding: 18px 14px; }
-.formula-letter { color: var(--accent); font-size: 26px; font-weight: 900; margin: 0 0 4px; }
-.formula-word { font-size: 11px; font-weight: 700; color: var(--text-dark); letter-spacing: 0.03em; margin: 0 0 10px; }
-.formula-tag { display: inline-block; font-size: 10px; font-weight: 600; color: var(--text-secondary); background: var(--bg-content); padding: 2px 8px; border-radius: 20px; margin-bottom: 10px; }
-.formula-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
-.formula-bottom { text-align: center; }
-.formula-multiply { font-size: 22px; font-weight: 900; color: var(--text-dark); letter-spacing: 0.02em; margin: 0 0 14px; }
-.formula-slogan { font-size: 19px; font-weight: 900; color: var(--text-dark); line-height: 1.5; margin: 0 0 18px; }
-.formula-cta { font-size: 13px; font-weight: 700; color: var(--accent); }
 
 /* ==========================================================
    공통 섹션 / 헤딩
@@ -815,7 +770,6 @@ a.canvas-card:hover { border-color: var(--accent); }
    반응형
    ========================================================== */
 @media (max-width: 720px) {
-  .formula-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-inner { grid-template-columns: 1fr; gap: 28px; padding: 36px 0 56px; }
   .contact-intro { position: static; }
   .book-cover { width: 120px; }
@@ -882,3 +836,60 @@ a.canvas-card:hover { border-color: var(--accent); }
   .now-prow { grid-template-columns: repeat(3, 1fr); }
   .now-lb .p { left: 6px; } .now-lb .n { right: 6px; } .now-lb .x { top: 6px; right: 6px; }
 }
+
+/* ==========================================================
+   홈 개편: 히어로(매거진 표지) · HITS Framework · HITS NOW 띠
+   글자 크기는 5단계 토큰만 사용. 폭은 .wrap(콘텐츠 1140px) 기준.
+   ========================================================== */
+.home-hero { background: var(--bg-main); color: var(--text-light); }
+.hh-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 30px; min-height: 600px; padding-top: 24px; padding-bottom: 24px; }
+.hh-copy .eyebrow { margin-bottom: 18px; }
+.home-hero h1 { color: var(--text-light); font-size: var(--fs-display); font-weight: 900; line-height: 1.14; letter-spacing: -0.045em; margin: 0 0 22px; }
+.home-hero h1 em { font-style: normal; color: var(--accent); }
+.hh-sub { color: #b9b9b3; font-size: var(--fs-lead); line-height: 1.6; margin: 0 0 30px; }
+.hh-keys { display: flex; gap: 26px; flex-wrap: wrap; margin: 40px 0 0; padding-top: 18px; max-width: 540px; border-top: 1px solid var(--border-dark); color: var(--text-muted); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .14em; }
+.hh-cover { display: flex; justify-content: center; padding: 20px 0; }
+.hh-cover img { width: min(100%, 400px); height: auto; box-shadow: 0 30px 70px rgba(0, 0, 0, .6); }
+.home-hero .btn-ghost { border-color: #555; }
+
+.hf { background: var(--bg-content); padding: 56px 0 60px; }
+.hf-label { display: block; margin-bottom: 26px; color: var(--accent); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .16em; }
+.hf-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.hf-item { padding: 4px 28px; border-left: 1px solid var(--border-light); }
+.hf-item:first-child { padding-left: 0; border-left: 0; }
+.hf-item .hf-letter { margin: 0; color: var(--accent); font-size: var(--fs-display); font-weight: 900; line-height: .9; letter-spacing: -0.04em; }
+.hf-item h3 { margin: 14px 0 4px; font-size: var(--fs-lead); font-weight: 800; letter-spacing: -0.02em; }
+.hf-item small { display: block; margin-bottom: 12px; color: var(--text-secondary); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .12em; }
+.hf-item p { margin: 0; color: #2d2d2b; font-size: var(--fs-body); line-height: 1.55; }
+.hf-foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--border-light); }
+.hf-formula { margin: 0; font-size: var(--fs-heading); font-weight: 900; letter-spacing: .04em; line-height: 1.2; }
+.hf-more { color: var(--accent); font-size: var(--fs-body); font-weight: 700; }
+
+.hn { background: var(--bg-main); color: var(--text-light); padding: 52px 0 56px; }
+.hn-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.hn-label { margin: 0 0 8px; color: #9fb2ff; font-size: var(--fs-caption); font-weight: 700; letter-spacing: .16em; }
+.hn-label b { color: #fff; margin-right: 8px; }
+.hn-insight { margin: 0; max-width: 720px; font-size: var(--fs-lead); font-weight: 800; line-height: 1.45; letter-spacing: -0.02em; }
+.hn-more { color: var(--accent); font-size: var(--fs-body); font-weight: 700; white-space: nowrap; }
+.hn-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.home-now-card { display: block; border-radius: 6px; overflow: hidden; background: #1c1c1a; transition: transform .2s; }
+.home-now-card:hover { transform: translateY(-4px); }
+.home-now-card img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 900px) {
+  .hh-grid { grid-template-columns: 1fr; min-height: 0; padding-top: 40px; padding-bottom: 30px; gap: 10px; }
+  .hh-cover img { width: min(70%, 320px); }
+  .hh-keys { margin-top: 30px; gap: 8px 18px; }
+}
+@media (max-width: 760px) {
+  .hf { padding: 40px 0 44px; }
+  .hf-grid { grid-template-columns: 1fr 1fr; gap: 26px 0; }
+  .hf-item { padding: 0 14px; }
+  .hf-item:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .hf-item p { font-size: var(--fs-caption); }
+  .hn { padding: 40px 0 44px; }
+  .hn-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px; gap: 8px; scrollbar-width: none; }
+  .hn-strip::-webkit-scrollbar { display: none; }
+  .home-now-card { flex: 0 0 132px; scroll-snap-align: start; }
+}
+.home-hero .btn { display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-body); height: 48px; padding: 0 24px; line-height: 1; }

@@ -119,7 +119,7 @@ python3 -m http.server
 | 이벤트 | 언제 | 주요 파라미터 |
 |---|---|---|
 | `nav_click` | 헤더·푸터 링크 클릭 | area(header/footer), label, link_url, from |
-| `content_card_click` | 홈·목록·글 끝·NOW 지난 회차의 카드 클릭 | card_type, link_url, from |
+| `content_card_click` | 홈·목록·글 끝·NOW 지난 회차의 카드 클릭(홈의 HITS NOW 띠 카드는 card_type=home-now-card) | card_type, link_url, from |
 | `library_filter` / `insight_filter` | 목록 필터 선택 | value |
 | `insight_category_click` / `case_tag_click` | 글 안의 카테고리·태그 칩 | value 또는 tag, axis, from |
 | `newsletter_cta_click` | 구독 유도 버튼(플로팅, 홈, NOW 타일) | cta_text, cta_location |

@@ -149,7 +149,7 @@ function hitsFormLocation(form) {
       return;
     }
 
-    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card, .now-arch-card, .now-pc');
+    const card = t.closest('.case-db-card, .lib-card, .weekly-feature, .insight-preview-card, .insight-card, .insight-featured, .wk2, .lib-card2, .ins-card, .lb-card, .ix-split, .ix-row, .kt-card, .now-arch-card, .now-pc, .home-now-card');
     if (card && card.getAttribute('href')) {
       track('content_card_click', {
         card_type: card.className.split(' ')[0],
@@ -520,6 +520,27 @@ async function renderWeeklyTeaser() {
     mount.innerHTML = latest.hasDetail
       ? `<a class="wk2" href="${latest.detailUrl}">${inner}</a>`
       : `<div class="wk2">${inner}</div>`;
+  } catch (err) { console.error(err); }
+}
+
+/* ---------- HITS NOW: 홈 띠 — 최신 회차 카드 7장 (data/now.json) ---------- */
+async function renderHomeNow() {
+  const sec = document.getElementById('home-now');
+  const mount = document.getElementById('home-now-mount');
+  if (!sec || !mount) return;
+  try {
+    const all = await (await fetch('/data/now.json', { cache: 'no-cache' })).json();
+    const cur = all.slice().sort((a, b) => b.no - a.no)[0];
+    if (!cur) return;
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const cards = cur.cards.map((f, k) => `<a class="home-now-card" href="/now/"><img src="/images/now/${cur.id}/${f}" alt="HITS NOW No.${cur.no} ${k + 1}번 카드" width="1080" height="1350" loading="lazy" decoding="async"></a>`).join('');
+    mount.innerHTML = `
+      <div class="hn-head">
+        <div><p class="hn-label"><b>HITS NOW</b>No.${cur.no} · LATEST</p><p class="hn-insight">${esc(cur.insight)}</p></div>
+        <a class="hn-more" href="/now/">HITS NOW 보러 가기 →</a>
+      </div>
+      <div class="hn-strip">${cards}</div>`;
+    sec.hidden = false;
   } catch (err) { console.error(err); }
 }
 
@@ -1102,6 +1123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCanvasMasterForm();
   renderWeeklyTeaser();
+  renderHomeNow();
   renderLibraryPreview();
   initLibraryPage();
   renderInsightCards('insight-preview-mount', 3);
