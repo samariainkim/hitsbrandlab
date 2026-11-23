@@ -841,16 +841,18 @@ a.canvas-card:hover { border-color: var(--accent); }
    홈 개편: 히어로(매거진 표지) · HITS Framework · HITS NOW 띠
    글자 크기는 5단계 토큰만 사용. 폭은 .wrap(콘텐츠 1140px) 기준.
    ========================================================== */
-.home-hero { background: var(--bg-main); color: var(--text-light); }
-.hh-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 30px; min-height: 600px; padding-top: 24px; padding-bottom: 24px; }
+.home-hero { position: relative; overflow: hidden; background: #2b231d url('/images/home/hero-bg.jpg') center / cover no-repeat; color: var(--text-light); }
+.home-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,14,12,.62) 0, rgba(17,14,12,.3) 55%, rgba(17,14,12,.08) 100%); pointer-events: none; }
+.hh-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 30px; min-height: 600px; padding-top: 24px; padding-bottom: 24px; }
 .hh-copy .eyebrow { margin-bottom: 18px; }
 .home-hero h1 { color: var(--text-light); font-size: var(--fs-display); font-weight: 900; line-height: 1.14; letter-spacing: -0.045em; margin: 0 0 22px; }
-.home-hero h1 em { font-style: normal; color: var(--accent); }
-.hh-sub { color: #b9b9b3; font-size: var(--fs-lead); line-height: 1.6; margin: 0 0 30px; }
-.hh-keys { display: flex; gap: 26px; flex-wrap: wrap; margin: 40px 0 0; padding-top: 18px; max-width: 540px; border-top: 1px solid var(--border-dark); color: var(--text-muted); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .14em; }
+.home-hero h1 em { font-style: normal; color: #5b80ff; }
+.home-hero .eyebrow { color: #c9bdb2; }
+.hh-sub { color: #e0d6cc; font-size: var(--fs-lead); line-height: 1.6; margin: 0 0 30px; }
+.hh-keys { display: flex; gap: 26px; flex-wrap: wrap; margin: 40px 0 0; padding-top: 18px; max-width: 540px; border-top: 1px solid rgba(255,255,255,.25); color: #c9bdb2; font-size: var(--fs-caption); font-weight: 700; letter-spacing: .14em; }
 .hh-cover { display: flex; justify-content: center; padding: 20px 0; }
 .hh-cover img { width: min(100%, 400px); height: auto; box-shadow: 0 30px 70px rgba(0, 0, 0, .6); }
-.home-hero .btn-ghost { border-color: #555; }
+.home-hero .btn-ghost { border-color: rgba(255,255,255,.5); color: #fff; }
 
 .hf { background: var(--bg-content); padding: 56px 0 60px; }
 .hf-label { display: block; margin-bottom: 26px; color: var(--accent); font-size: var(--fs-caption); font-weight: 700; letter-spacing: .16em; }
@@ -880,6 +882,7 @@ a.canvas-card:hover { border-color: var(--accent); }
   .hh-grid { grid-template-columns: 1fr; min-height: 0; padding-top: 40px; padding-bottom: 30px; gap: 10px; }
   .hh-cover img { width: min(70%, 320px); }
   .hh-keys { margin-top: 30px; gap: 8px 18px; }
+  .home-hero::before { background: rgba(17,14,12,.55); }
 }
 @media (max-width: 760px) {
   .hf { padding: 40px 0 44px; }
