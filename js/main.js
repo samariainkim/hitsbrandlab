@@ -523,7 +523,7 @@ async function renderWeeklyTeaser() {
   } catch (err) { console.error(err); }
 }
 
-/* ---------- HITS NOW: 홈 띠 — 최신 회차 카드 7장 (data/now.json) ---------- */
+/* ---------- HITS NOW: 홈 띠 — 최신 회차 인사이트 + 카드 부채꼴 4장 (data/now.json) ---------- */
 async function renderHomeNow() {
   const sec = document.getElementById('home-now');
   const mount = document.getElementById('home-now-mount');
@@ -533,13 +533,17 @@ async function renderHomeNow() {
     const cur = all.slice().sort((a, b) => b.no - a.no)[0];
     if (!cur) return;
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-    const cards = cur.cards.map((f, k) => `<a class="home-now-card" href="/now/"><img src="/images/now/${cur.id}/${f}" alt="HITS NOW No.${cur.no} ${k + 1}번 카드" width="1080" height="1350" loading="lazy" decoding="async"></a>`).join('');
+    const pick = [1, 0, 3, 5].filter(k => cur.cards[k]);
+    const cards = pick.map(k => `<a class="home-now-card" href="/now/" tabindex="-1" aria-hidden="true"><img src="/images/now/${cur.id}/${cur.cards[k]}" alt="" width="1080" height="1350" loading="lazy" decoding="async"></a>`).join('');
     mount.innerHTML = `
-      <div class="hn-head">
-        <div><p class="hn-label"><b>HITS NOW</b>No.${cur.no} · LATEST</p><p class="hn-insight">${esc(cur.insight)}</p></div>
-        <a class="hn-more" href="/now/">HITS NOW 보러 가기 →</a>
-      </div>
-      <div class="hn-strip">${cards}</div>`;
+      <div class="hn-in">
+        <div>
+          <p class="hn-label"><b>HITS NOW</b>No.${cur.no} · LATEST</p>
+          <p class="hn-insight">${esc(cur.insight)}</p>
+          <a class="hn-more" href="/now/">HITS NOW 보러 가기 →</a>
+        </div>
+        <div class="hn-fan">${cards}</div>
+      </div>`;
     sec.hidden = false;
   } catch (err) { console.error(err); }
 }
