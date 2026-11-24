@@ -1,5 +1,66 @@
 [
   {
+    "no": 8,
+    "id": "008",
+    "insight": "보이지 않던 가치를, 눈앞에 보이게 만들어라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "태국",
+        "brand": "ShopeePay “Thailand, Land of Scan”",
+        "tag": "혜택이 아니라 눈앞의 장면",
+        "headline": "안 보이던 혜택을, 주황색 더미로 보여 줬다",
+        "title": "ShopeePay swaps white receipts for orange rewards in new film via Dentsu Creative Thailand",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/24/shopeepay-swaps-white-receipts-for-orange-rewards-in-new-film-via-dentsu-creative-thailand/"
+      },
+      {
+        "region": "뉴질랜드",
+        "brand": "Halter “Mav · Agricultural Intelligence Archive”",
+        "tag": "데이터를 땅속 서가로",
+        "headline": "AI 비서를, 언덕 속 도서관으로 소개했다",
+        "title": "Halter launches AI farming assistant Mav with underground archive built into a New Zealand hillside in new campaign via Motion Sickness",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/23/halter-launches-ai-farming-assistant-mav-with-underground-archive-built-into-a-new-zealand-hillside-in-new-campaign-via-motion-sickness/"
+      },
+      {
+        "region": "미국",
+        "brand": "Jell-O “Oh Hello, Jell-O”",
+        "tag": "추억의 간식을 재료로",
+        "headline": "젤로를, 부엌의 재료로 다시 소개했다",
+        "title": "How Jell-O’s new creative platform looks to shift consumer perceptions",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/how-jell-o-new-creative-platform-looks-to-shift-consumer-perceptions/875220/"
+      },
+      {
+        "region": "중동",
+        "brand": "Nissan Patrol “Home of PATROL – Dar Darna”",
+        "tag": "차는 공장, 전설은 사람",
+        "headline": "차는 공장이, 전설은 사람이 만들었다",
+        "title": "Nissan Middle East marks 75 years of the Patrol with ‘Home of PATROL – Dar Darna’ via TBWA\\RAAD",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/20/nissan-middle-east-marks-75-years-of-the-patrol-with-home-of-patrol-dar-darna-via-tbwaraad/"
+      },
+      {
+        "region": "호주",
+        "brand": "Bankwest “Single-Use Virtual Card”",
+        "tag": "보안이 아니라 용기",
+        "headline": "카드 보안을, 위험을 감수할 자유로 말했다",
+        "title": "Bankwest explores the risks you could take now your actual card details are protected in new campaign via Bear Meets Eagle On Fire",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/23/bankwest-explores-the-risks-you-could-take-now-your-actual-card-details-are-protected-in-new-campaign-via-bear-meets-eagle-on-fire/"
+      }
+    ]
+  },
+  {
     "no": 7,
     "id": "007",
     "insight": "고객이 이미 쓰는 말과 즐기는 세계에서, 이야기를 시작하라",
