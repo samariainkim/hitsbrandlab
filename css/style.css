@@ -765,6 +765,10 @@ a.canvas-card:hover { border-color: var(--accent); }
 .footer-inner span { color: var(--text-light); font-size: 13px; font-weight: 700; }
 .footer-links { display: flex; gap: 16px; }
 .footer-links a { color: var(--text-muted); font-size: 12px; }
+.footer-legal { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-dark); }
+.footer-legal p { margin: 0 0 6px; color: var(--text-muted); font-size: var(--fs-caption); line-height: 1.7; }
+.footer-legal p:first-child { color: #b9b9b3; font-weight: 700; }
+.footer-legal a { color: #b9b9b3; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ==========================================================
    반응형
