@@ -1,5 +1,66 @@
 [
   {
+    "no": 9,
+    "id": "009",
+    "insight": "고객이 이미 믿는 자리에서, 새로운 가치를 말하라",
+    "cards": [
+      "01.jpg",
+      "02.jpg",
+      "03.jpg",
+      "04.jpg",
+      "05.jpg",
+      "06.jpg",
+      "07.jpg"
+    ],
+    "news": [
+      {
+        "region": "베트남",
+        "brand": "Closeup Fresh “Greatest Distance”",
+        "tag": "연인에서 모두의 거리로",
+        "headline": "치약이, 연인 아닌 사람 사이의 거리를 말했다",
+        "title": "Closeup and The Friday Vietnam turn everyday disagreements into exaggerated distances",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/25/closeup-and-the-friday-vietnam-turn-everyday-disagreements-into-exaggerated-distances/"
+      },
+      {
+        "region": "인도",
+        "brand": "MakeMyTrip “Travel Ka Muhurat Sale”",
+        "tag": "할인이 아니라 문 앞 의식",
+        "headline": "문 앞 전통 그림에, 여행 할인을 그려 넣었다",
+        "title": "MakeMyTrip turns traditional Tamil kolams into holiday wish lists with Talented and Kadhai Films",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/27/makemytrip-turns-traditional-tamil-kolams-into-holiday-wish-lists-with-talented-and-kadhai-films/"
+      },
+      {
+        "region": "싱가포르",
+        "brand": "Emirates “The Lights Are On in Helsinki”",
+        "tag": "광고가 아니라 맛보기",
+        "headline": "헬싱키를, 지하철역에서 먼저 맡게 했다",
+        "title": "Emirates gives Singapore commuters a taste of Helsinki with 4D walkthrough at Orchard MRT",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/26/emirates-gives-singapore-commuters-a-taste-of-helsinki-with-4d-walkthrough-at-orchard-mrt/"
+      },
+      {
+        "region": "미국",
+        "brand": "The Hershey Company “Hershey”",
+        "tag": "90분짜리 광고가 아니라",
+        "headline": "허쉬는, 창업자 이야기를 영화로 만들었다",
+        "title": "How Hershey strategized its brand film to be more than a 90-minute ad",
+        "outlet": "Marketing Dive",
+        "url": "https://www.marketingdive.com/news/how-hershey-strategized-its-brand-film-to-be-more-than-a-90-minute-ad/875365/"
+      },
+      {
+        "region": "필리핀",
+        "brand": "Palawan Pawnshop “There Already”",
+        "tag": "매장의 신뢰를 디지털로",
+        "headline": "송금 속도를, 슈퍼히어로의 순간이동으로 말했다",
+        "title": "GIGIL’s new Palawan Pawnshop film turns Melai Cantiveros into a teleporting superhero",
+        "outlet": "Campaign Brief Asia",
+        "url": "https://campaignbriefasia.com/2026/11/24/gigils-new-palawan-pawnshop-film-turns-melai-cantiveros-into-a-teleporting-superhero/"
+      }
+    ]
+  },
+  {
     "no": 8,
     "id": "008",
     "insight": "보이지 않던 가치를, 눈앞에 보이게 만들어라",
